@@ -99,89 +99,53 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <!-- Property Card Placeholder 1 -->
-            <div class="group bg-white rounded-2xl border border-slate-100 overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-                <div class="relative aspect-[4/3] overflow-hidden bg-slate-200">
-                    <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=600&q=80" alt="Lekki Penthouse" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-                    <span class="absolute top-4 left-4 bg-amber-500 text-slate-950 px-3 py-1 rounded-full text-xs font-semibold">For Sale</span>
-                    <span class="absolute bottom-4 right-4 bg-slate-950/80 backdrop-blur-sm text-amber-400 px-3 py-1 rounded-full text-xs font-semibold flex items-center gap-1">
-                        <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span> Virtual Tour
-                    </span>
-                </div>
-                <div class="p-6 flex flex-col gap-4">
-                    <div class="flex flex-col gap-1 font-sans">
-                        <span class="text-xs text-slate-400 uppercase tracking-widest font-semibold">Lekki Phase 1, Lagos</span>
-                        <h3 class="text-xl font-serif text-slate-900">The Obsidian Penthouse</h3>
+            @forelse($featuredProperties as $property)
+                <div class="group bg-white rounded-2xl border border-slate-100 overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                    <div class="relative aspect-[4/3] overflow-hidden bg-slate-200">
+                        @if($property->coverImage)
+                            <img src="{{ $property->coverImage->file_path }}" alt="{{ $property->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                        @else
+                            <div class="w-full h-full bg-slate-100 flex items-center justify-center text-slate-400">No Image</div>
+                        @endif
+                        <span class="absolute top-4 left-4 bg-amber-500 text-slate-950 px-3 py-1 rounded-full text-xs font-semibold">
+                            {{ $property->property_type === 'Shortlet' ? 'Shortlet' : 'For ' . $property->property_type }}
+                        </span>
+                        @if($property->virtualTour)
+                            <span class="absolute bottom-4 right-4 bg-slate-950/80 backdrop-blur-sm text-amber-400 px-3 py-1 rounded-full text-xs font-semibold flex items-center gap-1">
+                                <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span> Virtual Tour
+                            </span>
+                        @endif
                     </div>
-                    <p class="text-sm text-slate-500 line-clamp-2">Ultra-luxury 4-bedroom duplex featuring automated home integration, panoramic lagoon views, and high-end Italian marble finishing.</p>
-                    <div class="flex items-center gap-4 text-xs text-slate-500 border-y border-slate-100 py-3">
-                        <span class="flex items-center gap-1"><strong class="text-slate-900">4</strong> Beds</span>
-                        <span class="flex items-center gap-1"><strong class="text-slate-900">5</strong> Baths</span>
-                        <span class="flex items-center gap-1"><strong class="text-slate-900">450</strong> sqm</span>
-                    </div>
-                    <div class="flex justify-between items-center font-sans">
-                        <span class="text-lg font-bold text-slate-900">₦350,000,000</span>
-                        <a href="{{ route('properties.show', 'the-obsidian-penthouse') }}" class="inline-flex items-center justify-center px-4 py-2 text-xs font-semibold text-white bg-slate-950 hover:bg-amber-600 rounded-full transition-colors">
-                            Explore Showroom
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Property Card Placeholder 2 -->
-            <div class="group bg-white rounded-2xl border border-slate-100 overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-                <div class="relative aspect-[4/3] overflow-hidden bg-slate-200">
-                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80" alt="Ikoyi Estate" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-                    <span class="absolute top-4 left-4 bg-amber-500 text-slate-950 px-3 py-1 rounded-full text-xs font-semibold">For Sale</span>
-                </div>
-                <div class="p-6 flex flex-col gap-4">
-                    <div class="flex flex-col gap-1 font-sans">
-                        <span class="text-xs text-slate-400 uppercase tracking-widest font-semibold">Old Ikoyi, Lagos</span>
-                        <h3 class="text-xl font-serif text-slate-900">The Aria Mansion</h3>
-                    </div>
-                    <p class="text-sm text-slate-500 line-clamp-2">Exquisite 5-bedroom detached mansion with private elevator, heated swimming pool, 2 BQs, and state-of-the-art security features.</p>
-                    <div class="flex items-center gap-4 text-xs text-slate-500 border-y border-slate-100 py-3">
-                        <span class="flex items-center gap-1"><strong class="text-slate-900">5</strong> Beds</span>
-                        <span class="flex items-center gap-1"><strong class="text-slate-900">6</strong> Baths</span>
-                        <span class="flex items-center gap-1"><strong class="text-slate-900">680</strong> sqm</span>
-                    </div>
-                    <div class="flex justify-between items-center font-sans">
-                        <span class="text-lg font-bold text-slate-900">₦650,000,000</span>
-                        <a href="{{ route('properties.show', 'the-aria-mansion') }}" class="inline-flex items-center justify-center px-4 py-2 text-xs font-semibold text-white bg-slate-950 hover:bg-amber-600 rounded-full transition-colors">
-                            Explore Showroom
-                        </a>
+                    <div class="p-6 flex flex-col gap-4">
+                        <div class="flex flex-col gap-1 font-sans">
+                            <span class="text-xs text-slate-400 uppercase tracking-widest font-semibold">{{ $property->location->name }}</span>
+                            <h3 class="text-xl font-serif text-slate-900">{{ $property->title }}</h3>
+                        </div>
+                        <p class="text-sm text-slate-500 line-clamp-2">{{ $property->description }}</p>
+                        <div class="flex items-center gap-4 text-xs text-slate-500 border-y border-slate-100 py-3">
+                            <span class="flex items-center gap-1"><strong class="text-slate-900">{{ $property->bedrooms }}</strong> Beds</span>
+                            <span class="flex items-center gap-1"><strong class="text-slate-900">{{ $property->bathrooms }}</strong> Baths</span>
+                            @if($property->floor_area)
+                                <span class="flex items-center gap-1"><strong class="text-slate-900">{{ $property->floor_area }}</strong> sqm</span>
+                            @endif
+                        </div>
+                        <div class="flex justify-between items-center font-sans">
+                            @if($property->property_type === 'Shortlet')
+                                <span class="text-lg font-bold text-slate-900">₦{{ number_format($property->price) }} <span class="text-xs text-slate-400 font-light">/ night</span></span>
+                            @else
+                                <span class="text-lg font-bold text-slate-900">₦{{ number_format($property->price) }}</span>
+                            @endif
+                            <a href="{{ route('properties.show', $property->slug) }}" class="inline-flex items-center justify-center px-4 py-2 text-xs font-semibold text-white bg-slate-950 hover:bg-amber-600 rounded-full transition-colors">
+                                Explore Showroom
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            <!-- Property Card Placeholder 3 -->
-            <div class="group bg-white rounded-2xl border border-slate-100 overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-                <div class="relative aspect-[4/3] overflow-hidden bg-slate-200">
-                    <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=600&q=80" alt="Victoria Island Shortlet" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-                    <span class="absolute top-4 left-4 bg-amber-600 text-white px-3 py-1 rounded-full text-xs font-semibold">Shortlet</span>
-                    <span class="absolute bottom-4 right-4 bg-slate-950/80 backdrop-blur-sm text-amber-400 px-3 py-1 rounded-full text-xs font-semibold flex items-center gap-1">
-                        <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span> Virtual Tour
-                    </span>
+            @empty
+                <div class="col-span-3 text-center py-12 text-slate-400">
+                    No featured properties found at this moment.
                 </div>
-                <div class="p-6 flex flex-col gap-4">
-                    <div class="flex flex-col gap-1 font-sans">
-                        <span class="text-xs text-slate-400 uppercase tracking-widest font-semibold">Victoria Island, Lagos</span>
-                        <h3 class="text-xl font-serif text-slate-900">The Zenith Suite</h3>
-                    </div>
-                    <p class="text-sm text-slate-500 line-clamp-2">Premium 2-bedroom executive shortlet apartment located steps away from upscale shopping centers, dining, and workspace hubs.</p>
-                    <div class="flex items-center gap-4 text-xs text-slate-500 border-y border-slate-100 py-3">
-                        <span class="flex items-center gap-1"><strong class="text-slate-900">2</strong> Beds</span>
-                        <span class="flex items-center gap-1"><strong class="text-slate-900">2.5</strong> Baths</span>
-                        <span class="flex items-center gap-1"><strong class="text-slate-900">180</strong> sqm</span>
-                    </div>
-                    <div class="flex justify-between items-center font-sans">
-                        <span class="text-lg font-bold text-slate-900">₦120,000 <span class="text-xs text-slate-400 font-light font-sans">/ night</span></span>
-                        <a href="{{ route('properties.show', 'the-zenith-suite') }}" class="inline-flex items-center justify-center px-4 py-2 text-xs font-semibold text-white bg-slate-950 hover:bg-amber-600 rounded-full transition-colors">
-                            Explore Showroom
-                        </a>
-                    </div>
-                </div>
-            </div>
+            @endforelse
         </div>
     </div>
 </section>

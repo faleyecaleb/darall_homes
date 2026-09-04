@@ -9,7 +9,9 @@
         <h1 class="text-3xl font-serif text-slate-900 tracking-tight">Showrooms Registry</h1>
         <p class="text-sm text-slate-500 font-light">Add, edit, manage, and monitor all virtual-first property listings.</p>
     </div>
-    <a href="#" class="inline-flex items-center justify-center gap-2 px-6 py-3.5 text-xs font-semibold text-white bg-slate-900 hover:bg-slate-800 rounded-xl shadow-lg transition-all duration-150">
+    
+    <!-- Connected to create route -->
+    <a href="{{ route('admin.properties.create') }}" class="inline-flex items-center justify-center gap-2 px-6 py-3.5 text-xs font-semibold text-white bg-slate-900 hover:bg-slate-800 rounded-xl shadow-lg transition-all duration-150">
         <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
         </svg>
@@ -74,7 +76,7 @@
                         </td>
                         
                         <!-- Value / Price -->
-                        <td class="py-5">
+                        <td class="py-5 font-sans">
                             @if($property->property_type === 'Shortlet')
                                 <span class="font-bold text-slate-950">₦{{ number_format($property->price) }}<span class="text-[10px] text-slate-400 font-light">/n</span></span>
                             @else
@@ -96,26 +98,45 @@
                         </td>
                         
                         <!-- Status -->
-                        <td class="py-5">
-                            <span class="inline-flex items-center gap-1 px-3 py-1 text-[10px] font-bold uppercase rounded-full bg-emerald-100 text-emerald-700 border border-emerald-200">
-                                {{ $property->status }}
-                            </span>
+                        <td class="py-5 text-xs font-bold uppercase">
+                            @if($property->status === 'Available')
+                                <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 border border-emerald-200">
+                                    {{ $property->status }}
+                                </span>
+                            @elseif($property->status === 'Under Offer')
+                                <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-amber-100 text-amber-700 border border-amber-200">
+                                    {{ $property->status }}
+                                </span>
+                            @else
+                                <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-slate-100 text-slate-700 border border-slate-200">
+                                    {{ $property->status }}
+                                </span>
+                            @endif
                         </td>
                         
-                        <!-- Actions menu -->
-                        <td class="py-5 text-right">
-                            <div class="flex justify-end gap-2">
+                        <!-- Actions menu with dynamic Edit and Delete triggers -->
+                        <td class="py-5 text-right font-sans">
+                            <div class="flex justify-end gap-2 items-center">
                                 <a href="{{ route('properties.show', $property->slug) }}" target="_blank" class="p-2 rounded-xl text-slate-400 hover:text-amber-600 hover:bg-amber-500/10 transition-colors" title="View Showroom">
-                                    <svg class="h-4.5 w-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                     </svg>
                                 </a>
-                                <button class="p-2 rounded-xl text-slate-400 hover:text-slate-900 hover:bg-slate-100 transition-colors" title="Edit Listing">
-                                    <svg class="h-4.5 w-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <a href="{{ route('admin.properties.edit', $property->id) }}" class="p-2 rounded-xl text-slate-400 hover:text-slate-900 hover:bg-slate-100 transition-colors" title="Edit Listing">
+                                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                     </svg>
-                                </button>
+                                </a>
+                                <form action="{{ route('admin.properties.destroy', $property->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to completely remove this luxury showroom listing from the registry?')" class="inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="p-2 rounded-xl text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-colors" title="Delete Listing">
+                                        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                        </svg>
+                                    </button>
+                                </form>
                             </div>
                         </td>
                     </tr>

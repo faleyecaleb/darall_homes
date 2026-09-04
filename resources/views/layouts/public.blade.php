@@ -165,5 +165,8 @@
         </div>
     </footer>
 
+    <!-- Reusable Toast Notification Component -->
+    <x-toast-notification />
+
 </body>
 </html>

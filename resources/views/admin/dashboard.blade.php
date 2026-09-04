@@ -11,7 +11,7 @@
     
     <!-- Premium Rounded Black Action Pill with hover-scale animation -->
     <a href="{{ route('admin.properties.index') }}" class="inline-flex items-center justify-center gap-2 px-6 py-3 text-xs font-bold text-white bg-[#1c1c1e] hover:bg-slate-800 hover:scale-105 active:scale-95 rounded-full shadow-md transition-all duration-150 transform">
-        <svg class="h-4.5 w-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4" />
         </svg>
         <span>Add Premium Property</span>

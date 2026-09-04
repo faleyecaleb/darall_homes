@@ -2,6 +2,13 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Admin\PropertyController as AdminPropertyController;
+use App\Http\Controllers\Admin\PropertyCategoryController as AdminCategoryController;
+use App\Http\Controllers\Admin\LocationController as AdminLocationController;
+use App\Http\Controllers\Admin\AmenityController as AdminAmenityController;
+use App\Http\Controllers\Admin\EnquiryController as AdminEnquiryController;
+use App\Http\Controllers\Admin\InspectionController as AdminInspectionController;
+use App\Http\Controllers\PropertyController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -10,7 +17,11 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 */
 Route::get('/', function () {
-    return view('welcome');
+    $featuredProperties = \App\Models\Property::with(['category', 'location', 'coverImage', 'virtualTour'])
+        ->where('is_featured', true)
+        ->take(3)
+        ->get();
+    return view('welcome', compact('featuredProperties'));
 })->name('home');
 
 Route::get('/about', function () {
@@ -21,13 +32,10 @@ Route::get('/contact', function () {
     return view('contact');
 })->name('contact');
 
-Route::get('/properties', function () {
-    return view('properties.index');
-})->name('properties.index');
-
-Route::get('/properties/{slug}', function ($slug) {
-    return view('properties.show', compact('slug'));
-})->name('properties.show');
+Route::get('/properties', [PropertyController::class, 'index'])->name('properties.index');
+Route::get('/properties/{slug}', [PropertyController::class, 'show'])->name('properties.show');
+Route::post('/properties/{slug}/enquire', [PropertyController::class, 'enquire'])->name('properties.enquire');
+Route::post('/properties/{slug}/book', [PropertyController::class, 'book'])->name('properties.book');
 
 Route::get('/shortlets', function () {
     return view('shortlets');
@@ -64,11 +72,15 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [AdminDashboardController::class, 'index'])->name('dashboard');
     
-    // Resource route placeholders for future phases
-    Route::get('/properties', function () {
-        $properties = \App\Models\Property::with(['category', 'location', 'coverImage', 'virtualTour'])->get();
-        return view('admin.properties.index', compact('properties'));
-    })->name('properties.index');
+    // Full Property CRUD resource routes
+    Route::resource('/properties', AdminPropertyController::class);
+
+    // Full Metadata CRUD & Leads resource routes
+    Route::resource('/categories', AdminCategoryController::class);
+    Route::resource('/locations', AdminLocationController::class);
+    Route::resource('/amenities', AdminAmenityController::class);
+    Route::resource('/enquiries', AdminEnquiryController::class)->only(['index', 'update', 'destroy']);
+    Route::resource('/inspections', AdminInspectionController::class)->only(['index', 'update', 'destroy']);
 });
 
 require __DIR__.'/auth.php';

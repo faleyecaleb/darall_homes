@@ -26,40 +26,38 @@
         
         <!-- Premium Filtering Bar -->
         <div class="bg-white rounded-3xl shadow-sm border border-slate-100 p-6 sm:p-8 -mt-20 relative z-20 mb-12">
-            <form action="#" method="GET" class="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <form action="{{ route('properties.index') }}" method="GET" class="grid grid-cols-1 md:grid-cols-4 gap-6">
                 <!-- Location Filter -->
                 <div class="flex flex-col gap-2">
                     <label class="text-xs font-semibold uppercase tracking-wider text-slate-400">Location</label>
-                    <select class="w-full bg-slate-50 border border-slate-100 rounded-2xl px-4 py-3 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:bg-white transition-all">
+                    <select name="location" class="w-full bg-slate-50 border border-slate-100 rounded-2xl px-4 py-3 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:bg-white transition-all">
                         <option value="">All Locations</option>
-                        <option value="lekki">Lekki Phase 1</option>
-                        <option value="ikoyi">Old Ikoyi</option>
-                        <option value="vi">Victoria Island</option>
-                        <option value="banana">Banana Island</option>
+                        @foreach($locations as $loc)
+                            <option value="{{ $loc->id }}" {{ request('location') == $loc->id ? 'selected' : '' }}>{{ $loc->name }}</option>
+                        @endforeach
                     </select>
                 </div>
 
-                <!-- Property Type Filter -->
+                <!-- Property Category Filter -->
                 <div class="flex flex-col gap-2">
-                    <label class="text-xs font-semibold uppercase tracking-wider text-slate-400">Property Type</label>
-                    <select class="w-full bg-slate-50 border border-slate-100 rounded-2xl px-4 py-3 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:bg-white transition-all">
-                        <option value="">All Types</option>
-                        <option value="apartment">Apartment</option>
-                        <option value="duplex">Duplex</option>
-                        <option value="mansion">Detached Mansion</option>
-                        <option value="penthouse">Penthouse</option>
+                    <label class="text-xs font-semibold uppercase tracking-wider text-slate-400">Property Category</label>
+                    <select name="category" class="w-full bg-slate-50 border border-slate-100 rounded-2xl px-4 py-3 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:bg-white transition-all">
+                        <option value="">All Categories</option>
+                        @foreach($categories as $cat)
+                            <option value="{{ $cat->id }}" {{ request('category') == $cat->id ? 'selected' : '' }}>{{ $cat->name }}</option>
+                        @endforeach
                     </select>
                 </div>
 
                 <!-- Price Range Filter -->
                 <div class="flex flex-col gap-2">
-                    <label class="text-xs font-semibold uppercase tracking-wider text-slate-400">Price Range</label>
-                    <select class="w-full bg-slate-50 border border-slate-100 rounded-2xl px-4 py-3 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:bg-white transition-all">
+                    <label class="text-xs font-semibold uppercase tracking-wider text-slate-400">Price Range & Budget</label>
+                    <select name="price_range" class="w-full bg-slate-50 border border-slate-100 rounded-2xl px-4 py-3 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:bg-white transition-all">
                         <option value="">All Budgets</option>
-                        <option value="under-150m">Under ₦150M</option>
-                        <option value="150m-300m">₦150M - ₦300M</option>
-                        <option value="300m-500m">₦300M - ₦500M</option>
-                        <option value="above-500m">Above ₦500M</option>
+                        <option value="under-150m" {{ request('price_range') === 'under-150m' ? 'selected' : '' }}>Under ₦150M</option>
+                        <option value="150m-300m" {{ request('price_range') === '150m-300m' ? 'selected' : '' }}>₦150M - ₦300M</option>
+                        <option value="300m-500m" {{ request('price_range') === '300m-500m' ? 'selected' : '' }}>₦300M - ₦500M</option>
+                        <option value="above-500m" {{ request('price_range') === 'above-500m' ? 'selected' : '' }}>Above ₦500M</option>
                     </select>
                 </div>
 
@@ -76,120 +74,79 @@
         </div>
 
         <!-- Filter Status & Stats -->
-        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
-            <p class="text-sm text-slate-500">Showing <strong class="text-slate-900">3</strong> premium properties matching your standards</p>
-            <div class="flex items-center gap-3">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8" x-data="{}">
+            <p class="text-sm text-slate-500">Showing <strong class="text-slate-900 font-semibold">{{ $properties->total() }}</strong> premium properties matching your standards</p>
+            
+            <!-- Dynamic Sorting -->
+            <form action="{{ route('properties.index') }}" method="GET" id="sortForm" class="flex items-center gap-3">
+                <!-- Keep existing filter values during sorting -->
+                @if(request('location'))<input type="hidden" name="location" value="{{ request('location') }}">@endif
+                @if(request('category'))<input type="hidden" name="category" value="{{ request('category') }}">@endif
+                @if(request('price_range'))<input type="hidden" name="price_range" value="{{ request('price_range') }}">@endif
+                
                 <span class="text-xs text-slate-400 font-semibold uppercase">Sort By</span>
-                <select class="bg-white border border-slate-100 rounded-xl px-3 py-2 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-amber-500">
-                    <option value="newest">Newest Listed</option>
-                    <option value="price-low">Price: Low to High</option>
-                    <option value="price-high">Price: High to Low</option>
+                <select name="sort" onchange="document.getElementById('sortForm').submit()" class="bg-white border border-slate-100 rounded-xl px-3 py-2 text-xs text-slate-700 focus:outline-none focus:ring-1 focus:ring-amber-500">
+                    <option value="newest" {{ request('sort') === 'newest' ? 'selected' : '' }}>Newest Listed</option>
+                    <option value="price-low" {{ request('sort') === 'price-low' ? 'selected' : '' }}>Price: Low to High</option>
+                    <option value="price-high" {{ request('sort') === 'price-high' ? 'selected' : '' }}>Price: High to Low</option>
                 </select>
-            </div>
+            </form>
         </div>
 
         <!-- Property Grid -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <!-- Property 1 -->
-            <div class="group bg-white rounded-3xl border border-slate-100 overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300">
-                <div class="relative aspect-[4/3] overflow-hidden bg-slate-200">
-                    <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=600&q=80" alt="Lekki Penthouse" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                    <span class="absolute top-4 left-4 bg-amber-500 text-slate-950 px-3 py-1 rounded-full text-xs font-semibold shadow-md">For Sale</span>
-                    <span class="absolute bottom-4 right-4 bg-slate-950/80 backdrop-blur-sm text-amber-400 px-3 py-1.5 rounded-full text-xs font-semibold flex items-center gap-1.5 shadow-md">
-                        <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span> Virtual Tour Active
-                    </span>
-                </div>
-                <div class="p-6 sm:p-8 flex flex-col gap-4">
-                    <div class="flex flex-col gap-1.5">
-                        <span class="text-xs text-slate-400 uppercase tracking-widest font-semibold">Lekki Phase 1, Lagos</span>
-                        <h3 class="text-xl font-serif text-slate-900 group-hover:text-amber-600 transition-colors">The Obsidian Penthouse</h3>
+            @forelse($properties as $property)
+                <div class="group bg-white rounded-3xl border border-slate-100 overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300">
+                    <div class="relative aspect-[4/3] overflow-hidden bg-slate-200">
+                        @if($property->coverImage)
+                            <img src="{{ $property->coverImage->file_path }}" alt="{{ $property->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        @else
+                            <div class="w-full h-full bg-slate-100 flex items-center justify-center text-slate-400">No Image</div>
+                        @endif
+                        <span class="absolute top-4 left-4 bg-amber-500 text-slate-950 px-3 py-1 rounded-full text-xs font-semibold shadow-md">
+                            {{ $property->property_type === 'Shortlet' ? 'Shortlet' : 'For ' . $property->property_type }}
+                        </span>
+                        @if($property->virtualTour)
+                            <span class="absolute bottom-4 right-4 bg-slate-950/80 backdrop-blur-sm text-amber-400 px-3 py-1.5 rounded-full text-xs font-semibold flex items-center gap-1.5 shadow-md">
+                                <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span> Virtual Tour Active
+                            </span>
+                        @endif
                     </div>
-                    <p class="text-sm text-slate-500 leading-relaxed font-light line-clamp-2">Ultra-luxury 4-bedroom duplex featuring automated home integration, panoramic lagoon views, and high-end Italian marble finishing.</p>
-                    <div class="flex items-center gap-6 text-xs text-slate-500 border-y border-slate-100 py-3.5 my-1">
-                        <span class="flex items-center gap-1.5"><strong class="text-slate-900 font-semibold">4</strong> Beds</span>
-                        <span class="flex items-center gap-1.5"><strong class="text-slate-900 font-semibold">5</strong> Baths</span>
-                        <span class="flex items-center gap-1.5"><strong class="text-slate-900 font-semibold">450</strong> sqm</span>
-                    </div>
-                    <div class="flex justify-between items-center mt-2">
-                        <span class="text-xl font-bold text-slate-900">₦350,000,000</span>
-                        <a href="{{ route('properties.show', 'the-obsidian-penthouse') }}" class="inline-flex items-center justify-center px-5 py-2.5 text-xs font-semibold text-white bg-slate-950 hover:bg-amber-600 rounded-full transition-colors duration-200">
-                            Explore Showroom
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Property 2 -->
-            <div class="group bg-white rounded-3xl border border-slate-100 overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300">
-                <div class="relative aspect-[4/3] overflow-hidden bg-slate-200">
-                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80" alt="Ikoyi Estate" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                    <span class="absolute top-4 left-4 bg-amber-500 text-slate-950 px-3 py-1 rounded-full text-xs font-semibold shadow-md">For Sale</span>
-                </div>
-                <div class="p-6 sm:p-8 flex flex-col gap-4">
-                    <div class="flex flex-col gap-1.5">
-                        <span class="text-xs text-slate-400 uppercase tracking-widest font-semibold">Old Ikoyi, Lagos</span>
-                        <h3 class="text-xl font-serif text-slate-900 group-hover:text-amber-600 transition-colors">The Aria Mansion</h3>
-                    </div>
-                    <p class="text-sm text-slate-500 leading-relaxed font-light line-clamp-2">Exquisite 5-bedroom detached mansion with private elevator, heated swimming pool, 2 BQs, and state-of-the-art security features.</p>
-                    <div class="flex items-center gap-6 text-xs text-slate-500 border-y border-slate-100 py-3.5 my-1">
-                        <span class="flex items-center gap-1.5"><strong class="text-slate-900 font-semibold">5</strong> Beds</span>
-                        <span class="flex items-center gap-1.5"><strong class="text-slate-900 font-semibold">6</strong> Baths</span>
-                        <span class="flex items-center gap-1.5"><strong class="text-slate-900 font-semibold">680</strong> sqm</span>
-                    </div>
-                    <div class="flex justify-between items-center mt-2">
-                        <span class="text-xl font-bold text-slate-900">₦650,000,000</span>
-                        <a href="{{ route('properties.show', 'the-aria-mansion') }}" class="inline-flex items-center justify-center px-5 py-2.5 text-xs font-semibold text-white bg-slate-950 hover:bg-amber-600 rounded-full transition-colors duration-200">
-                            Explore Showroom
-                        </a>
+                    <div class="p-6 sm:p-8 flex flex-col gap-4">
+                        <div class="flex flex-col gap-1.5">
+                            <span class="text-xs text-slate-400 uppercase tracking-widest font-semibold">{{ $property->location->name }}</span>
+                            <h3 class="text-xl font-serif text-slate-900 group-hover:text-amber-600 transition-colors">{{ $property->title }}</h3>
+                        </div>
+                        <p class="text-sm text-slate-500 leading-relaxed font-light line-clamp-2">{{ $property->description }}</p>
+                        <div class="flex items-center gap-6 text-xs text-slate-500 border-y border-slate-100 py-3.5 my-1">
+                            <span class="flex items-center gap-1.5"><strong class="text-slate-900 font-semibold">{{ $property->bedrooms }}</strong> Beds</span>
+                            <span class="flex items-center gap-1.5"><strong class="text-slate-900 font-semibold">{{ $property->bathrooms }}</strong> Baths</span>
+                            @if($property->floor_area)
+                                <span class="flex items-center gap-1.5"><strong class="text-slate-900 font-semibold">{{ $property->floor_area }}</strong> sqm</span>
+                            @endif
+                        </div>
+                        <div class="flex justify-between items-center mt-2">
+                            @if($property->property_type === 'Shortlet')
+                                <span class="text-xl font-bold text-slate-900">₦{{ number_format($property->price) }}<span class="text-xs text-slate-400 font-light">/n</span></span>
+                            @else
+                                <span class="text-xl font-bold text-slate-900">₦{{ number_format($property->price) }}</span>
+                            @endif
+                            <a href="{{ route('properties.show', $property->slug) }}" class="inline-flex items-center justify-center px-5 py-2.5 text-xs font-semibold text-white bg-slate-950 hover:bg-amber-600 rounded-full transition-colors duration-200">
+                                Explore Showroom
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            <!-- Property 3 -->
-            <div class="group bg-white rounded-3xl border border-slate-100 overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300">
-                <div class="relative aspect-[4/3] overflow-hidden bg-slate-200">
-                    <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=600&q=80" alt="Victoria Island Shortlet" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                    <span class="absolute top-4 left-4 bg-amber-600 text-white px-3 py-1 rounded-full text-xs font-semibold shadow-md">Shortlet</span>
-                    <span class="absolute bottom-4 right-4 bg-slate-950/80 backdrop-blur-sm text-amber-400 px-3 py-1.5 rounded-full text-xs font-semibold flex items-center gap-1.5 shadow-md">
-                        <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span> Virtual Tour Active
-                    </span>
+            @empty
+                <div class="col-span-3 text-center py-20 bg-white rounded-3xl border border-slate-100">
+                    <p class="text-slate-400 text-sm">No exclusive properties currently match your selected filters.</p>
                 </div>
-                <div class="p-6 sm:p-8 flex flex-col gap-4">
-                    <div class="flex flex-col gap-1.5">
-                        <span class="text-xs text-slate-400 uppercase tracking-widest font-semibold">Victoria Island, Lagos</span>
-                        <h3 class="text-xl font-serif text-slate-900 group-hover:text-amber-600 transition-colors">The Zenith Suite</h3>
-                    </div>
-                    <p class="text-sm text-slate-500 leading-relaxed font-light line-clamp-2">Premium 2-bedroom executive shortlet apartment located steps away from upscale shopping centers, dining, and workspace hubs.</p>
-                    <div class="flex items-center gap-6 text-xs text-slate-500 border-y border-slate-100 py-3.5 my-1">
-                        <span class="flex items-center gap-1.5"><strong class="text-slate-900 font-semibold">2</strong> Beds</span>
-                        <span class="flex items-center gap-1.5"><strong class="text-slate-900 font-semibold">2.5</strong> Baths</span>
-                        <span class="flex items-center gap-1.5"><strong class="text-slate-900 font-semibold">180</strong> sqm</span>
-                    </div>
-                    <div class="flex justify-between items-center mt-2">
-                        <span class="text-xl font-bold text-slate-900">₦120,000 <span class="text-xs text-slate-400 font-light">/ night</span></span>
-                        <a href="{{ route('properties.show', 'the-zenith-suite') }}" class="inline-flex items-center justify-center px-5 py-2.5 text-xs font-semibold text-white bg-slate-950 hover:bg-amber-600 rounded-full transition-colors duration-200">
-                            Explore Showroom
-                        </a>
-                    </div>
-                </div>
-            </div>
+            @endforelse
         </div>
 
-        <!-- Pagination Placeholder -->
-        <div class="flex justify-center items-center gap-2 mt-16">
-            <button class="w-10 h-10 rounded-full bg-white border border-slate-100 text-slate-600 hover:bg-amber-500 hover:text-slate-950 hover:border-amber-500 flex items-center justify-center shadow-sm transition-all duration-150">
-                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-                </svg>
-            </button>
-            <button class="w-10 h-10 rounded-full bg-amber-500 text-slate-950 font-semibold flex items-center justify-center shadow-sm">1</button>
-            <button class="w-10 h-10 rounded-full bg-white border border-slate-100 text-slate-600 hover:bg-amber-500 hover:text-slate-950 hover:border-amber-500 flex items-center justify-center shadow-sm transition-all duration-150">2</button>
-            <button class="w-10 h-10 rounded-full bg-white border border-slate-100 text-slate-600 hover:bg-amber-500 hover:text-slate-950 hover:border-amber-500 flex items-center justify-center shadow-sm transition-all duration-150">3</button>
-            <button class="w-10 h-10 rounded-full bg-white border border-slate-100 text-slate-600 hover:bg-amber-500 hover:text-slate-950 hover:border-amber-500 flex items-center justify-center shadow-sm transition-all duration-150">
-                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                </svg>
-            </button>
+        <!-- Real Laravel Pagination Links -->
+        <div class="mt-16 flex justify-center">
+            {{ $properties->links() }}
         </div>
 
     </div>

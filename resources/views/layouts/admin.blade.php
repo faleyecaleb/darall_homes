@@ -152,14 +152,14 @@
                         </a>
                         
                         <!-- Enquiries Tab -->
-                        <a href="#" 
-                           class="px-6 py-2 rounded-full text-xs font-semibold tracking-wide text-slate-500 hover:text-slate-900 transition-all">
+                        <a href="{{ route('admin.enquiries.index') }}" 
+                           class="px-6 py-2 rounded-full text-xs font-semibold tracking-wide transition-all {{ request()->routeIs('admin.enquiries.*') ? 'bg-brand-dark text-white shadow-sm' : 'text-slate-500 hover:text-slate-900' }}">
                             Enquiries
                         </a>
                         
                         <!-- Inspections Tab -->
-                        <a href="#" 
-                           class="px-6 py-2 rounded-full text-xs font-semibold tracking-wide text-slate-500 hover:text-slate-900 transition-all">
+                        <a href="{{ route('admin.inspections.index') }}" 
+                           class="px-6 py-2 rounded-full text-xs font-semibold tracking-wide transition-all {{ request()->routeIs('admin.inspections.*') ? 'bg-brand-dark text-white shadow-sm' : 'text-slate-500 hover:text-slate-900' }}">
                             Inspections
                         </a>
                     </div>
@@ -206,6 +206,9 @@
         </div>
 
     </div>
+
+    <!-- Reusable Toast Notification Component -->
+    <x-toast-notification />
 
 </body>
 </html>
