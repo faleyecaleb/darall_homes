@@ -24,7 +24,13 @@ Route::get('/', function () {
         ->where('is_featured', true)
         ->take(3)
         ->get();
-    return view('welcome', compact('featuredProperties'));
+    
+    // Resolve premium locations dynamically by name for robust, fail-safe links
+    $lekkiLocation = \App\Models\Location::where('name', 'Lekki Phase 1')->first();
+    $ikoyiLocation = \App\Models\Location::where('name', 'Old Ikoyi')->first();
+    $viLocation = \App\Models\Location::where('name', 'Victoria Island')->first();
+
+    return view('welcome', compact('featuredProperties', 'lekkiLocation', 'ikoyiLocation', 'viLocation'));
 })->name('home');
 
 Route::get('/about', function () {
