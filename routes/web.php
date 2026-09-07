@@ -9,6 +9,9 @@ use App\Http\Controllers\Admin\AmenityController as AdminAmenityController;
 use App\Http\Controllers\Admin\EnquiryController as AdminEnquiryController;
 use App\Http\Controllers\Admin\InspectionController as AdminInspectionController;
 use App\Http\Controllers\PropertyController;
+use App\Http\Controllers\ChatbotController;
+use App\Http\Controllers\BookingController;
+use App\Http\Controllers\Admin\BookingController as AdminBookingController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,6 +39,8 @@ Route::get('/properties', [PropertyController::class, 'index'])->name('propertie
 Route::get('/properties/{slug}', [PropertyController::class, 'show'])->name('properties.show');
 Route::post('/properties/{slug}/enquire', [PropertyController::class, 'enquire'])->name('properties.enquire');
 Route::post('/properties/{slug}/book', [PropertyController::class, 'book'])->name('properties.book');
+Route::post('/chat', [ChatbotController::class, 'chat'])->name('chat');
+Route::post('/bookings', [BookingController::class, 'store'])->name('bookings.store');
 
 Route::get('/shortlets', function () {
     return view('shortlets');
@@ -71,7 +76,7 @@ Route::middleware('auth')->group(function () {
 */
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [AdminDashboardController::class, 'index'])->name('dashboard');
-    
+
     // Full Property CRUD resource routes
     Route::resource('/properties', AdminPropertyController::class);
 
@@ -81,6 +86,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::resource('/amenities', AdminAmenityController::class);
     Route::resource('/enquiries', AdminEnquiryController::class)->only(['index', 'update', 'destroy']);
     Route::resource('/inspections', AdminInspectionController::class)->only(['index', 'update', 'destroy']);
+    Route::resource('/bookings', AdminBookingController::class)->only(['index', 'update', 'destroy']);
 });
 
 require __DIR__.'/auth.php';

@@ -79,10 +79,10 @@
 
                                 <!-- Interactive Alpine Select Dropdown Form for inline updates -->
                                 <template x-if="editingStatus && activeId === '{{ $enquiry->id }}'">
-                                    <form action="{{ route('admin.enquiries.update', $enquiry->id) }}" method="POST" class="flex items-center gap-1.5">
+                                    <form id="enquiry-form-{{ $enquiry->id }}" action="{{ route('admin.enquiries.update', $enquiry->id) }}" method="POST" class="flex items-center gap-1.5">
                                         @csrf
                                         @method('PUT')
-                                        <select name="status" x-model="activeStatus" @change="this.form.submit()" class="bg-slate-50 border border-slate-200 rounded-xl px-2 py-1 text-[10px] font-bold uppercase text-slate-700 focus:outline-none focus:ring-1 focus:ring-brand focus:border-transparent transition-all">
+                                        <select name="status" x-model="activeStatus" @change="document.getElementById('enquiry-form-{{ $enquiry->id }}').submit()" class="bg-slate-50 border border-slate-200 rounded-xl px-2 py-1 text-[10px] font-bold uppercase text-slate-700 focus:outline-none focus:ring-1 focus:ring-brand focus:border-transparent transition-all">
                                             <option value="New">New</option>
                                             <option value="Contacted">Contacted</option>
                                             <option value="Qualified">Qualified</option>

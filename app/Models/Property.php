@@ -93,4 +93,12 @@ class Property extends Model
     {
         return $this->hasMany(InspectionRequest::class, 'property_id');
     }
+
+    /**
+     * Get the shortlet bookings associated with this property.
+     */
+    public function bookings(): HasMany
+    {
+        return $this->hasMany(Booking::class, 'property_id');
+    }
 }

@@ -62,7 +62,6 @@
                             </a>
                         @endif
                     @else
-                        <a href="{{ route('login') }}" class="text-sm font-medium text-slate-600 hover:text-amber-600 transition-colors">Sign In</a>
                         <a href="{{ route('contact') }}" class="inline-flex items-center justify-center px-5 py-2.5 text-sm font-semibold text-white bg-amber-600 hover:bg-amber-700 rounded-full transition-all duration-200">
                             Book Inspection
                         </a>
@@ -76,7 +75,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                         </svg>
                     </button>
-                    
+
                     <!-- Mobile Menu (AlpineJs) -->
                     <div x-show="open" @click.away="open = false" class="absolute top-20 right-0 left-0 bg-white border-b border-slate-100 p-4 shadow-lg flex flex-col gap-4">
                         <a href="{{ route('home') }}" class="text-base font-medium text-slate-600 hover:text-amber-600">Home</a>
@@ -89,7 +88,6 @@
                         @auth
                             <a href="{{ route('dashboard') }}" class="text-base font-medium text-slate-600 hover:text-amber-600">Dashboard</a>
                         @else
-                            <a href="{{ route('login') }}" class="text-base font-medium text-slate-600 hover:text-amber-600">Sign In</a>
                             <a href="{{ route('contact') }}" class="inline-flex items-center justify-center px-5 py-2.5 text-sm font-semibold text-white bg-amber-600 hover:bg-amber-700 rounded-full transition-all duration-200">
                                 Book Inspection
                             </a>
@@ -137,6 +135,7 @@
                     <li><a href="{{ route('contact') }}" class="hover:text-amber-500 transition-colors">Contact & Support</a></li>
                     <li><a href="#" class="hover:text-amber-500 transition-colors">Terms of Service</a></li>
                     <li><a href="#" class="hover:text-amber-500 transition-colors">Privacy Principles</a></li>
+                    <li><a href="{{ route('login') }}" class="hover:text-amber-500 transition-colors">Partner Sign In</a></li>
                 </ul>
             </div>
 
@@ -164,6 +163,9 @@
             </div>
         </div>
     </footer>
+
+    <!-- Reusable Chatbot Widget -->
+    <x-chatbot-widget />
 
     <!-- Reusable Toast Notification Component -->
     <x-toast-notification />

@@ -206,19 +206,132 @@
             </div>
         </div>
 
-        <!-- Inspection Request Form Form (Connected to book route!) -->
-        <div class="lg:col-span-7 bg-slate-50 rounded-3xl border border-slate-100 p-8 sm:p-10 shadow-sm">
-            <h3 class="text-xl font-serif text-slate-900 mb-6 font-sans">Schedule Private Inspection</h3>
-            
-            @if(session('success'))
-                <div class="mb-6 p-4 rounded-xl bg-emerald-50 border border-emerald-100 text-emerald-700 text-xs font-semibold flex items-center gap-2">
-                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                    {{ session('success') }}
-                </div>
-            @endif
+        <!-- Dynamic Booking / Inspection Form Panel -->
+        @if($property->property_type === 'Shortlet')
+            <!-- Shortlet Reservation Form (Dynamic Pricing Calendar powered by Alpine.js) -->
+            <div class="lg:col-span-7 bg-slate-50 rounded-3xl border border-slate-100 p-8 sm:p-10 shadow-sm"
+                 x-data="{
+                    checkIn: '',
+                    checkOut: '',
+                    nightlyPrice: {{ $property->price }},
+                    getNights() {
+                        if (!this.checkIn || !this.checkOut) return 0;
+                        let start = new Date(this.checkIn);
+                        let end = new Date(this.checkOut);
+                        let diff = end - start;
+                        return Math.max(0, Math.ceil(diff / (1000 * 60 * 60 * 24)));
+                    }
+                 }">
+                <h3 class="text-xl font-serif text-slate-900 mb-2 font-sans font-extrabold">Reserve Luxury Stay</h3>
+                <p class="text-xs text-slate-500 mb-6 font-sans">Select check-in and checkout dates to calculate rates and request a private booking.</p>
+                
+                @if(session('success'))
+                    <div class="mb-6 p-4 rounded-xl bg-emerald-50 border border-emerald-100 text-emerald-700 text-xs font-semibold flex items-center gap-2">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                        {{ session('success') }}
+                    </div>
+                @endif
 
-            <form action="{{ route('properties.book', $property->slug) }}" method="POST" class="space-y-6">
-                @csrf
+                @if(session('error'))
+                    <div class="mb-6 p-4 rounded-xl bg-rose-50 border border-rose-100 text-rose-700 text-xs font-semibold flex items-center gap-2">
+                        <span class="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse"></span>
+                        {{ session('error') }}
+                    </div>
+                @endif
+
+                <form action="{{ route('bookings.store') }}" method="POST" class="space-y-6">
+                    @csrf
+                    <input type="hidden" name="property_id" value="{{ $property->id }}">
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div class="flex flex-col gap-1.5">
+                            <label class="text-xs font-semibold text-slate-500 uppercase">Your Name</label>
+                            <input type="text" name="customer_name" required value="{{ old('customer_name', auth()->user()->name ?? '') }}" placeholder="John Doe" class="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all">
+                            @error('customer_name')<span class="text-xs text-rose-500 font-semibold">{{ $message }}</span>@enderror
+                        </div>
+                        <div class="flex flex-col gap-1.5">
+                            <label class="text-xs font-semibold text-slate-500 uppercase">Email Address</label>
+                            <input type="email" name="customer_email" required value="{{ old('customer_email', auth()->user()->email ?? '') }}" placeholder="john@example.com" class="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all">
+                            @error('customer_email')<span class="text-xs text-rose-500 font-semibold">{{ $message }}</span>@enderror
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div class="flex flex-col gap-1.5">
+                            <label class="text-xs font-semibold text-slate-500 uppercase">Phone Number</label>
+                            <input type="tel" name="customer_phone" required value="{{ old('customer_phone') }}" placeholder="+234 800 0000" class="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all">
+                            @error('customer_phone')<span class="text-xs text-rose-500 font-semibold">{{ $message }}</span>@enderror
+                        </div>
+                        <div class="flex grid grid-cols-2 gap-4">
+                            <div class="flex flex-col gap-1.5">
+                                <label class="text-xs font-semibold text-slate-500 uppercase">Check-In</label>
+                                <input type="date" name="check_in_date" required x-model="checkIn" min="{{ date('Y-m-d') }}" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-3 text-xs text-slate-700 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all font-sans">
+                                @error('check_in_date')<span class="text-xs text-rose-500 font-semibold">{{ $message }}</span>@enderror
+                            </div>
+                            <div class="flex flex-col gap-1.5">
+                                <label class="text-xs font-semibold text-slate-500 uppercase">Checkout</label>
+                                <input type="date" name="check_out_date" required x-model="checkOut" :min="checkIn ? checkIn : '{{ date('Y-m-d') }}'" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-3 text-xs text-slate-700 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all font-sans">
+                                @error('check_out_date')<span class="text-xs text-rose-500 font-semibold">{{ $message }}</span>@enderror
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div class="flex flex-col gap-1.5">
+                            <label class="text-xs font-semibold text-slate-500 uppercase">Number of Guests</label>
+                            <select name="guests_count" required class="w-full bg-white border border-slate-200 rounded-xl px-3 py-3.5 text-xs text-slate-700 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all">
+                                <option value="1">1 Guest</option>
+                                <option value="2">2 Guests</option>
+                                <option value="3">3 Guests</option>
+                                <option value="4">4 Guests</option>
+                                <option value="5">5+ Guests</option>
+                            </select>
+                            @error('guests_count')<span class="text-xs text-rose-500 font-semibold">{{ $message }}</span>@enderror
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col gap-1.5">
+                        <label class="text-xs font-semibold text-slate-500 uppercase">Special Requests / Notes</label>
+                        <textarea name="notes" rows="3" placeholder="Airport pick-up requested, or high-floor preferences..." class="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all">{{ old('notes') }}</textarea>
+                        @error('notes')<span class="text-xs text-rose-500 font-semibold">{{ $message }}</span>@enderror
+                    </div>
+
+                    <!-- Dynamic pricing calculator panel (rendered smoothly via Alpine.js) -->
+                    <div x-show="getNights() > 0" x-transition.opacity style="display: none;" class="p-5 bg-slate-100/60 border border-slate-200/40 rounded-2xl flex flex-col gap-2.5 font-sans">
+                        <div class="flex justify-between text-slate-500 text-xs">
+                            <span>Nightly Rate</span>
+                            <span class="font-extrabold text-slate-900">₦{{ number_format($property->price) }}</span>
+                        </div>
+                        <div class="flex justify-between text-slate-500 text-xs">
+                            <span>Stay Duration</span>
+                            <span class="font-extrabold text-slate-900" x-text="getNights() + ' night(s)'"></span>
+                        </div>
+                        <hr class="border-slate-200/60 my-1">
+                        <div class="flex justify-between text-slate-900 font-extrabold text-sm">
+                            <span>Estimated Booking Value</span>
+                            <span class="text-brand">₦<span x-text="new Intl.NumberFormat().format(getNights() * nightlyPrice)"></span></span>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="w-full inline-flex items-center justify-center px-6 py-4 text-sm font-semibold text-white bg-slate-900 hover:bg-slate-800 rounded-xl transition-all shadow-md">
+                        Reserve Stay Now
+                    </button>
+                </form>
+            </div>
+        @else
+            <!-- Standard Inspection Request Form Form (Connected to book route!) -->
+            <div class="lg:col-span-7 bg-slate-50 rounded-3xl border border-slate-100 p-8 sm:p-10 shadow-sm">
+                <h3 class="text-xl font-serif text-slate-900 mb-6 font-sans">Schedule Private Inspection</h3>
+                
+                @if(session('success'))
+                    <div class="mb-6 p-4 rounded-xl bg-emerald-50 border border-emerald-100 text-emerald-700 text-xs font-semibold flex items-center gap-2">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                        {{ session('success') }}
+                    </div>
+                @endif
+
+                <form action="{{ route('properties.book', $property->slug) }}" method="POST" class="space-y-6">
+                    @csrf
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div class="flex flex-col gap-1.5">
                         <label class="text-xs font-semibold text-slate-500 uppercase">Your Name</label>
@@ -267,6 +380,7 @@
                 </button>
             </form>
         </div>
+        @endif
 
     </div>
 </section>
