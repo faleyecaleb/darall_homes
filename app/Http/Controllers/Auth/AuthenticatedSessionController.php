@@ -30,9 +30,11 @@ class AuthenticatedSessionController extends Controller
 
         $user = auth()->user();
         if ($user && $user->isAdmin()) {
+            \App\Models\ActivityLog::log('Portal Login', 'Administrator successfully authenticated and logged into operations portal.');
             return redirect()->intended(route('admin.dashboard'));
         }
 
+        \App\Models\ActivityLog::log('Cabinet Login', 'Standard client/user successfully authenticated and logged into personal cabinet.');
         return redirect()->intended(route('dashboard', absolute: false));
     }
 
@@ -41,6 +43,10 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
+        if (auth()->check()) {
+            \App\Models\ActivityLog::log('System Logout', 'Authenticated user successfully logged out, terminating active session.');
+        }
+
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();

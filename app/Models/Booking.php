@@ -43,4 +43,22 @@ class Booking extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    /**
+     * Booted event listener for automatic operations auditing.
+     */
+    protected static function booted()
+    {
+        static::created(function ($booking) {
+            \App\Models\ActivityLog::log('Booking Created', 'A new shortlet reservation was created for "' . $booking->property->title . '" by guest ' . $booking->customer_name . ' from ' . $booking->check_in_date->format('Y-m-d') . ' to ' . $booking->check_out_date->format('Y-m-d') . ' valued at ₦' . number_format($booking->total_price) . '.');
+        });
+
+        static::updated(function ($booking) {
+            \App\Models\ActivityLog::log('Booking Updated', 'Updated reservation status to "' . $booking->status . '" and payment status to "' . $booking->payment_status . '" for guest ' . $booking->customer_name . ' (Booking ID: ' . $booking->id . ').');
+        });
+
+        static::deleted(function ($booking) {
+            \App\Models\ActivityLog::log('Booking Removed', 'Permanently removed shortlet reservation record for guest ' . $booking->customer_name . ' (Booking ID: ' . $booking->id . ').');
+        });
+    }
 }

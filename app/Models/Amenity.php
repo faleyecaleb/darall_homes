@@ -16,4 +16,22 @@ class Amenity extends Model
     {
         return $this->belongsToMany(Property::class, 'property_amenity');
     }
+
+    /**
+     * Booted event listener for automatic operations auditing.
+     */
+    protected static function booted()
+    {
+        static::created(function ($amenity) {
+            \App\Models\ActivityLog::log('Amenity Created', 'Created a new premium amenity named "' . $amenity->name . '" (Icon: ' . $amenity->icon . ').');
+        });
+
+        static::updated(function ($amenity) {
+            \App\Models\ActivityLog::log('Amenity Updated', 'Updated details for premium amenity "' . $amenity->name . '" (ID: ' . $amenity->id . ').');
+        });
+
+        static::deleted(function ($amenity) {
+            \App\Models\ActivityLog::log('Amenity Deleted', 'Permanently deleted premium amenity "' . $amenity->name . '" (ID: ' . $amenity->id . ').');
+        });
+    }
 }

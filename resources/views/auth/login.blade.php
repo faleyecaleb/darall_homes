@@ -129,7 +129,7 @@
                         <label for="email" class="text-[10px] font-extrabold uppercase tracking-widest text-slate-500">Email Address</label>
                         <div class="relative flex items-center">
                             <span class="absolute left-4 text-slate-400">
-                                <svg class="h-4.5 w-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.206" />
                                 </svg>
                             </span>
@@ -146,7 +146,7 @@
                         </div>
                         <div class="relative flex items-center">
                             <span class="absolute left-4 text-slate-400">
-                                <svg class="h-4.5 w-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                                 </svg>
                             </span>
@@ -174,7 +174,7 @@
                     <div class="flex items-center justify-between font-sans">
                         <label for="remember_me" class="inline-flex items-center cursor-pointer">
                             <input id="remember_me" type="checkbox" name="remember" 
-                                   class="h-4.5 w-4.5 rounded border-slate-200 text-brand-dark focus:ring-amber-500 focus:border-transparent cursor-pointer transition-all" />
+                                   class="h-4 w-4 rounded border-slate-200 text-brand-dark focus:ring-amber-500 focus:border-transparent cursor-pointer transition-all" />
                             <span class="ms-2 text-xs font-semibold text-slate-500 hover:text-slate-900 transition-colors">Keep me signed in</span>
                         </label>
 

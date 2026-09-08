@@ -101,4 +101,22 @@ class Property extends Model
     {
         return $this->hasMany(Booking::class, 'property_id');
     }
+
+    /**
+     * Booted event listener for automatic operations auditing.
+     */
+    protected static function booted()
+    {
+        static::created(function ($property) {
+            \App\Models\ActivityLog::log('Property Created', 'Created a new property listing titled "' . $property->title . '" valued at ₦' . number_format($property->price) . '.');
+        });
+
+        static::updated(function ($property) {
+            \App\Models\ActivityLog::log('Property Updated', 'Updated details for property listing "' . $property->title . '" (ID: ' . $property->id . ').');
+        });
+
+        static::deleted(function ($property) {
+            \App\Models\ActivityLog::log('Property Deleted', 'Permanently deleted property listing "' . $property->title . '" (ID: ' . $property->id . ').');
+        });
+    }
 }

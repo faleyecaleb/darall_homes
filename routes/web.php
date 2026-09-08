@@ -93,6 +93,16 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::resource('/enquiries', AdminEnquiryController::class)->only(['index', 'update', 'destroy']);
     Route::resource('/inspections', AdminInspectionController::class)->only(['index', 'update', 'destroy']);
     Route::resource('/bookings', AdminBookingController::class)->only(['index', 'update', 'destroy']);
+
+    // General Administration Performance Reports
+    Route::get('/reports/revenue', [\App\Http\Controllers\Admin\ReportController::class, 'revenue'])->name('reports.revenue');
+    Route::get('/reports/operations', [\App\Http\Controllers\Admin\ReportController::class, 'operations'])->name('reports.operations');
+
+    // Nested secure route group strictly requiring Super Admin access for activity logs auditing
+    Route::middleware('super_admin')->group(function () {
+        Route::get('/activity-logs', [\App\Http\Controllers\Admin\ActivityLogController::class, 'index'])->name('activity-logs.index');
+        Route::get('/reports/compliance', [\App\Http\Controllers\Admin\ReportController::class, 'compliance'])->name('reports.compliance');
+    });
 });
 
 require __DIR__.'/auth.php';

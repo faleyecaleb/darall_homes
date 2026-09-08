@@ -44,4 +44,22 @@ class InspectionRequest extends Model
     {
         return $this->belongsTo(User::class, 'assigned_agent_id');
     }
+
+    /**
+     * Booted event listener for automatic operations auditing.
+     */
+    protected static function booted()
+    {
+        static::created(function ($inspection) {
+            \App\Models\ActivityLog::log('Tour Scheduled', 'A new physical showing tour was scheduled for "' . ($inspection->property->title ?? 'N/A') . '" on ' . $inspection->requested_date->format('Y-m-d') . ' during ' . $inspection->requested_time . '.');
+        });
+
+        static::updated(function ($inspection) {
+            \App\Models\ActivityLog::log('Tour Updated', 'Updated showing status to "' . $inspection->status . '" for listing "' . ($inspection->property->title ?? 'N/A') . '" (Tour ID: ' . $inspection->id . ').');
+        });
+
+        static::deleted(function ($inspection) {
+            \App\Models\ActivityLog::log('Tour Cancelled', 'Removed physical showing tour record for listing "' . ($inspection->property->title ?? 'N/A') . '" (Tour ID: ' . $inspection->id . ').');
+        });
+    }
 }

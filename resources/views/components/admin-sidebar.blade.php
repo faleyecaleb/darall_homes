@@ -52,6 +52,17 @@
                         @endif
                     </a>
 
+                    <!-- Reports Suite (Connected Route & Active State) -->
+                    <a href="{{ route('admin.reports.revenue') }}" 
+                       class="group flex items-center justify-between px-4 py-3 rounded-2xl transition-all duration-300 hover:translate-x-1.5 {{ request()->routeIs('admin.reports.*') ? 'bg-brand text-white font-semibold shadow-lg shadow-brand/15' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800/40' }}">
+                        <div class="flex items-center gap-3">
+                            <svg class="h-5 w-5 flex-shrink-0 transition-transform group-hover:rotate-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                            </svg>
+                            <span>Reports Suite</span>
+                        </div>
+                    </a>
+
                     <!-- Categories (Connected Route & Active State) -->
                     <a href="{{ route('admin.categories.index') }}" 
                        class="group flex items-center justify-between px-4 py-3 rounded-2xl transition-all duration-300 hover:translate-x-1.5 {{ request()->routeIs('admin.categories.*') ? 'bg-brand text-white font-semibold shadow-lg shadow-brand/15' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800/40' }}">
@@ -148,6 +159,19 @@
                             <span class="px-2 py-0.5 text-[10px] font-bold text-white bg-amber-500 rounded-full animate-bounce">{{ \App\Models\Booking::where('status', 'Pending')->count() }}</span>
                         @endif
                     </a>
+
+                    <!-- Audit Trail (Immutable Ledger - Strictly visible ONLY to Super Admin) -->
+                    @if(auth()->check() && auth()->user()->isSuperAdmin())
+                        <a href="{{ route('admin.activity-logs.index') }}" 
+                           class="group flex items-center justify-between px-4 py-3 rounded-2xl transition-all duration-300 hover:translate-x-1.5 {{ request()->routeIs('admin.activity-logs.*') ? 'bg-brand text-white font-semibold shadow-lg shadow-brand/15' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800/40' }}">
+                            <div class="flex items-center gap-3">
+                                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                </svg>
+                                <span>Audit Trail</span>
+                            </div>
+                        </a>
+                    @endif
                 </nav>
             </div>
         </div>
