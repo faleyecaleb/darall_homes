@@ -86,25 +86,23 @@
             <p class="text-sm text-slate-500 leading-relaxed font-semibold">Explore our flagship projects actively being constructed and finalized across premium Lagos communities.</p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+        <!-- 3-Column Asymmetrical Developments Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <!-- Project Card 1: The Obsidian Residences -->
-            <div class="group bg-white border border-slate-200/50 rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-500 scroll-reveal reveal-left">
+            <div class="group bg-white border border-slate-200/50 rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-500 scroll-reveal reveal-up">
                 <div class="relative aspect-[16/10] overflow-hidden bg-slate-200 z-0">
                     <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80" alt="The Obsidian Residenices" class="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-500">
                     <span class="absolute top-4 left-4 bg-amber-400 text-slate-950 px-3.5 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-wider shadow-md">Under Construction</span>
                 </div>
                 <div class="p-8 sm:p-10 flex flex-col gap-4">
-                    <div class="flex justify-between items-start gap-4">
-                        <div class="flex flex-col gap-1 text-left">
-                            <span class="text-xs text-slate-400 uppercase tracking-widest font-extrabold font-sans">Lekki Phase 1, Lagos</span>
-                            <h3 class="text-2xl font-serif font-extrabold text-slate-900 group-hover:text-amber-500 transition-colors">The Obsidian Residences</h3>
-                        </div>
-                        <span class="text-xs font-extrabold uppercase tracking-widest bg-amber-500/10 text-amber-600 border border-amber-500/20 px-3.5 py-1.5 rounded-full flex-shrink-0">Delivery: Q4 2027</span>
+                    <div class="flex flex-col gap-1 text-left">
+                        <span class="text-xs text-slate-400 uppercase tracking-widest font-extrabold font-sans">Lekki Phase 1, Lagos</span>
+                        <h3 class="text-2xl font-serif font-extrabold text-slate-900 group-hover:text-amber-500 transition-colors leading-tight">The Obsidian Residences</h3>
                     </div>
-                    <p class="text-sm text-slate-500 leading-relaxed font-semibold text-left">A collections of 12 bespoke ultra-luxury detached terraces featuring multi-level open-concept floorplans, elevator integrations, and private rooftop pools.</p>
-                    <div class="flex items-center gap-6 text-sm text-slate-500 border-y border-slate-100 py-3.5 my-2 font-sans font-semibold">
-                        <span><strong class="text-slate-900">12</strong> Premium Units</span>
-                        <span><strong class="text-slate-900">4</strong> Bedrooms + BQ</span>
+                    <p class="text-sm text-slate-500 leading-relaxed font-semibold text-left line-clamp-3">A collections of 12 bespoke ultra-luxury detached terraces featuring multi-level open-concept floorplans, elevator integrations, and private rooftop pools.</p>
+                    <div class="flex items-center gap-4 text-xs text-slate-500 border-y border-slate-100 py-3.5 my-2 font-sans font-semibold">
+                        <span><strong class="text-slate-900">12</strong> Terraces</span>
+                        <span><strong class="text-slate-900">4</strong> Beds + BQ</span>
                         <span>Starting at <strong class="text-slate-900">₦280M</strong></span>
                     </div>
                     <a href="{{ route('contact') }}" class="w-full inline-flex items-center justify-center px-6 py-4 text-xs font-extrabold uppercase tracking-widest text-white bg-slate-900 hover:bg-brand rounded-xl transition-all shadow-md">
@@ -114,27 +112,47 @@
             </div>
 
             <!-- Project Card 2: The Aria Towers -->
-            <div class="group bg-white border border-slate-200/50 rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-500 scroll-reveal reveal-right delay-100">
+            <div class="group bg-white border border-slate-200/50 rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-500 scroll-reveal reveal-up delay-100">
                 <div class="relative aspect-[16/10] overflow-hidden bg-slate-200 z-0">
                     <img src="https://images.unsplash.com/photo-1512915922686-57c11dde9b6b?auto=format&fit=crop&w=800&q=80" alt="The Aria Towers" class="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-500">
                     <span class="absolute top-4 left-4 bg-emerald-500 text-white px-3.5 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-wider shadow-md">Completed</span>
                 </div>
                 <div class="p-8 sm:p-10 flex flex-col gap-4">
-                    <div class="flex justify-between items-start gap-4">
-                        <div class="flex flex-col gap-1 text-left">
-                            <span class="text-xs text-slate-400 uppercase tracking-widest font-extrabold font-sans">Old Ikoyi, Lagos</span>
-                            <h3 class="text-2xl font-serif font-extrabold text-slate-900 group-hover:text-amber-500 transition-colors">The Aria Towers</h3>
-                        </div>
-                        <span class="text-xs font-extrabold uppercase tracking-widest bg-emerald-500/10 text-emerald-600 border border-emerald-500/20 px-3.5 py-1.5 rounded-full flex-shrink-0">Ready for Delivery</span>
+                    <div class="flex flex-col gap-1 text-left">
+                        <span class="text-xs text-slate-400 uppercase tracking-widest font-extrabold font-sans">Old Ikoyi, Lagos</span>
+                        <h3 class="text-2xl font-serif font-extrabold text-slate-900 group-hover:text-amber-500 transition-colors leading-tight">The Aria Towers</h3>
                     </div>
-                    <p class="text-sm text-slate-500 leading-relaxed font-semibold text-left">An elegant, multi-tier residential vertical tower boasting high-fidelity thermal insulating glass facades, structured bio-pass lobby doors, and full-service clubhouses.</p>
-                    <div class="flex items-center gap-6 text-sm text-slate-500 border-y border-slate-100 py-3.5 my-2 font-sans font-semibold">
-                        <span><strong class="text-slate-900">24</strong> Serviced Flats</span>
-                        <span><strong class="text-slate-900">3</strong> Bedrooms Penthouse</span>
+                    <p class="text-sm text-slate-500 leading-relaxed font-semibold text-left line-clamp-3">An elegant, multi-tier residential vertical tower boasting high-fidelity glass facades, structured bio-pass lobby doors, and full-service clubhouses.</p>
+                    <div class="flex items-center gap-4 text-xs text-slate-500 border-y border-slate-100 py-3.5 my-2 font-sans font-semibold">
+                        <span><strong class="text-slate-900">24</strong> Flats</span>
+                        <span><strong class="text-slate-900">3</strong> Beds Penthouse</span>
                         <span>Starting at <strong class="text-slate-900">₦450M</strong></span>
                     </div>
                     <a href="{{ route('contact') }}" class="w-full inline-flex items-center justify-center px-6 py-4 text-xs font-extrabold uppercase tracking-widest text-white bg-slate-900 hover:bg-brand rounded-xl transition-all shadow-md">
                         Request Investment Brochure
+                    </a>
+                </div>
+            </div>
+
+            <!-- Project Card 3: LUMIÈRE SUITES (Surulere Flagship - NEW!) -->
+            <div class="group bg-white border border-slate-200/50 rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-500 scroll-reveal reveal-up delay-200">
+                <div class="relative aspect-[16/10] overflow-hidden bg-slate-200 z-0">
+                    <img src="{{ asset('docs/FRONT VIEW (NIGHT).png') }}" alt="Lumiere Suites Surulere" class="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <span class="absolute top-4 left-4 bg-amber-400 text-slate-950 px-3.5 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-wider shadow-md">Under Construction</span>
+                </div>
+                <div class="p-8 sm:p-10 flex flex-col gap-4">
+                    <div class="flex flex-col gap-1 text-left">
+                        <span class="text-xs text-slate-400 uppercase tracking-widest font-extrabold font-sans">Surulere, Lagos</span>
+                        <h3 class="text-2xl font-serif font-extrabold text-slate-900 group-hover:text-amber-500 transition-colors leading-tight">Lumière Suites</h3>
+                    </div>
+                    <p class="text-sm text-slate-500 leading-relaxed font-semibold text-left line-clamp-3">A modern mainland masterpiece built with absolute precision. Features 9 premium residential suites across Studio, Mini Flat, and 2-Bedroom layouts.</p>
+                    <div class="flex items-center gap-4 text-xs text-slate-500 border-y border-slate-100 py-3.5 my-2 font-sans font-semibold">
+                        <span><strong class="text-slate-900">9</strong> Suites Total</span>
+                        <span><strong class="text-slate-900">1 & 2</strong> Beds / Studio</span>
+                        <span>Starting at <strong class="text-slate-900">₦45M</strong></span>
+                    </div>
+                    <a href="{{ asset('docs/Lumiere Suites FINAL.pdf-2.pdf') }}" download="Lumiere_Suites_Brochure.pdf" class="w-full inline-flex items-center justify-center px-6 py-4 text-xs font-extrabold uppercase tracking-widest text-white bg-slate-900 hover:bg-brand rounded-xl transition-all shadow-md">
+                        Download Real Brochure
                     </a>
                 </div>
             </div>

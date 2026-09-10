@@ -10,7 +10,19 @@
         active: 0,
         slides: [
             {
+                title: 'Lumière Suites',
+                heading_start: 'Own the Future of',
+                heading_highlight: 'Surulere Luxury',
+                subtitle: 'Exquisite Mainland Off-Plan Residences',
+                price: 'Starting at ₦45,000,000',
+                image: '/docs/FRONT VIEW (NIGHT).png',
+                description: 'Step into structural precision and modern elegance in Surulere. A master-planned development of 9 premium suites offering uncompromised title safety and flexible payment plans.',
+                link: '/properties/lumiere-suites'
+            },
+            {
                 title: 'The Zenith Suite',
+                heading_start: 'Experience Executive',
+                heading_highlight: 'Shortlet Stays',
                 subtitle: 'Exquisite Executive Shortlet Stays',
                 price: '₦120,000 / Night',
                 image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1920&q=80',
@@ -19,6 +31,8 @@
             },
             {
                 title: 'The Obsidian Penthouse',
+                heading_start: 'Elevate to Sovereign',
+                heading_highlight: 'Smart Living',
                 subtitle: 'Masterfully Engineered Smart Living',
                 price: '₦350,000,000',
                 image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1920&q=80',
@@ -27,6 +41,8 @@
             },
             {
                 title: 'The Aria Mansion',
+                heading_start: 'Step into Legacy',
+                heading_highlight: 'Colonial Elegance',
                 subtitle: 'A Magnificently Crafted Oasis',
                 price: '₦650,000,000',
                 image: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1920&q=80',
@@ -76,9 +92,9 @@
                     <span x-text="slide.subtitle"
                           class="text-amber-400 text-xs sm:text-sm font-bold uppercase tracking-widest block transform translate-y-2 animate-slide-up duration-500"></span>
                     
-                    <!-- Heading -->
+                    <!-- Premium Copwriting Headlines (Fully Custom & Symmetrical) -->
                     <h1 class="text-4xl sm:text-5xl md:text-6xl font-serif text-white tracking-tight leading-[1.08] transform translate-y-3 animate-slide-up duration-700">
-                        Find a Space You Can <span class="text-amber-400 italic" x-text="slide.title.split(' ')[1] || slide.title"></span>
+                        <span x-text="slide.heading_start"></span> <span class="text-amber-400 italic" x-text="slide.heading_highlight"></span>
                     </h1>
 
                     <!-- Description -->
@@ -145,7 +161,7 @@
                         </div>
                         <div>
                             <h4 class="text-slate-900 font-extrabold text-sm font-sans mb-1 uppercase tracking-wider">Save Valued Hours</h4>
-                            <p class="text-sm text-slate-500 leading-relaxed">Eliminate physical traffic and disappointing appointments by shortlisting and vetting properties you've already walked through.</p>
+                            <p class="text-sm text-slate-555 leading-relaxed">Eliminate physical traffic and disappointing appointments by shortlisting and vetting properties you've already walked through.</p>
                         </div>
                     </div>
                 </div>
@@ -168,7 +184,97 @@
     </div>
 </section>
 
-<!-- Interactive Lagos Yield & ROI Calculator Section (hoomeee x Cognify Premium Widget) -->
+<!-- 3. FEATURED PROPERTIES PREVIEW SECTION ("Curated Collections" - Directly below Immersion!) -->
+<section class="py-32 bg-slate-50 border-t border-b border-slate-100 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Header - Slides Upward -->
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-20 scroll-reveal reveal-up">
+            <div class="flex flex-col gap-4">
+                <span class="text-amber-600 font-extrabold tracking-widest text-xs uppercase block">Curated Collections</span>
+                <h2 class="text-3xl sm:text-4xl font-serif text-slate-900 tracking-tight leading-none">Featured Real Estate</h2>
+            </div>
+            <a href="{{ route('properties.index') }}" class="group flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-amber-600 hover:text-amber-700 transition-colors">
+                View All Available Properties
+                <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+            </a>
+        </div>
+
+        <!-- Cards Grid List - Slides Upward with Staggered Delays! -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            @forelse($featuredProperties as $index => $property)
+                <div class="group bg-white rounded-[2.5rem] border border-slate-200/50 overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 transform scroll-reveal reveal-up"
+                     :class="'delay-' + (($index + 1) * 100)">
+                     
+                    <!-- Cover image wrapper -->
+                    <div class="relative aspect-[4/3] overflow-hidden bg-slate-200 z-0">
+                        @if($property->coverImage)
+                            <img src="{{ $property->coverImage->file_path }}" alt="{{ $property->title }}" class="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out">
+                        @else
+                            <div class="w-full h-full bg-slate-100 flex items-center justify-center text-slate-400">No Image</div>
+                        @endif
+                        
+                        <!-- Badges tags -->
+                        <span class="absolute top-4 left-4 bg-amber-400 text-slate-950 px-3.5 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-wider shadow-sm">
+                            {{ $property->property_type === 'Shortlet' ? 'Shortlet' : 'For ' . $property->property_type }}
+                        </span>
+                        
+                        @if($property->virtualTour)
+                            <span class="absolute bottom-4 right-4 bg-slate-950/80 backdrop-blur-sm text-amber-400 px-3.5 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-wider flex items-center gap-1.5 shadow-sm border border-white/5">
+                                <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span> Virtual Tour
+                            </span>
+                        @endif
+                    </div>
+
+                    <!-- Card description content -->
+                    <div class="p-8 flex flex-col gap-5">
+                        <div class="flex flex-col gap-1 font-sans">
+                            <span class="text-sm text-slate-400 uppercase tracking-widest font-extrabold text-left">{{ $property->location->name }}</span>
+                            <h3 class="text-lg font-serif font-extrabold text-slate-900 mt-1 tracking-tight truncate text-left">{{ $property->title }}</h3>
+                        </div>
+                        
+                        <!-- Specifications highlights row -->
+                        <div class="flex items-center gap-4 text-sm font-semibold text-slate-400 py-3 border-y border-slate-100">
+                            <div class="flex items-center gap-1.5">
+                                <span class="text-slate-650 font-extrabold text-sm">{{ $property->bedrooms }}</span> Beds
+                            </div>
+                            <div class="flex items-center gap-1.5">
+                                <span class="text-slate-650 font-extrabold text-sm">{{ $property->bathrooms }}</span> Baths
+                            </div>
+                            <div class="flex items-center gap-1.5">
+                                <span class="text-slate-650 font-extrabold text-sm">{{ $property->floor_area ? number_format($property->floor_area) . ' sqm' : 'N/A' }}</span>
+                            </div>
+                        </div>
+
+                        <!-- Dynamic Pricing & Button row (Using modern stacked alignment) -->
+                        <div class="flex flex-col gap-4 mt-2">
+                            <div class="flex justify-between items-baseline font-sans">
+                                <span class="text-xs font-extrabold uppercase tracking-wider text-slate-400">Rate Valuation</span>
+                                @if($property->property_type === 'Shortlet')
+                                    <span class="text-lg font-extrabold text-slate-900">₦{{ number_format($property->price) }}<span class="text-xs text-slate-400 font-bold">/night</span></span>
+                                @else
+                                    <span class="text-lg font-extrabold text-[#0d6e60]">₦{{ number_format($property->price) }}</span>
+                                @endif
+                            </div>
+                            <a href="{{ route('properties.show', $property->slug) }}" class="w-full inline-flex items-center justify-center px-6 py-4 text-xs font-extrabold uppercase tracking-widest text-slate-900 bg-slate-50 group-hover:bg-brand group-hover:text-white rounded-xl transition-all shadow-md">
+                                Explore Showroom
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            @empty
+                <!-- Empty placeholder grid slot -->
+                <div class="col-span-3 text-center text-slate-400 font-bold py-16">
+                    No properties currently flagged as featured in database.
+                </div>
+            @endforelse
+        </div>
+    </div>
+</section>
+
+<!-- 4. INTERACTIVE LAGOS YIELD & ROI CALCULATOR SECTION -->
 <section class="py-32 bg-[#1c1c1e] text-white overflow-hidden relative select-none">
     <!-- Overlay details -->
     <div class="absolute inset-0 bg-gradient-to-b from-slate-950 via-[#1c1c1e] to-slate-950/90 -z-10"></div>
@@ -225,7 +331,7 @@
                 <!-- Input capital slider -->
                 <div class="flex flex-col gap-3 pt-2">
                     <div class="flex justify-between items-baseline font-sans">
-                        <span class="text-xs font-extrabold text-slate-400 uppercase tracking-wider">Investable Capital</span>
+                        <span class="text-xs font-extrabold text-slate-400 uppercase tracking-wider">Your Capital</span>
                         <span class="text-2xl font-extrabold text-brand">₦<span x-text="new Intl.NumberFormat().format(capital)"></span></span>
                     </div>
                     <input type="range" 
@@ -282,7 +388,7 @@
     </div>
 </section>
 
-<!-- Lagos Luxury Enclaves Section (hoomeee x Cognify Premium Neighborhood Guides) -->
+<!-- 5. LAGOS LUXURY ENCLAVES SECTION -->
 <section class="py-32 bg-white overflow-hidden select-none">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
@@ -392,98 +498,8 @@
     </div>
 </section>
 
-<!-- 3. FEATURED PROPERTIES PREVIEW SECTION -->
-<section class="py-32 bg-slate-50 border-t border-slate-100 overflow-hidden">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <!-- Header - Slides Upward -->
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-20 scroll-reveal reveal-up">
-            <div class="flex flex-col gap-4">
-                <span class="text-amber-600 font-extrabold tracking-widest text-xs uppercase block">Curated Collections</span>
-                <h2 class="text-3xl sm:text-4xl font-serif text-slate-900 tracking-tight leading-none">Featured Real Estate</h2>
-            </div>
-            <a href="{{ route('properties.index') }}" class="group flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-amber-600 hover:text-amber-700 transition-colors">
-                View All Available Properties
-                <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-            </a>
-        </div>
-
-        <!-- Cards Grid List - Slides Upward with Staggered Delays! -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            @forelse($featuredProperties as $index => $property)
-                <div class="group bg-white rounded-3xl border border-slate-200/50 overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 transform scroll-reveal reveal-up"
-                     :class="'delay-' + (($index + 1) * 100)">
-                     
-                    <!-- Cover image wrapper -->
-                    <div class="relative aspect-[4/3] overflow-hidden bg-slate-200">
-                        @if($property->coverImage)
-                            <img src="{{ $property->coverImage->file_path }}" alt="{{ $property->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out">
-                        @else
-                            <div class="w-full h-full bg-slate-100 flex items-center justify-center text-slate-400">No Image</div>
-                        @endif
-                        
-                        <!-- Badges tags -->
-                        <span class="absolute top-4 left-4 bg-amber-400 text-slate-950 px-3.5 py-1.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider shadow-sm">
-                            {{ $property->property_type === 'Shortlet' ? 'Shortlet' : 'For ' . $property->property_type }}
-                        </span>
-                        
-                        @if($property->virtualTour)
-                            <span class="absolute bottom-4 right-4 bg-slate-950/80 backdrop-blur-sm text-amber-400 px-3.5 py-1.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider flex items-center gap-1.5 shadow-sm border border-white/5">
-                                <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span> Virtual Tour
-                            </span>
-                        @endif
-                    </div>
-
-                    <!-- Card description content -->
-                    <div class="p-8 flex flex-col gap-5">
-                        <div class="flex flex-col gap-1 font-sans">
-                            <span class="text-[10px] font-extrabold uppercase tracking-widest text-slate-400">{{ $property->location->name }}</span>
-                            <h3 class="text-lg font-serif font-extrabold text-slate-900 mt-1 tracking-tight truncate">{{ $property->title }}</h3>
-                        </div>
-                        
-                        <!-- Specifications highlights row -->
-                        <div class="flex items-center gap-4 text-xs font-semibold text-slate-400 py-3 border-y border-slate-100">
-                            <div class="flex items-center gap-1.5">
-                                <span class="text-slate-650 font-extrabold text-sm">{{ $property->bedrooms }}</span> Beds
-                            </div>
-                            <div class="flex items-center gap-1.5">
-                                <span class="text-slate-650 font-extrabold text-sm">{{ $property->bathrooms }}</span> Baths
-                            </div>
-                            <div class="flex items-center gap-1.5">
-                                <span class="text-slate-650 font-extrabold text-sm">{{ $property->floor_area ? number_format($property->floor_area) . ' sqm' : 'N/A' }}</span>
-                            </div>
-                        </div>
-
-                        <!-- Price & CTA link footer -->
-                        <div class="flex items-center justify-between mt-1">
-                            <div class="flex flex-col text-left font-sans">
-                                <span class="text-[9px] font-extrabold uppercase tracking-widest text-slate-400">Rate Valuation</span>
-                                <span class="text-lg font-extrabold text-slate-900 mt-0.5">
-                                    ₦{{ number_format($property->price) }}{{ $property->property_type === 'Shortlet' ? ' / night' : '' }}
-                                </span>
-                            </div>
-                            <a href="{{ route('properties.show', $property->slug) }}" class="h-10 w-10 rounded-xl bg-slate-50 hover:bg-brand-dark hover:text-white flex items-center justify-center text-slate-500 hover:rotate-45 transition-all duration-300">
-                                <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            @empty
-                <!-- Empty placeholder grid slot -->
-                <div class="col-span-3 text-center text-slate-400 font-bold py-16">
-                    No properties currently flagged as featured in database.
-                </div>
-            @endforelse
-        </div>
-    </div>
-</section>
-
-<!-- Diaspora Investment Concierge Section (hoomeee x Cognify High-Trust Panel) -->
-<section class="py-32 bg-slate-950 text-white relative overflow-hidden select-none border-t border-slate-900">
+<!-- 6. DIASPORA INVESTMENT CONCIERGE SECTION -->
+<section class="py-32 bg-slate-955 text-white relative overflow-hidden select-none border-t border-slate-900">
     <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1500&q=80" 
          alt="Bespoke luxury plan" 
          class="absolute inset-0 h-full w-full object-cover opacity-10 mix-blend-overlay -z-10 animate-fade-in" />
@@ -553,7 +569,7 @@
     </div>
 </section>
 
-<!-- The Darall Difference Section (hoomeee x Cognify SaaS Core Pillars Grid) -->
+<!-- 7. THE DARALL DIFFERENCE SECTION -->
 <section class="py-32 bg-slate-50 border-t border-slate-100 overflow-hidden select-none">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
@@ -617,7 +633,7 @@
     </div>
 </section>
 
-<!-- 4. CALL TO ACTION BRANDS SECTION -->
+<!-- 8. CALL TO ACTION BRANDS SECTION -->
 <section class="py-36 bg-brand-dark text-white relative overflow-hidden select-none">
     <!-- Backdrop image details -->
     <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1500&q=80" 

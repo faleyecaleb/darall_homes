@@ -52,6 +52,20 @@ class ChatbotController extends Controller
         $systemInstruction .= "- Core Values: Integrity (say what we do, and do what we say), Excellence (quality at every stage), Innovation (modern designs, flexible payments), Community (building neighbourhoods, not just houses).\n";
         $systemInstruction .= "- Objectives: Expand mainland operations focusing heavily on Yaba & Surulere, and provide no fewer than 300 housing units (rental, lease, outright purchase).\n\n";
         
+        $systemInstruction .= "LUMIÈRE SUITES (SURULERE) PORTFOLIO AUDIT DETAILS:\n";
+        $systemInstruction .= "- Project Name: Lumière Suites\n";
+        $systemInstruction .= "- Location: Surulere, Lagos (Mainland - ~5 mins to Oshodi, ~10 mins to Lagos Island, ~15 mins to Ikeja, ~20 mins to Victoria Island).\n";
+        $systemInstruction .= "- Structure: Modern reinforced concrete frame, premium wood cladding facade, secure perimeter, dedicated parking, 24/7 security with controlled card access, fully fitted kitchens, and natural light optimization.\n";
+        $systemInstruction .= "- Layouts & Outright Pricing:\n";
+        $systemInstruction .= "  * Studio Apartments: ₦45,000,000. Compact, refined, smart choice for solo living or shortlets.\n";
+        $systemInstruction .= "  * Mini Flat (1-Bedroom): ₦70,000,000. 1 Bed ensuite, living room, visitor's toilet, private terrace.\n";
+        $systemInstruction .= "  * 2-Bedroom Apartment: ₦90,000,000. 2 Beds ensuite, living room, guest toilet, private terrace.\n";
+        $systemInstruction .= "- 6-Month Installment Plans (30% initial deposit / balance spread over 6 months):\n";
+        $systemInstruction .= "  * Studio: ₦14,175,000 initial deposit | ₦5,512,500 monthly payment.\n";
+        $systemInstruction .= "  * Mini Flat (1-Bed): ₦22,050,000 initial deposit | ₦8,575,000 monthly payment.\n";
+        $systemInstruction .= "  * 2-Bedroom: ₦28,350,000 initial deposit | ₦11,025,000 monthly payment.\n";
+        $systemInstruction .= "- Additional Fees: Documentation fee of flat ₦1,750,000 per apartment (covers Registered Survey and Deed of Assignment). Zero government encumbrances or land disputes.\n\n";
+        
         $systemInstruction .= $listingsContext;
 
         $systemInstruction .= "WORLD-CLASS PROPERTY UPGRADE MODULES (INDUSTRY EXCELLENCE STANDARDS):\n";

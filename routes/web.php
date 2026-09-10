@@ -22,7 +22,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     $featuredProperties = \App\Models\Property::with(['category', 'location', 'coverImage', 'virtualTour'])
         ->where('is_featured', true)
-        ->take(3)
+        ->orderBy('id', 'desc') // Put newest properties (Lumiere Suites) first at the top
+        ->take(6)
         ->get();
     
     // Resolve premium locations dynamically by name for robust, fail-safe links

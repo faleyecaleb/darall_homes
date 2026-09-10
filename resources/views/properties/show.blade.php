@@ -4,14 +4,65 @@
 
 @section('content')
 <!-- Section 1 — Premium Landing Hero -->
-<div class="relative bg-slate-950 min-h-[75vh] md:min-h-[85vh] flex items-end overflow-hidden border-b border-slate-900 -mt-20 select-none">
-    <!-- Cover Image Background -->
-    @if($property->coverImage)
-        <div class="absolute inset-0 bg-cover bg-center opacity-60" style="background-image: url('{{ $property->coverImage->file_path }}');"></div>
+<div class="relative bg-slate-950 min-h-[75vh] md:min-h-[85vh] flex items-end overflow-hidden border-b border-slate-900 -mt-20 select-none"
+     @if(str_contains($property->slug, 'lumiere'))
+     x-data="{
+         active: 0,
+         slides: [
+             { image: '{{ asset('docs/FRONT VIEW (NIGHT).png') }}', caption: 'Front Elevation — Warm timber cladding and precise architecture' },
+             { image: '{{ asset('docs/LEFT SIDE VIEW (NIGHT).png') }}', caption: 'Left Side Elevation — Balanced, structural geometry' },
+             { image: '{{ asset('docs/RIGHT SIDE VIEW (NIGHT).png') }}', caption: 'Right Side Elevation — Optimized window locations' },
+             { image: '{{ asset('docs/BACK VIEW (NIGHT).png') }}', caption: 'Rear Elevation — Considered spatial layouts and glass openings' }
+         ],
+         init() {
+             setInterval(() => {
+                 this.active = (this.active + 1) % this.slides.length;
+             }, 5000);
+         }
+     }"
+     @endif
+>
+    <!-- Background Slides (Conditional for Lumiere) -->
+    @if(str_contains($property->slug, 'lumiere'))
+        <template x-for="(slide, index) in slides" :key="index">
+            <div x-show="active === index"
+                 x-transition:enter="transition ease-in-out duration-[2000ms] transform"
+                 x-transition:enter-start="opacity-0 scale-105"
+                 x-transition:enter-end="opacity-100 scale-100"
+                 x-transition:leave="transition ease-in-out duration-[2000ms] transform"
+                 x-transition:leave-start="opacity-100 scale-100"
+                 x-transition:leave-end="opacity-0 scale-95"
+                 class="absolute inset-0 w-full h-full z-0">
+                <!-- BRIGHT images: opacity-95 and clear contrast overlay -->
+                <img :src="slide.image" :alt="slide.caption" class="absolute inset-0 h-full w-full object-cover opacity-95 transition-all duration-[5000ms] ease-out" />
+                <!-- Subtle bright-responsive gradient for premium legibility -->
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-slate-950/10 z-10"></div>
+            </div>
+        </template>
+        
+        <!-- Live Caption / View Indicator -->
+        <div class="absolute top-24 right-4 md:right-8 bg-slate-950/70 border border-white/10 px-4.5 py-2.5 rounded-2xl backdrop-blur-md text-right text-[10px] md:text-xs text-slate-300 font-sans z-20 shadow-xl flex items-center gap-3">
+            <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20 font-extrabold uppercase tracking-wider" x-text="'View ' + (active + 1) + '/4'"></span>
+            <span class="font-extrabold text-slate-100 tracking-wide" x-text="slides[active].caption"></span>
+        </div>
+
+        <!-- Carousel navigation bullet indicators -->
+        <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 z-20 flex gap-3">
+            <template x-for="(slide, index) in slides" :key="index">
+                <button @click="active = index" 
+                        class="w-2.5 h-2.5 rounded-full transition-all duration-300 border border-white/30 focus:outline-none"
+                        :class="active === index ? 'bg-amber-400 scale-125 shadow-[0_0_8px_#fbbf24]' : 'bg-white/40 hover:bg-white/60'"></button>
+            </template>
+        </div>
     @else
-        <div class="absolute inset-0 bg-slate-900 opacity-60"></div>
+        <!-- Cover Image Background Fallback for other listings -->
+        @if($property->coverImage)
+            <div class="absolute inset-0 bg-cover bg-center opacity-60 z-0" style="background-image: url('{{ $property->coverImage->file_path }}');"></div>
+        @else
+            <div class="absolute inset-0 bg-slate-900 opacity-60 z-0"></div>
+        @endif
+        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent -z-10"></div>
     @endif
-    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent -z-10"></div>
     
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 z-10 w-full animate-fade-in">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
@@ -52,7 +103,12 @@
                 @if($property->property_type === 'Shortlet')
                     <span class="text-3xl sm:text-4xl font-extrabold text-amber-500 font-sans">₦{{ number_format($property->price) }}<span class="text-sm font-bold text-slate-400">/night</span></span>
                 @else
-                    <span class="text-3xl sm:text-4xl font-extrabold text-amber-500 font-sans">₦{{ number_format($property->price) }}</span>
+                    <span class="text-3xl sm:text-4xl font-extrabold text-amber-500 font-sans">
+                        @if(str_contains($property->slug, 'lumiere'))
+                            <span class="text-xs text-slate-400 uppercase block tracking-widest font-extrabold mb-1">Starting At</span>
+                        @endif
+                        ₦{{ number_format($property->price) }}
+                    </span>
                 @endif
                 <span class="text-sm text-slate-500 font-semibold mt-1">Fully Serviced & Furnished Options Available</span>
             </div>
@@ -70,15 +126,33 @@
             </div>
             <div class="flex flex-col gap-1 items-center">
                 <span class="text-slate-400 text-sm uppercase tracking-wider font-extrabold">Bedrooms</span>
-                <span class="text-base sm:text-lg font-serif text-slate-900 font-semibold">{{ $property->bedrooms }} Ensuite</span>
+                <span class="text-base sm:text-lg font-serif text-slate-900 font-semibold">
+                    @if(str_contains($property->slug, 'lumiere'))
+                        1 - 2 Ensuite
+                    @else
+                        {{ $property->bedrooms }} Ensuite
+                    @endif
+                </span>
             </div>
             <div class="flex flex-col gap-1 items-center">
                 <span class="text-slate-400 text-sm uppercase tracking-wider font-extrabold">Bathrooms</span>
-                <span class="text-base sm:text-lg font-serif text-slate-900 font-semibold">{{ $property->bathrooms }} Bathrooms</span>
+                <span class="text-base sm:text-lg font-serif text-slate-900 font-semibold">
+                    @if(str_contains($property->slug, 'lumiere'))
+                        1 - 3 Bathrooms
+                    @else
+                        {{ $property->bathrooms }} Bathrooms
+                    @endif
+                </span>
             </div>
             <div class="flex flex-col gap-1 items-center">
                 <span class="text-slate-400 text-sm uppercase tracking-wider font-extrabold">Floor Area</span>
-                <span class="text-base sm:text-lg font-serif text-slate-900 font-semibold">{{ $property->floor_area ? $property->floor_area . ' sqm' : 'N/A' }}</span>
+                <span class="text-base sm:text-lg font-serif text-slate-900 font-semibold">
+                    @if(str_contains($property->slug, 'lumiere'))
+                        35 - 95 sqm
+                    @else
+                        {{ $property->floor_area ? $property->floor_area . ' sqm' : 'N/A' }}
+                    @endif
+                </span>
             </div>
             <div class="flex flex-col gap-1 items-center col-span-2 md:col-span-1 border-t md:border-t-0 pt-4 md:pt-0">
                 <span class="text-slate-400 text-sm uppercase tracking-wider font-extrabold">Purpose</span>
@@ -158,6 +232,165 @@
     </div>
 </section>
 
+<!-- Section 4.5 — A Collection of Modern Spaces (Conditional for Lumiere Master Project) -->
+@if(str_contains($property->slug, 'lumiere'))
+    <section class="py-24 bg-slate-50 border-t border-b border-slate-100 select-none animate-fade-in">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Section Header -->
+            <div class="flex flex-col gap-3 text-center max-w-2xl mx-auto mb-16 scroll-reveal reveal-up">
+                <span class="text-amber-600 font-extrabold tracking-widest text-xs uppercase block">Apartment Types</span>
+                <h2 class="text-3xl sm:text-4xl font-serif text-slate-900 tracking-tight leading-none">A Collection of Modern Spaces</h2>
+                <p class="text-sm text-slate-500 leading-relaxed font-semibold">Each unit is meticulously designed for luxury, space efficiency, and modern mainland living.</p>
+            </div>
+
+            <!-- 3-Column Suite Layouts Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <!-- Suite 1: Studio Apartment -->
+                <div class="group bg-white border border-slate-200/50 rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 transform scroll-reveal reveal-up">
+                    <div class="relative aspect-[1.4] overflow-hidden bg-slate-200 z-0">
+                        <img src="{{ asset('docs/INT 1.png') }}" alt="Studio Suite Interior" class="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <span class="absolute top-4 left-4 bg-amber-400 text-slate-950 px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider shadow-md">Studio Apartment</span>
+                    </div>
+                    <div class="p-8 flex flex-col gap-4">
+                        <div class="flex flex-col gap-1 text-left font-sans">
+                            <span class="text-[10px] text-slate-400 font-extrabold uppercase tracking-widest">Model Specifications</span>
+                            <h4 class="text-xl font-serif font-extrabold text-slate-900">Lumière Studio Suite</h4>
+                        </div>
+                        <p class="text-xs text-slate-500 leading-relaxed font-semibold text-left">Compact, refined, and fully appointed. Features an optimized open-concept layout, fully integrated fitted kitchen, and luxury bath. An exceptionally smart choice for solo living or shortlet investments.</p>
+                        
+                        <div class="flex items-center gap-4 text-[11px] text-slate-400 border-y border-slate-100 py-3 font-sans font-extrabold justify-start">
+                            <span>1 Bed</span>
+                            <span>•</span>
+                            <span>1 Bath</span>
+                            <span>•</span>
+                            <span>35 sqm</span>
+                        </div>
+
+                        <!-- Price / Financing stack -->
+                        <div class="flex flex-col gap-3 font-sans text-left mt-1">
+                            <div class="flex justify-between items-baseline border-b border-slate-100 pb-2">
+                                <span class="text-[10px] text-slate-400 font-extrabold uppercase tracking-wider">Outright Purchase</span>
+                                <span class="text-base font-extrabold text-slate-900">₦45,000,000</span>
+                            </div>
+                            <div class="flex flex-col gap-1.5 p-4 rounded-xl bg-slate-50 border border-slate-100 text-[11px] font-semibold text-slate-505">
+                                <span class="text-[9px] font-extrabold uppercase tracking-wider text-amber-600">6-Month Installment Plan</span>
+                                <div class="flex justify-between mt-1">
+                                    <span>Total Price:</span>
+                                    <strong class="text-slate-900">₦47,250,000</strong>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>Deposit (30%):</span>
+                                    <strong class="text-slate-900">₦14,175,000</strong>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>Monthly Payment:</span>
+                                    <strong class="text-brand">₦5,512,500/mo</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Suite 2: Mini Flat -->
+                <div class="group bg-white border border-slate-200/50 rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 transform scroll-reveal reveal-up delay-100">
+                    <div class="relative aspect-[1.4] overflow-hidden bg-slate-200 z-0">
+                        <img src="{{ asset('docs/INT 2.png') }}" alt="Mini Flat Interior" class="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <span class="absolute top-4 left-4 bg-amber-400 text-slate-950 px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider shadow-md">Mini Flat (1-Bed)</span>
+                    </div>
+                    <div class="p-8 flex flex-col gap-4">
+                        <div class="flex flex-col gap-1 text-left font-sans">
+                            <span class="text-[10px] text-slate-400 font-extrabold uppercase tracking-widest">Model Specifications</span>
+                            <h4 class="text-xl font-serif font-extrabold text-slate-900">Lumière Mini Flat</h4>
+                        </div>
+                        <p class="text-xs text-slate-500 leading-relaxed font-semibold text-left">A spacious, beautifully appointed mini flat. Boasts a premium bedroom ensuite, an extensive open-concept living area, a fitted kitchen, a guest powder room, and a private terrace designed to let life flow.</p>
+                        
+                        <div class="flex items-center gap-4 text-[11px] text-slate-400 border-y border-slate-100 py-3 font-sans font-extrabold justify-start">
+                            <span>1 Bed</span>
+                            <span>•</span>
+                            <span>2 Baths</span>
+                            <span>•</span>
+                            <span>60 sqm</span>
+                        </div>
+
+                        <!-- Price / Financing stack -->
+                        <div class="flex flex-col gap-3 font-sans text-left mt-1">
+                            <div class="flex justify-between items-baseline border-b border-slate-100 pb-2">
+                                <span class="text-[10px] text-slate-400 font-extrabold uppercase tracking-wider">Outright Purchase</span>
+                                <span class="text-base font-extrabold text-slate-900">₦70,000,000</span>
+                            </div>
+                            <div class="flex flex-col gap-1.5 p-4 rounded-xl bg-slate-50 border border-slate-100 text-[11px] font-semibold text-slate-505">
+                                <span class="text-[9px] font-extrabold uppercase tracking-wider text-amber-600">6-Month Installment Plan</span>
+                                <div class="flex justify-between mt-1">
+                                    <span>Total Price:</span>
+                                    <strong class="text-slate-900">₦73,500,000</strong>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>Deposit (30%):</span>
+                                    <strong class="text-slate-900">₦22,050,000</strong>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>Monthly Payment:</span>
+                                    <strong class="text-brand">₦8,575,000/mo</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Suite 3: 2-Bedroom -->
+                <div class="group bg-white border border-slate-200/50 rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 transform scroll-reveal reveal-up delay-200">
+                    <div class="relative aspect-[1.4] overflow-hidden bg-slate-200 z-0">
+                        <img src="{{ asset('docs/INT 3.png') }}" alt="2-Bedroom Interior" class="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <span class="absolute top-4 left-4 bg-amber-400 text-slate-950 px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider shadow-md">2-Bedroom</span>
+                    </div>
+                    <div class="p-8 flex flex-col gap-4">
+                        <div class="flex flex-col gap-1 text-left font-sans">
+                            <span class="text-[10px] text-slate-400 font-extrabold uppercase tracking-widest">Model Specifications</span>
+                            <h4 class="text-xl font-serif font-extrabold text-slate-900">Lumière 2-Bedroom</h4>
+                        </div>
+                        <p class="text-xs text-slate-500 leading-relaxed font-semibold text-left">The crown jewel layout of Lumière Suites. Boasts dual master en-suite bedrooms, an expansive light-filled living area, a premium fully-fitted kitchen, guest bathroom, and private outdoor terrace.</p>
+                        
+                        <div class="flex items-center gap-4 text-[11px] text-slate-400 border-y border-slate-100 py-3 font-sans font-extrabold justify-start">
+                            <span>2 Beds</span>
+                            <span>•</span>
+                            <span>3 Baths</span>
+                            <span>•</span>
+                            <span>95 sqm</span>
+                        </div>
+
+                        <!-- Price / Financing stack -->
+                        <div class="flex flex-col gap-3 font-sans text-left mt-1">
+                            <div class="flex justify-between items-baseline border-b border-slate-100 pb-2">
+                                <span class="text-[10px] text-slate-400 font-extrabold uppercase tracking-wider">Outright Purchase</span>
+                                <span class="text-base font-extrabold text-slate-900">₦90,000,000</span>
+                            </div>
+                            <div class="flex flex-col gap-1.5 p-4 rounded-xl bg-slate-50 border border-slate-100 text-[11px] font-semibold text-slate-505">
+                                <span class="text-[9px] font-extrabold uppercase tracking-wider text-amber-600">6-Month Installment Plan</span>
+                                <div class="flex justify-between mt-1">
+                                    <span>Total Price:</span>
+                                    <strong class="text-slate-900">₦94,500,000</strong>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>Deposit (30%):</span>
+                                    <strong class="text-slate-900">₦28,350,000</strong>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>Monthly Payment:</span>
+                                    <strong class="text-brand">₦11,025,000/mo</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+@endif
+
 <!-- Section 5 — Elite Amenities -->
 @if($property->amenities->count() > 0)
     <section class="py-24 bg-slate-50 border-t border-slate-100 select-none">
@@ -187,6 +420,213 @@
     </section>
 @endif
 
+<!-- Conditional Lumière Frequently Asked Questions Section (Vetted Brochure FAQ) -->
+@if(str_contains($property->slug, 'lumiere'))
+    <section class="py-24 bg-white border-t border-b border-slate-150 select-none animate-fade-in">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Section Header -->
+            <div class="flex flex-col gap-3 text-center max-w-2xl mx-auto mb-16 scroll-reveal reveal-up">
+                <span class="text-amber-600 font-extrabold tracking-widest text-xs uppercase block">Clarifications Hub</span>
+                <h2 class="text-3xl font-serif text-slate-900 tracking-tight leading-none">Lumière Suites FAQ</h2>
+                <p class="text-sm text-slate-500 leading-relaxed font-semibold">Everything you need to know about purchasing and managing your Lumière Suites apartment.</p>
+            </div>
+
+            <!-- 2-Column Accordion Grid list (Alpine.js powered) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start font-sans" x-data="{ activeFaq: null }">
+                
+                <!-- Column 1 -->
+                <div class="flex flex-col gap-4">
+                    
+                    <!-- FAQ 1 -->
+                    <div class="bg-slate-50 rounded-2xl border border-slate-200/50 p-6 cursor-pointer transition-all duration-300 hover:shadow-md"
+                         @click="activeFaq === 1 ? activeFaq = null : activeFaq = 1">
+                        <div class="flex justify-between items-center gap-4 text-left">
+                            <h4 class="text-sm font-extrabold text-slate-900 uppercase tracking-wider">Where is Lumière Suites located?</h4>
+                            <span class="text-slate-400 font-bold transition-transform duration-300" :class="activeFaq === 1 ? 'rotate-180' : ''">
+                                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </span>
+                        </div>
+                        <div x-show="activeFaq === 1" x-transition.scale.origin.top class="mt-4 pt-4 border-t border-slate-200/50 text-left" style="display: none;">
+                            <p class="text-sm text-slate-650 leading-relaxed font-semibold">Lumière Suites is strategically located in Surulere, Lagos, with exceptionally easy access to major parts of both the Mainland and the Island (~5 mins to Oshodi, ~10 mins to Lagos Island, and ~15 mins to Ikeja).</p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 2 -->
+                    <div class="bg-slate-50 rounded-2xl border border-slate-200/50 p-6 cursor-pointer transition-all duration-300 hover:shadow-md"
+                         @click="activeFaq === 2 ? activeFaq = null : activeFaq = 2">
+                        <div class="flex justify-between items-center gap-4 text-left">
+                            <h4 class="text-sm font-extrabold text-slate-900 uppercase tracking-wider">What exactly am I purchasing?</h4>
+                            <span class="text-slate-400 font-bold transition-transform duration-300" :class="activeFaq === 2 ? 'rotate-180' : ''">
+                                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </span>
+                        </div>
+                        <div x-show="activeFaq === 2" x-transition.scale.origin.top class="mt-4 pt-4 border-t border-slate-200/50 text-left" style="display: none;">
+                            <p class="text-sm text-slate-650 leading-relaxed font-semibold">You are purchasing an off-plan apartment at Lumière Suites. Upon structural completion and final finishing, the apartment becomes your absolute personal property with full legal titles.</p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 3 -->
+                    <div class="bg-slate-50 rounded-2xl border border-slate-200/50 p-6 cursor-pointer transition-all duration-300 hover:shadow-md"
+                         @click="activeFaq === 3 ? activeFaq = null : activeFaq = 3">
+                        <div class="flex justify-between items-center gap-4 text-left">
+                            <h4 class="text-sm font-extrabold text-slate-900 uppercase tracking-wider">What is the required initial deposit?</h4>
+                            <span class="text-slate-400 font-bold transition-transform duration-300" :class="activeFaq === 3 ? 'rotate-180' : ''">
+                                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </span>
+                        </div>
+                        <div x-show="activeFaq === 3" x-transition.scale.origin.top class="mt-4 pt-4 border-t border-slate-200/50 text-left" style="display: none;">
+                            <p class="text-sm text-slate-650 leading-relaxed font-semibold">A 30 percent initial deposit is required on our off-plan units (e.g. ₦14.175M for Studio, ₦22.05M for Mini Flat, and ₦28.35M for 2-Bed), with the remaining balance spread comfortably over our interest-free 6-month payment plan.</p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 4 -->
+                    <div class="bg-slate-50 rounded-2xl border border-slate-200/50 p-6 cursor-pointer transition-all duration-300 hover:shadow-md"
+                         @click="activeFaq === 4 ? activeFaq = null : activeFaq = 4">
+                        <div class="flex justify-between items-center gap-4 text-left">
+                            <h4 class="text-sm font-extrabold text-slate-900 uppercase tracking-wider">Is the land free from encumbrances?</h4>
+                            <span class="text-slate-400 font-bold transition-transform duration-300" :class="activeFaq === 4 ? 'rotate-180' : ''">
+                                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </span>
+                        </div>
+                        <div x-show="activeFaq === 4" x-transition.scale.origin.top class="mt-4 pt-4 border-t border-slate-200/50 text-left" style="display: none;">
+                            <p class="text-sm text-slate-650 leading-relaxed font-semibold">Yes, absolutely. The land is completely free from government acquisition, has zero family land disputes, and has been thoroughly audited by our corporate legal team.</p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 9 -->
+                    <div class="bg-slate-50 rounded-2xl border border-slate-200/50 p-6 cursor-pointer transition-all duration-300 hover:shadow-md"
+                         @click="activeFaq === 9 ? activeFaq = null : activeFaq = 9">
+                        <div class="flex justify-between items-center gap-4 text-left">
+                            <h4 class="text-sm font-extrabold text-slate-900 uppercase tracking-wider">What documents will I receive after payment?</h4>
+                            <span class="text-slate-400 font-bold transition-transform duration-300" :class="activeFaq === 9 ? 'rotate-180' : ''">
+                                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </span>
+                        </div>
+                        <div x-show="activeFaq === 9" x-transition.scale.origin.top class="mt-4 pt-4 border-t border-slate-200/50 text-left" style="display: none;">
+                            <p class="text-sm text-slate-650 leading-relaxed font-semibold">Upon complete purchase and payment of documentation fee, you will receive your payment receipts, Registered Survey for the unit purchased, and the Deed of Assignment. For installment plans, you receive payment receipts for every milestone payment made.</p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Column 2 -->
+                <div class="flex flex-col gap-4">
+                    
+                    <!-- FAQ 5 -->
+                    <div class="bg-slate-50 rounded-2xl border border-slate-200/50 p-6 cursor-pointer transition-all duration-300 hover:shadow-md"
+                         @click="activeFaq === 5 ? activeFaq = null : activeFaq = 5">
+                        <div class="flex justify-between items-center gap-4 text-left">
+                            <h4 class="text-sm font-extrabold text-slate-900 uppercase tracking-wider">When will the apartments be delivered?</h4>
+                            <span class="text-slate-400 font-bold transition-transform duration-300" :class="activeFaq === 5 ? 'rotate-180' : ''">
+                                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </span>
+                        </div>
+                        <div x-show="activeFaq === 5" x-transition.scale.origin.top class="mt-4 pt-4 border-t border-slate-200/50 text-left" style="display: none;">
+                            <p class="text-sm text-slate-650 leading-relaxed font-semibold">Construction timelines are strictly tracked and communicated directly to all subscribers. Regular, transparent progress newsletters and site walkthrough updates are provided.</p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 6 -->
+                    <div class="bg-slate-50 rounded-2xl border border-slate-200/50 p-6 cursor-pointer transition-all duration-300 hover:shadow-md"
+                         @click="activeFaq === 6 ? activeFaq = null : activeFaq = 6">
+                        <div class="flex justify-between items-center gap-4 text-left">
+                            <h4 class="text-sm font-extrabold text-slate-900 uppercase tracking-wider">Can the apartment be used for short-let?</h4>
+                            <span class="text-slate-400 font-bold transition-transform duration-300" :class="activeFaq === 6 ? 'rotate-180' : ''">
+                                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </span>
+                        </div>
+                        <div x-show="activeFaq === 6" x-transition.scale.origin.top class="mt-4 pt-4 border-t border-slate-200/50 text-left" style="display: none;">
+                            <p class="text-sm text-slate-650 leading-relaxed font-semibold">Yes, absolutely. Owners have the complete legal freedom to utilize their apartments for either long-term rental portfolios or high-yielding serviced short-let purposes.</p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 7 -->
+                    <div class="bg-slate-50 rounded-2xl border border-slate-200/50 p-6 cursor-pointer transition-all duration-300 hover:shadow-md"
+                         @click="activeFaq === 7 ? activeFaq = null : activeFaq = 7">
+                        <div class="flex justify-between items-center gap-4 text-left">
+                            <h4 class="text-sm font-extrabold text-slate-900 uppercase tracking-wider">Who manages the property after completion?</h4>
+                            <span class="text-slate-400 font-bold transition-transform duration-300" :class="activeFaq === 7 ? 'rotate-180' : ''">
+                                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </span>
+                        </div>
+                        <div x-show="activeFaq === 7" x-transition.scale.origin.top class="mt-4 pt-4 border-t border-slate-200/50 text-left" style="display: none;">
+                            <p class="text-sm text-slate-650 leading-relaxed font-semibold">A professional, dedicated in-house facilities management team oversees all maintenance of common areas, water treatment, waste disposal, power distribution, and general estate safety.</p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 8 -->
+                    <div class="bg-slate-50 rounded-2xl border border-slate-200/50 p-6 cursor-pointer transition-all duration-300 hover:shadow-md"
+                         @click="activeFaq === 8 ? activeFaq = null : activeFaq = 8">
+                        <div class="flex justify-between items-center gap-4 text-left">
+                            <h4 class="text-sm font-extrabold text-slate-900 uppercase tracking-wider">Are there additional documentation fees?</h4>
+                            <span class="text-slate-400 font-bold transition-transform duration-300" :class="activeFaq === 8 ? 'rotate-180' : ''">
+                                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </span>
+                        </div>
+                        <div x-show="activeFaq === 8" x-transition.scale.origin.top class="mt-4 pt-4 border-t border-slate-200/50 text-left" style="display: none;">
+                            <p class="text-sm text-slate-650 leading-relaxed font-semibold">There is a flat documentation fee of ₦1,750,000 per apartment which covers your Registered Survey and Deed of Assignment. There will be an annual serviced facility charge communicated upon handover.</p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 10 -->
+                    <div class="bg-slate-50 rounded-2xl border border-slate-200/50 p-6 cursor-pointer transition-all duration-300 hover:shadow-md"
+                         @click="activeFaq === 10 ? activeFaq = null : activeFaq = 10">
+                        <div class="flex justify-between items-center gap-4 text-left">
+                            <h4 class="text-sm font-extrabold text-slate-900 uppercase tracking-wider">What happens after completing all payments?</h4>
+                            <span class="text-slate-400 font-bold transition-transform duration-300" :class="activeFaq === 10 ? 'rotate-180' : ''">
+                                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </span>
+                        </div>
+                        <div x-show="activeFaq === 10" x-transition.scale.origin.top class="mt-4 pt-4 border-t border-slate-200/50 text-left" style="display: none;">
+                            <p class="text-sm text-slate-650 leading-relaxed font-semibold">Upon completing all payments, you will receive all relevant physical and digital documentation along with formal confirmation of ownership and unit allocation.</p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 11 -->
+                    <div class="bg-slate-50 rounded-2xl border border-slate-200/50 p-6 cursor-pointer transition-all duration-300 hover:shadow-md"
+                         @click="activeFaq === 11 ? activeFaq = null : activeFaq = 11">
+                        <div class="flex justify-between items-center gap-4 text-left">
+                            <h4 class="text-sm font-extrabold text-slate-900 uppercase tracking-wider">How do I get started?</h4>
+                            <span class="text-slate-400 font-bold transition-transform duration-300" :class="activeFaq === 11 ? 'rotate-180' : ''">
+                                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </span>
+                        </div>
+                        <div x-show="activeFaq === 11" x-transition.scale.origin.top class="mt-4 pt-4 border-t border-slate-200/50 text-left" style="display: none;">
+                            <p class="text-sm text-slate-650 leading-relaxed font-semibold">Simply contact Darall Homes (call, WhatsApp or email) to receive full purchase details, schedule a private site visit, and begin your unit acquisition process.</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+@endif
+
 <!-- Section 6 — Property Conversion Engine & Schedule Form -->
 <section id="schedule-inspection" class="py-24 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-16">
@@ -200,9 +640,15 @@
             </p>
             
             <div class="flex flex-col gap-4 mt-4 font-sans">
-                <a href="https://wa.me/234800darallhomes" class="inline-flex items-center justify-center gap-2 px-6 py-4 text-xs font-extrabold uppercase tracking-widest text-white bg-emerald-600 hover:bg-emerald-500 rounded-2xl shadow-md transition-colors duration-200">
-                    Chat on WhatsApp
-                </a>
+                @if(str_contains($property->slug, 'lumiere'))
+                    <a href="https://wa.me/2349111555511" class="inline-flex items-center justify-center gap-2 px-6 py-4 text-xs font-extrabold uppercase tracking-widest text-white bg-emerald-600 hover:bg-emerald-500 rounded-2xl shadow-md transition-colors duration-200">
+                        Chat on WhatsApp (+234 911 155 5511)
+                    </a>
+                @else
+                    <a href="https://wa.me/234800darallhomes" class="inline-flex items-center justify-center gap-2 px-6 py-4 text-xs font-extrabold uppercase tracking-widest text-white bg-emerald-600 hover:bg-emerald-500 rounded-2xl shadow-md transition-colors duration-200">
+                        Chat on WhatsApp
+                    </a>
+                @endif
             </div>
         </div>
 
