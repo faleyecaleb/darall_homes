@@ -42,6 +42,8 @@ Route::get('/contact', function () {
     return view('contact');
 })->name('contact');
 
+Route::post('/contact', [PropertyController::class, 'contact'])->name('contact.submit');
+
 Route::get('/properties', [PropertyController::class, 'index'])->name('properties.index');
 Route::get('/properties/{slug}', [PropertyController::class, 'show'])->name('properties.show');
 Route::post('/properties/{slug}/enquire', [PropertyController::class, 'enquire'])->name('properties.enquire');

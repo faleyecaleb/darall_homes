@@ -78,39 +78,44 @@
         <div class="lg:col-span-7 bg-slate-50 rounded-[2.5rem] border border-slate-200/50 p-8 sm:p-10 shadow-sm scroll-reveal reveal-right delay-100">
             <h3 class="text-2xl font-serif font-extrabold text-slate-900 text-left mb-8 tracking-tight">Send Structured Enquiry</h3>
             
-            <form action="#" method="POST" class="space-y-6">
+            <form action="{{ route('contact.submit') }}" method="POST" class="space-y-6">
                 @csrf
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div class="flex flex-col gap-2 text-left">
                         <label class="text-sm font-semibold text-slate-500 uppercase tracking-wider">Your Name</label>
-                        <input type="text" required placeholder="John Doe" class="w-full bg-white border border-slate-200 rounded-xl px-4 py-3.5 text-sm text-slate-700 font-semibold focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all">
+                        <input type="text" name="name" required value="{{ old('name') }}" placeholder="John Doe" class="w-full bg-white border border-slate-200 rounded-xl px-4 py-3.5 text-sm text-slate-700 font-semibold focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all">
+                        @error('name')<span class="text-xs text-rose-500 font-semibold">{{ $message }}</span>@enderror
                     </div>
                     <div class="flex flex-col gap-2 text-left">
                         <label class="text-sm font-semibold text-slate-500 uppercase tracking-wider">Email Address</label>
-                        <input type="email" required placeholder="john@example.com" class="w-full bg-white border border-slate-200 rounded-xl px-4 py-3.5 text-sm text-slate-700 font-semibold focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all">
+                        <input type="email" name="email" required value="{{ old('email') }}" placeholder="john@example.com" class="w-full bg-white border border-slate-200 rounded-xl px-4 py-3.5 text-sm text-slate-700 font-semibold focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all">
+                        @error('email')<span class="text-xs text-rose-500 font-semibold">{{ $message }}</span>@enderror
                     </div>
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div class="flex flex-col gap-2 text-left">
                         <label class="text-sm font-semibold text-slate-500 uppercase tracking-wider">Phone Number</label>
-                        <input type="tel" required placeholder="+234 800 0000" class="w-full bg-white border border-slate-200 rounded-xl px-4 py-3.5 text-sm text-slate-700 font-semibold focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all">
+                        <input type="tel" name="phone" required value="{{ old('phone') }}" placeholder="+234 800 0000" class="w-full bg-white border border-slate-200 rounded-xl px-4 py-3.5 text-sm text-slate-700 font-semibold focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all">
+                        @error('phone')<span class="text-xs text-rose-500 font-semibold">{{ $message }}</span>@enderror
                     </div>
                     <div class="flex flex-col gap-2 text-left">
                         <label class="text-sm font-semibold text-slate-500 uppercase tracking-wider">Nature of Inquiry</label>
-                        <select required class="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-700 font-semibold focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all">
+                        <select name="inquiry_type" required class="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-700 font-semibold focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all">
                             <option value="">Select Purpose</option>
-                            <option value="acquisition">Property Acquisition</option>
-                            <option value="rent">Luxury Rental</option>
-                            <option value="shortlet">Executive Shortlet</option>
-                            <option value="partnership">Developer Partnership</option>
+                            <option value="acquisition" {{ old('inquiry_type') === 'acquisition' ? 'selected' : '' }}>Property Acquisition</option>
+                            <option value="rent" {{ old('inquiry_type') === 'rent' ? 'selected' : '' }}>Luxury Rental</option>
+                            <option value="shortlet" {{ old('inquiry_type') === 'shortlet' ? 'selected' : '' }}>Executive Shortlet</option>
+                            <option value="partnership" {{ old('inquiry_type') === 'partnership' ? 'selected' : '' }}>Developer Partnership</option>
                         </select>
+                        @error('inquiry_type')<span class="text-xs text-rose-500 font-semibold">{{ $message }}</span>@enderror
                     </div>
                 </div>
 
                 <div class="flex flex-col gap-2 text-left">
                     <label class="text-sm font-semibold text-slate-500 uppercase tracking-wider">Enquiry Specifications</label>
-                    <textarea rows="5" required placeholder="Please outline your preferred locations, bedroom counts, budget specifications, or partnership details..." class="w-full bg-white border border-slate-200 rounded-xl px-4 py-3.5 text-sm text-slate-700 font-semibold focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all"></textarea>
+                    <textarea name="message" rows="5" required placeholder="Please outline your preferred locations, bedroom counts, budget specifications, or partnership details..." class="w-full bg-white border border-slate-200 rounded-xl px-4 py-3.5 text-sm text-slate-700 font-semibold focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all">{{ old('message') }}</textarea>
+                    @error('message')<span class="text-xs text-rose-500 font-semibold">{{ $message }}</span>@enderror
                 </div>
 
                 <button type="submit" class="w-full inline-flex items-center justify-center px-6 py-4 text-xs font-extrabold uppercase tracking-widest text-white bg-slate-900 hover:bg-slate-800 rounded-xl transition-all shadow-md">

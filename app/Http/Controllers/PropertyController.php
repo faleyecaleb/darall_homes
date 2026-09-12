@@ -161,4 +161,32 @@ class PropertyController extends Controller
 
         return back()->with('success', 'Private inspection request received! We are coordinating schedules and will confirm via email shortly.');
     }
+
+    /**
+     * Submit a general contact/enquiry form.
+     */
+    public function contact(Request $request): RedirectResponse
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'phone' => 'required|string|max:50',
+            'inquiry_type' => 'required|string|in:acquisition,rent,shortlet,partnership',
+            'message' => 'required|string',
+        ]);
+
+        $messageText = "Inquiry Type: " . ucfirst($validated['inquiry_type']) . "\n\nSpecifications:\n" . $validated['message'];
+
+        PropertyEnquiry::create([
+            'property_id' => null, // General inquiry
+            'user_id' => auth()->id(), // Null if guest
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'phone' => $validated['phone'],
+            'message' => $messageText,
+            'status' => 'New',
+        ]);
+
+        return back()->with('success', 'Your corporate enquiry was successfully sent! An elite agent will contact you shortly.');
+    }
 }

@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'name' => 'Super Admin',
             'email' => 'admin@darallhomes.com',
-            'password' => bcrypt('password'),
+            'password' => bcrypt('@darall123'),
             'role_id' => 1,
         ]);
 
