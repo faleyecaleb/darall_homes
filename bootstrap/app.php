@@ -17,5 +17,9 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-        //
+        $exceptions->render(function (\Illuminate\Http\Exceptions\PostTooLargeException $e, \Illuminate\Http\Request $request) {
+            return back()
+                ->withErrors(['error' => 'The uploaded files (video/images) are too large for the server. Please upload smaller files or ask your system administrator to increase the PHP "upload_max_filesize" and "post_max_size" limits to 64MB in php.ini.'])
+                ->withInput();
+        });
     })->create();

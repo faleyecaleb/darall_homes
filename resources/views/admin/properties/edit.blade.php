@@ -17,6 +17,23 @@
         @csrf
         @method('PUT')
 
+        @if($errors->any() || session('error'))
+            <div class="bg-rose-50 border border-rose-200/50 rounded-2xl p-5 flex flex-col gap-3 text-xs text-rose-800 font-semibold font-sans">
+                @if(session('error'))
+                    <div class="flex items-start gap-3.5">
+                        <span class="h-2 w-2 rounded-full bg-rose-500 animate-pulse mt-1.5 flex-shrink-0"></span>
+                        <span class="leading-relaxed">{{ session('error') }}</span>
+                    </div>
+                @endif
+                @foreach ($errors->all() as $err)
+                    <div class="flex items-start gap-3.5">
+                        <span class="h-2 w-2 rounded-full bg-rose-500 animate-pulse mt-1.5 flex-shrink-0"></span>
+                        <span class="leading-relaxed">{{ $err }}</span>
+                    </div>
+                @endforeach
+            </div>
+        @endif
+
         <!-- Core Details -->
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
             <div class="flex flex-col gap-2">

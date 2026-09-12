@@ -291,8 +291,19 @@ class PropertyController extends Controller
                 $existingUnit = $unitId ? PropertyUnit::find($unitId) : null;
 
                 $unitImagePath = $existingUnit ? $existingUnit->image_path : '/lumiere/int-1.png'; // fallback
+                
+                $uploadedFile = null;
                 if ($request->hasFile("unit_files.{$index}")) {
-                    $path = $request->file("unit_files.{$index}")->store('properties/units', 'public');
+                    $uploadedFile = $request->file("unit_files.{$index}");
+                } else {
+                    $allFiles = $request->file('unit_files');
+                    if (is_array($allFiles) && isset($allFiles[$index])) {
+                        $uploadedFile = $allFiles[$index];
+                    }
+                }
+
+                if ($uploadedFile && $uploadedFile->isValid()) {
+                    $path = $uploadedFile->store('properties/units', 'public');
                     $unitImagePath = '/storage/' . $path;
                 } elseif (!empty($uData['image_url'])) {
                     $unitImagePath = $uData['image_url'];
