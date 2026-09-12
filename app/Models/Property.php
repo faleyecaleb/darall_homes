@@ -21,12 +21,15 @@ class Property extends Model
         'bathrooms',
         'floor_area',
         'is_featured',
+        'has_luxury_layout',
+        'hero_video_url',
         'category_id',
         'location_id'
     ];
 
     protected $casts = [
         'is_featured' => 'boolean',
+        'has_luxury_layout' => 'boolean',
         'price' => 'decimal:2'
     ];
 
@@ -76,6 +79,22 @@ class Property extends Model
     public function virtualTour(): HasOne
     {
         return $this->hasOne(VirtualTour::class, 'property_id');
+    }
+
+    /**
+     * Get the cinematic perspective views associated with this property.
+     */
+    public function perspectives(): HasMany
+    {
+        return $this->hasMany(PropertyPerspective::class, 'property_id');
+    }
+
+    /**
+     * Get the individual units or suites associated with this property.
+     */
+    public function units(): HasMany
+    {
+        return $this->hasMany(PropertyUnit::class, 'property_id');
     }
 
     /**

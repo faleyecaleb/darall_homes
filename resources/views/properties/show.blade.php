@@ -5,7 +5,7 @@
 @section('content')
 <!-- Section 1 — Premium Landing Hero -->
 <div class="relative bg-slate-950 min-h-[85vh] md:min-h-[95vh] flex items-end overflow-hidden border-b border-slate-900 -mt-20 select-none"
-     @if(str_contains($property->slug, 'lumiere'))
+     @if($property->has_luxury_layout)
      x-data="{
          openLightbox: false,
          activeImage: '',
@@ -16,11 +16,11 @@
 >
 
     <!-- Video/Image Background -->
-    @if(str_contains($property->slug, 'lumiere'))
+    @if($property->has_luxury_layout && $property->hero_video_url)
         <!-- Immersive Looping Background Video for Lumiere Suites -->
         <div class="absolute inset-0 w-full h-full z-0 overflow-hidden">
             <video autoplay loop muted playsinline class="absolute min-w-full min-h-full w-auto h-auto top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 object-cover opacity-90">
-                <source src="{{ asset('/lumiere/lumiere-bg-video.mp4') }}" type="video/mp4">
+                <source src="{{ asset($property->hero_video_url) }}" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
             <!-- Premium Dark Gradient overlays for high text contrast and visual depths -->
@@ -78,7 +78,7 @@
                     <span class="text-3xl sm:text-4xl font-extrabold text-amber-500 font-sans">₦{{ number_format($property->price) }}<span class="text-sm font-bold text-slate-400">/night</span></span>
                 @else
                     <span class="text-3xl sm:text-4xl font-extrabold text-amber-500 font-sans">
-                        @if(str_contains($property->slug, 'lumiere'))
+                        @if($property->has_luxury_layout)
                             <span class="text-xs text-slate-400 uppercase block tracking-widest font-extrabold mb-1">Starting At</span>
                         @endif
                         ₦{{ number_format($property->price) }}
@@ -89,7 +89,7 @@
         </div>
 
         <!-- Attached Perspective Selector Card Track for Lumiere -->
-        @if(str_contains($property->slug, 'lumiere'))
+        @if($property->has_luxury_layout && $property->perspectives->isNotEmpty())
             <div class="w-full border-t border-white/10 pt-8 mt-4">
                 <div class="flex flex-col gap-4 text-left">
                     <div class="flex items-center gap-2">
@@ -99,55 +99,50 @@
 
                     <!-- Horizontal Cards flex row (Symmetric Grid matching split view layout in screenshots) -->
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 font-sans">
+                        @php
+                            $accents = [
+                                0 => [
+                                    'bg' => 'bg-blue-500/10 hover:bg-blue-500/20 border-blue-400/20 hover:shadow-blue-500/5',
+                                    'text' => 'text-blue-400',
+                                    'hover' => 'group-hover:text-blue-300',
+                                    'default_sub' => 'Perspective I'
+                                ],
+                                1 => [
+                                    'bg' => 'bg-amber-500/10 hover:bg-amber-500/20 border-amber-400/20 hover:shadow-amber-500/5',
+                                    'text' => 'text-amber-400',
+                                    'hover' => 'group-hover:text-amber-300',
+                                    'default_sub' => 'Perspective II'
+                                ],
+                                2 => [
+                                    'bg' => 'bg-emerald-500/10 hover:bg-emerald-500/20 border-emerald-400/20 hover:shadow-emerald-500/5',
+                                    'text' => 'text-emerald-400',
+                                    'hover' => 'group-hover:text-emerald-300',
+                                    'default_sub' => 'Perspective III'
+                                ],
+                                3 => [
+                                    'bg' => 'bg-rose-500/10 hover:bg-rose-500/20 border-rose-400/20 hover:shadow-rose-500/5',
+                                    'text' => 'text-rose-400',
+                                    'hover' => 'group-hover:text-rose-300',
+                                    'default_sub' => 'Perspective IV'
+                                ],
+                            ];
+                        @endphp
 
-                        <!-- Card 1: Front Elevation (Blue Soft Glass Accent) -->
-                        <div @click="openLightbox = true; activeImage = '{{ asset('/lumiere/front-view-night.png') }}'; activeTitle = 'Front Elevation Render'; activeDesc = 'A clean modern facade defined by strong lines, warm timber cladding, and precise architectural illumination.'"
-                             class="group cursor-pointer bg-blue-500/10 hover:bg-blue-500/20 border border-blue-400/20 rounded-[1.8rem] p-4 flex items-center justify-between gap-4 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl hover:shadow-blue-500/5 select-none">
-                            <div class="flex flex-col gap-1 text-left">
-                                <span class="text-[10px] text-blue-400 font-extrabold uppercase tracking-wider">Perspective I</span>
-                                <h4 class="text-xs sm:text-sm font-extrabold text-white group-hover:text-blue-300 transition-colors uppercase tracking-wide">Front View</h4>
+                        @foreach($property->perspectives as $index => $perspective)
+                            @php
+                                $accent = $accents[$index] ?? $accents[0];
+                            @endphp
+                            <div @click="openLightbox = true; activeImage = '{{ asset($perspective->image_path) }}'; activeTitle = '{{ addslashes($perspective->title) }} Render'; activeDesc = '{{ addslashes($perspective->description) }}'"
+                                 class="group cursor-pointer {{ $accent['bg'] }} border rounded-[1.8rem] p-4 flex items-center justify-between gap-4 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl select-none">
+                                <div class="flex flex-col gap-1 text-left">
+                                    <span class="text-[10px] {{ $accent['text'] }} font-extrabold uppercase tracking-wider">{{ $perspective->subtitle ?: $accent['default_sub'] }}</span>
+                                    <h4 class="text-xs sm:text-sm font-extrabold text-white {{ $accent['hover'] }} transition-colors uppercase tracking-wide">{{ $perspective->title }}</h4>
+                                </div>
+                                <div class="w-14 sm:w-16 h-10 sm:h-12 rounded-xl overflow-hidden bg-slate-900 border border-white/10 flex-shrink-0">
+                                    <img src="{{ asset($perspective->image_path) }}" alt="{{ $perspective->title }} Mini" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
+                                </div>
                             </div>
-                            <div class="w-14 sm:w-16 h-10 sm:h-12 rounded-xl overflow-hidden bg-slate-900 border border-white/10 flex-shrink-0">
-                                <img src="{{ asset('/lumiere/front-view-night.png') }}" alt="Front View Mini" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
-                            </div>
-                        </div>
-
-                        <!-- Card 2: Left Side View (Amber Soft Glass Accent) -->
-                        <div @click="openLightbox = true; activeImage = '{{ asset('/lumiere/left-side-view-night.png') }}'; activeTitle = 'Left Side Elevation Render'; activeDesc = 'Showcases perfectly balanced architectural volumes, highlighting the seamless integration of external wood panels.'"
-                             class="group cursor-pointer bg-amber-500/10 hover:bg-amber-500/20 border border-amber-400/20 rounded-[1.8rem] p-4 flex items-center justify-between gap-4 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl hover:shadow-amber-500/5 select-none">
-                            <div class="flex flex-col gap-1 text-left">
-                                <span class="text-[10px] text-amber-400 font-extrabold uppercase tracking-wider">Perspective II</span>
-                                <h4 class="text-xs sm:text-sm font-extrabold text-white group-hover:text-amber-300 transition-colors uppercase tracking-wide">Left View</h4>
-                            </div>
-                            <div class="w-14 sm:w-16 h-10 sm:h-12 rounded-xl overflow-hidden bg-slate-900 border border-white/10 flex-shrink-0">
-                                <img src="{{ asset('/lumiere/left-side-view-night.png') }}" alt="Left View Mini" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
-                            </div>
-                        </div>
-
-                        <!-- Card 3: Right Side View (Green Soft Glass Accent) -->
-                        <div @click="openLightbox = true; activeImage = '{{ asset('/lumiere/right-side-view-night.png') }}'; activeTitle = 'Right Side Elevation Render'; activeDesc = 'Highlights energy-efficient, double-glazed window placements designed to maximize daylight penetration while reflecting external Mainland heat.'"
-                             class="group cursor-pointer bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-400/20 rounded-[1.8rem] p-4 flex items-center justify-between gap-4 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl hover:shadow-emerald-500/5 select-none">
-                            <div class="flex flex-col gap-1 text-left">
-                                <span class="text-[10px] text-emerald-400 font-extrabold uppercase tracking-wider">Perspective III</span>
-                                <h4 class="text-xs sm:text-sm font-extrabold text-white group-hover:text-emerald-300 transition-colors uppercase tracking-wide">Right View</h4>
-                            </div>
-                            <div class="w-14 sm:w-16 h-10 sm:h-12 rounded-xl overflow-hidden bg-slate-900 border border-white/10 flex-shrink-0">
-                                <img src="{{ asset('/lumiere/right-side-view-night.png') }}" alt="Right View Mini" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
-                            </div>
-                        </div>
-
-                        <!-- Card 4: Rear View (Rose/Coral Soft Glass Accent) -->
-                        <div @click="openLightbox = true; activeImage = '{{ asset('/lumiere/back-view-night.png') }}'; activeTitle = 'Rear Elevation Render'; activeDesc = 'Highlights the extensive private view terraces and structural concrete foundation columns designed for absolute longevity.'"
-                             class="group cursor-pointer bg-rose-500/10 hover:bg-rose-500/20 border border-rose-400/20 rounded-[1.8rem] p-4 flex items-center justify-between gap-4 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl hover:shadow-rose-500/5 select-none">
-                            <div class="flex flex-col gap-1 text-left">
-                                <span class="text-[10px] text-rose-400 font-extrabold uppercase tracking-wider">Perspective IV</span>
-                                <h4 class="text-xs sm:text-sm font-extrabold text-white group-hover:text-rose-300 transition-colors uppercase tracking-wide">Back View</h4>
-                            </div>
-                            <div class="w-14 sm:w-16 h-10 sm:h-12 rounded-xl overflow-hidden bg-slate-900 border border-white/10 flex-shrink-0">
-                                <img src="{{ asset('/lumiere/back-view-night.png') }}" alt="Back View Mini" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
-                            </div>
-                        </div>
-
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -155,7 +150,7 @@
     </div>
 
     <!-- Lightbox Popup Modal for Cinematic Perspectives (Alpine.js powered) -->
-    @if(str_contains($property->slug, 'lumiere'))
+    @if($property->has_luxury_layout)
         <div x-show="openLightbox"
              class="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 md:p-10 select-none overflow-hidden"
              style="display: none;"
@@ -217,8 +212,12 @@
             <div class="flex flex-col gap-1 items-center">
                 <span class="text-slate-400 text-sm uppercase tracking-wider font-extrabold">Bedrooms</span>
                 <span class="text-base sm:text-lg font-serif text-slate-900 font-semibold">
-                    @if(str_contains($property->slug, 'lumiere'))
-                        1 - 2 Ensuite
+                    @if($property->has_luxury_layout && $property->units->isNotEmpty())
+                        @php
+                            $minBeds = $property->units->min('bedrooms');
+                            $maxBeds = $property->units->max('bedrooms');
+                        @endphp
+                        {{ $minBeds === $maxBeds ? $minBeds : "$minBeds - $maxBeds" }} Ensuite
                     @else
                         {{ $property->bedrooms }} Ensuite
                     @endif
@@ -227,8 +226,12 @@
             <div class="flex flex-col gap-1 items-center">
                 <span class="text-slate-400 text-sm uppercase tracking-wider font-extrabold">Bathrooms</span>
                 <span class="text-base sm:text-lg font-serif text-slate-900 font-semibold">
-                    @if(str_contains($property->slug, 'lumiere'))
-                        1 - 3 Bathrooms
+                    @if($property->has_luxury_layout && $property->units->isNotEmpty())
+                        @php
+                            $minBaths = $property->units->min('bathrooms');
+                            $maxBaths = $property->units->max('bathrooms');
+                        @endphp
+                        {{ $minBaths === $maxBaths ? $minBaths : "$minBaths - $maxBaths" }} Bathrooms
                     @else
                         {{ $property->bathrooms }} Bathrooms
                     @endif
@@ -237,8 +240,12 @@
             <div class="flex flex-col gap-1 items-center">
                 <span class="text-slate-400 text-sm uppercase tracking-wider font-extrabold">Floor Area</span>
                 <span class="text-base sm:text-lg font-serif text-slate-900 font-semibold">
-                    @if(str_contains($property->slug, 'lumiere'))
-                        35 - 95 sqm
+                    @if($property->has_luxury_layout && $property->units->isNotEmpty())
+                        @php
+                            $minArea = $property->units->min('floor_area');
+                            $maxArea = $property->units->max('floor_area');
+                        @endphp
+                        {{ $minArea === $maxArea ? $minArea : "$minArea - $maxArea" }} sqm
                     @else
                         {{ $property->floor_area ? $property->floor_area . ' sqm' : 'N/A' }}
                     @endif
@@ -323,7 +330,7 @@
 </section>
 
 <!-- Section 4.5 — A Collection of Modern Spaces (Conditional for Lumiere Master Project) -->
-@if(str_contains($property->slug, 'lumiere'))
+@if($property->has_luxury_layout && $property->units->isNotEmpty())
     <section class="py-24 bg-slate-50 border-t border-b border-slate-100 select-none animate-fade-in">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
@@ -336,265 +343,136 @@
 
             <!-- 3-Column Suite Layouts Grid -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-
-                <!-- Suite 1: Studio Apartment -->
-                <div class="group bg-white border border-slate-200/50 rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 transform scroll-reveal reveal-up">
-                    <div class="relative aspect-[1.4] overflow-hidden bg-slate-200 z-0">
-                        <img src="{{ asset('/lumiere/int-1.png') }}" alt="Studio Suite Interior" class="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-500">
-                        <span class="absolute top-4 left-4 bg-amber-400 text-slate-950 px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider shadow-md">Studio Apartment</span>
-                    </div>
-                    <div class="p-8 flex flex-col gap-4">
-                        <div class="flex flex-col gap-1 text-left font-sans">
-                            <span class="text-[10px] text-slate-400 font-extrabold uppercase tracking-widest">Model Specifications</span>
-                            <h4 class="text-xl font-serif font-extrabold text-slate-900">Lumière Studio Suite</h4>
+                @foreach($property->units as $unit)
+                    <div class="group bg-white border border-slate-200/50 rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 transform scroll-reveal reveal-up">
+                        <div class="relative aspect-[1.4] overflow-hidden bg-slate-200 z-0">
+                            <img src="{{ asset($unit->image_path) }}" alt="{{ $unit->name }} Interior" class="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            @if($unit->badge)
+                                <span class="absolute top-4 left-4 bg-amber-400 text-slate-950 px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider shadow-md">{{ $unit->badge }}</span>
+                            @endif
                         </div>
-                        <p class="text-xs text-slate-500 leading-relaxed font-semibold text-left">Compact, refined, and fully appointed. Features an optimized open-concept layout, fully integrated fitted kitchen, and luxury bath. An exceptionally smart choice for solo living or shortlet investments.</p>
-
-                        <div class="flex items-center gap-4 text-[11px] text-slate-400 border-y border-slate-100 py-3 font-sans font-extrabold justify-start">
-                            <span>1 Bed</span>
-                            <span>•</span>
-                            <span>1 Bath</span>
-                            <span>•</span>
-                            <span>35 sqm</span>
-                        </div>
-
-                        <!-- Price / Financing stack -->
-                        <div class="flex flex-col gap-3 font-sans text-left mt-1">
-                            <div class="flex justify-between items-baseline border-b border-slate-100 pb-2">
-                                <span class="text-[10px] text-slate-400 font-extrabold uppercase tracking-wider">Outright Purchase</span>
-                                <span class="text-base font-extrabold text-slate-900">₦45,000,000</span>
+                        <div class="p-8 flex flex-col gap-4">
+                            <div class="flex flex-col gap-1 text-left font-sans">
+                                <span class="text-[10px] text-slate-400 font-extrabold uppercase tracking-widest">Model Specifications</span>
+                                <h4 class="text-xl font-serif font-extrabold text-slate-900">{{ $unit->name }}</h4>
                             </div>
-                            <div class="flex flex-col gap-1.5 p-4 rounded-xl bg-slate-50 border border-slate-100 text-[11px] font-semibold text-slate-505">
-                                <span class="text-[9px] font-extrabold uppercase tracking-wider text-amber-600">6-Month Installment Plan</span>
-                                <div class="flex justify-between mt-1">
-                                    <span>Total Price:</span>
-                                    <strong class="text-slate-900">₦47,250,000</strong>
-                                </div>
-                                <div class="flex justify-between">
-                                    <span>Deposit (30%):</span>
-                                    <strong class="text-slate-900">₦14,175,000</strong>
-                                </div>
-                                <div class="flex justify-between">
-                                    <span>Monthly Payment:</span>
-                                    <strong class="text-brand">₦5,512,500/mo</strong>
-                                </div>
+                            <p class="text-xs text-slate-500 leading-relaxed font-semibold text-left">{{ $unit->description }}</p>
+
+                            <div class="flex items-center gap-4 text-[11px] text-slate-400 border-y border-slate-100 py-3 font-sans font-extrabold justify-start">
+                                <span>{{ $unit->bedrooms }} {{ Str::plural('Bed', $unit->bedrooms) }}</span>
+                                <span>•</span>
+                                <span>{{ $unit->bathrooms }} {{ Str::plural('Bath', $unit->bathrooms) }}</span>
+                                @if($unit->floor_area)
+                                    <span>•</span>
+                                    <span>{{ $unit->floor_area }} sqm</span>
+                                @endif
                             </div>
-                        </div>
-                    </div>
-                </div>
 
-                <!-- Suite 2: Mini Flat -->
-                <div class="group bg-white border border-slate-200/50 rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 transform scroll-reveal reveal-up delay-100">
-                    <div class="relative aspect-[1.4] overflow-hidden bg-slate-200 z-0">
-                        <img src="{{ asset('/lumiere/int-2.png') }}" alt="Mini Flat Interior" class="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-500">
-                        <span class="absolute top-4 left-4 bg-amber-400 text-slate-950 px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider shadow-md">Mini Flat (1-Bed)</span>
-                    </div>
-                    <div class="p-8 flex flex-col gap-4">
-                        <div class="flex flex-col gap-1 text-left font-sans">
-                            <span class="text-[10px] text-slate-400 font-extrabold uppercase tracking-widest">Model Specifications</span>
-                            <h4 class="text-xl font-serif font-extrabold text-slate-900">Lumière Mini Flat</h4>
-                        </div>
-                        <p class="text-xs text-slate-500 leading-relaxed font-semibold text-left">A spacious, beautifully appointed mini flat. Boasts a premium bedroom ensuite, an extensive open-concept living area, a fitted kitchen, a guest powder room, and a private terrace designed to let life flow.</p>
-
-                        <div class="flex items-center gap-4 text-[11px] text-slate-400 border-y border-slate-100 py-3 font-sans font-extrabold justify-start">
-                            <span>1 Bed</span>
-                            <span>•</span>
-                            <span>2 Baths</span>
-                            <span>•</span>
-                            <span>60 sqm</span>
-                        </div>
-
-                        <!-- Price / Financing stack -->
-                        <div class="flex flex-col gap-3 font-sans text-left mt-1">
-                            <div class="flex justify-between items-baseline border-b border-slate-100 pb-2">
-                                <span class="text-[10px] text-slate-400 font-extrabold uppercase tracking-wider">Outright Purchase</span>
-                                <span class="text-base font-extrabold text-slate-900">₦70,000,000</span>
-                            </div>
-                            <div class="flex flex-col gap-1.5 p-4 rounded-xl bg-slate-50 border border-slate-100 text-[11px] font-semibold text-slate-505">
-                                <span class="text-[9px] font-extrabold uppercase tracking-wider text-amber-600">6-Month Installment Plan</span>
-                                <div class="flex justify-between mt-1">
-                                    <span>Total Price:</span>
-                                    <strong class="text-slate-900">₦73,500,000</strong>
+                            <!-- Price / Financing stack -->
+                            <div class="flex flex-col gap-3 font-sans text-left mt-1">
+                                <div class="flex justify-between items-baseline border-b border-slate-100 pb-2">
+                                    <span class="text-[10px] text-slate-400 font-extrabold uppercase tracking-wider">Outright Purchase</span>
+                                    <span class="text-base font-extrabold text-slate-900">₦{{ number_format($unit->outright_price) }}</span>
                                 </div>
-                                <div class="flex justify-between">
-                                    <span>Deposit (30%):</span>
-                                    <strong class="text-slate-900">₦22,050,000</strong>
-                                </div>
-                                <div class="flex justify-between">
-                                    <span>Monthly Payment:</span>
-                                    <strong class="text-brand">₦8,575,000/mo</strong>
-                                </div>
+                                @if($unit->has_installment)
+                                    <div class="flex flex-col gap-1.5 p-4 rounded-xl bg-slate-50 border border-slate-100 text-[11px] font-semibold text-slate-505">
+                                        <span class="text-[9px] font-extrabold uppercase tracking-wider text-amber-600">{{ $unit->installment_duration }}-Month Installment Plan</span>
+                                        <div class="flex justify-between mt-1">
+                                            <span>Total Price:</span>
+                                            <strong class="text-slate-900">₦{{ number_format($unit->installment_total_price) }}</strong>
+                                        </div>
+                                        <div class="flex justify-between">
+                                            <span>Deposit ({{ number_format($unit->installment_deposit_percent) }}%):</span>
+                                            <strong class="text-slate-900">₦{{ number_format($unit->outright_price * ($unit->installment_deposit_percent / 100)) }}</strong>
+                                        </div>
+                                        <div class="flex justify-between">
+                                            <span>Monthly Payment:</span>
+                                            <strong class="text-brand">₦{{ number_format($unit->installment_monthly_payment) }}/mo</strong>
+                                        </div>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <!-- Suite 3: 2-Bedroom -->
-                <div class="group bg-white border border-slate-200/50 rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 transform scroll-reveal reveal-up delay-200">
-                    <div class="relative aspect-[1.4] overflow-hidden bg-slate-200 z-0">
-                        <img src="{{ asset('/lumiere/int-3.png') }}" alt="2-Bedroom Interior" class="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-500">
-                        <span class="absolute top-4 left-4 bg-amber-400 text-slate-950 px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider shadow-md">2-Bedroom</span>
-                    </div>
-                    <div class="p-8 flex flex-col gap-4">
-                        <div class="flex flex-col gap-1 text-left font-sans">
-                            <span class="text-[10px] text-slate-400 font-extrabold uppercase tracking-widest">Model Specifications</span>
-                            <h4 class="text-xl font-serif font-extrabold text-slate-900">Lumière 2-Bedroom</h4>
-                        </div>
-                        <p class="text-xs text-slate-500 leading-relaxed font-semibold text-left">The crown jewel layout of Lumière Suites. Boasts dual master en-suite bedrooms, an expansive light-filled living area, a premium fully-fitted kitchen, guest bathroom, and private outdoor terrace.</p>
-
-                        <div class="flex items-center gap-4 text-[11px] text-slate-400 border-y border-slate-100 py-3 font-sans font-extrabold justify-start">
-                            <span>2 Beds</span>
-                            <span>•</span>
-                            <span>3 Baths</span>
-                            <span>•</span>
-                            <span>95 sqm</span>
-                        </div>
-
-                        <!-- Price / Financing stack -->
-                        <div class="flex flex-col gap-3 font-sans text-left mt-1">
-                            <div class="flex justify-between items-baseline border-b border-slate-100 pb-2">
-                                <span class="text-[10px] text-slate-400 font-extrabold uppercase tracking-wider">Outright Purchase</span>
-                                <span class="text-base font-extrabold text-slate-900">₦90,000,000</span>
-                            </div>
-                            <div class="flex flex-col gap-1.5 p-4 rounded-xl bg-slate-50 border border-slate-100 text-[11px] font-semibold text-slate-505">
-                                <span class="text-[9px] font-extrabold uppercase tracking-wider text-amber-600">6-Month Installment Plan</span>
-                                <div class="flex justify-between mt-1">
-                                    <span>Total Price:</span>
-                                    <strong class="text-slate-900">₦94,500,000</strong>
-                                </div>
-                                <div class="flex justify-between">
-                                    <span>Deposit (30%):</span>
-                                    <strong class="text-slate-900">₦28,350,000</strong>
-                                </div>
-                                <div class="flex justify-between">
-                                    <span>Monthly Payment:</span>
-                                    <strong class="text-brand">₦11,025,000/mo</strong>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+                @endforeach
             </div>
 
         </div>
     </section>
+@endif
 
     <!-- Section 4.6 — Lumière Immersive Design Studio -->
-    <section class="py-24 bg-slate-950 text-white overflow-hidden border-t border-b border-slate-900 select-none relative rounded-[3rem] my-12 mx-4 sm:mx-6 lg:mx-8">
-        <div class="absolute inset-0 opacity-[0.03]" style="background-image: radial-gradient(circle, white 1px, transparent 1px); background-size: 30px 30px;"></div>
+    @if($property->has_luxury_layout && $property->units->isNotEmpty())
+        <section class="py-24 bg-slate-950 text-white overflow-hidden border-t border-b border-slate-900 select-none relative rounded-[3rem] my-12 mx-4 sm:mx-6 lg:mx-8">
+            <div class="absolute inset-0 opacity-[0.03]" style="background-image: radial-gradient(circle, white 1px, transparent 1px); background-size: 30px 30px;"></div>
 
-        <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 relative z-10"
-             x-data="{
-                 unit: 'studio',
-                 mode: 'hotspots',
-                 activeSpot: null,
-                 depositPercent: 30,
-                 specs: {
-                     studio: {
-                         name: 'Lumière Studio Suite',
-                         area: '35 sqm',
-                         outrightPrice: 45000000,
-                         installmentPrice: 47250000,
-                         image: '{{ asset('/lumiere/int-1.png') }}',
-                         description: 'An elegantly optimized single-space layout with premium fittings, custom wood cladding, and full natural ventilation.',
-                         hotspots: [
-                             { id: 1, top: '42%', left: '38%', title: 'Integrated Compact Kitchenette', desc: 'Custom wood-finish cabinets fitted with a dual burner stove, overhead extractor hood, and scratch-resistant composite quartz countertops.' },
-                             { id: 2, top: '25%', left: '68%', title: 'Anti-Glare High Windows', desc: 'Energy-efficient, double-glazed window panels designed to maximize daylight penetration while reflecting external Mainland heat.' },
-                             { id: 3, top: '65%', left: '48%', title: 'Spanish Porcelain Flooring', desc: 'Premium-grade, non-porous 60x60cm porcelain floor tiles, finished in a soft matte-grey to resist stains and reflect ambient interior lighting.' }
-                         ]
+            <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 relative z-10"
+                 x-data="{
+                     unit: '{{ $property->units->first()->id }}',
+                     mode: 'hotspots',
+                     activeSpot: null,
+                     depositPercent: 30,
+                     specs: {
+                         @foreach($property->units as $u)
+                         '{{ $u->id }}': {
+                             name: '{{ addslashes($u->name) }}',
+                             area: '{{ $u->floor_area }} sqm',
+                             outrightPrice: {{ (int)$u->outright_price }},
+                             installmentPrice: {{ (int)($u->installment_total_price ?? $u->outright_price * 1.05) }},
+                             image: '{{ asset($u->image_path) }}',
+                             description: '{{ addslashes($u->description) }}',
+                             hotspots: @json($u->hotspots ?? [])
+                         },
+                         @endforeach
                      },
-                     miniflat: {
-                         name: 'Lumière Mini Flat (1-Bed)',
-                         area: '60 sqm',
-                         outrightPrice: 70000000,
-                         installmentPrice: 73500000,
-                         image: '{{ asset('/lumiere/int-2.png') }}',
-                         description: 'A beautifully spaced 1-Bedroom residence featuring a distinct living lounge, visitor\'s powder room, master suite, and private view terrace.',
-                         hotspots: [
-                             { id: 1, top: '35%', left: '30%', title: 'Expanded Living Lounge', desc: 'Spacious main lounge area built with soundproofing wall liners, modern gypsum ceiling boards, and recessed LED dimming strips.' },
-                             { id: 2, top: '22%', left: '72%', title: 'Ensuite Bedroom Portal', desc: 'Private wooden acoustic door leading into the master suite, fitted with ceiling-height modular wardrobes.' },
-                             { id: 3, top: '50%', left: '55%', title: 'Private Outlook Balcony', desc: 'Heavy-duty smart sliding glass panels that open onto your private reinforced concrete balcony overlooking the landscaped courtyard.' }
-                         ]
+                     get totalPrice() {
+                         if (this.depositPercent === 100) {
+                             return this.specs[this.unit].outrightPrice;
+                         }
+                         return this.specs[this.unit].installmentPrice;
                      },
-                     '2bed': {
-                         name: 'Lumière 2-Bedroom Suite',
-                         area: '95 sqm',
-                         outrightPrice: 90000000,
-                         installmentPrice: 94500000,
-                         image: '{{ asset('/lumiere/int-3.png') }}',
-                         description: 'The premier layout at Lumière. Boasts dual master en-suite bedrooms, an expansive light-flooded family lounge, visitor\'s toilet, and dual private balconies.',
-                         hotspots: [
-                             { id: 1, top: '30%', left: '45%', title: 'Dual-Aspect Grand Lounge', desc: 'High-volume social social space with continuous cross-ventilation, optimized for high-capacity designer seating layouts.' },
-                             { id: 2, top: '48%', left: '20%', title: 'Chef\'s Gourmet Kitchen', desc: 'Fully fitted wrap-around kitchen with multi-drawer storage, integrated oven, microwave housing, and connections for dual-door refrigeration.' },
-                             { id: 3, top: '18%', left: '75%', title: 'Smart Climate Automation', desc: 'Equipped with a centralized automation hub to control multi-room cooling, smart lighting schedules, and video intercom access.' }
-                         ]
+                     get depositAmount() {
+                         return Math.round(this.totalPrice * (this.depositPercent / 100));
+                     },
+                     get balanceAmount() {
+                         return Math.max(0, this.totalPrice - this.depositAmount);
+                     },
+                     get monthlyPayment() {
+                         if (this.depositPercent === 100) return 0;
+                         return Math.round(this.balanceAmount / 6);
                      }
-                 },
-                 get totalPrice() {
-                     if (this.depositPercent === 100) {
-                         return this.specs[this.unit].outrightPrice;
-                     }
-                     return this.specs[this.unit].installmentPrice;
-                 },
-                 get depositAmount() {
-                     return Math.round(this.totalPrice * (this.depositPercent / 100));
-                 },
-                 get balanceAmount() {
-                     return Math.max(0, this.totalPrice - this.depositAmount);
-                 },
-                 get monthlyPayment() {
-                     if (this.depositPercent === 100) return 0;
-                     return Math.round(this.balanceAmount / 6);
-                 }
-             }">
+                 }">
 
-            <!-- Section Header -->
-            <div class="flex flex-col gap-3 text-center max-w-2xl mx-auto mb-16">
-                <span class="text-amber-500 font-extrabold tracking-widest text-xs uppercase block">Interactive Experience</span>
-                <h2 class="text-3xl sm:text-4xl font-serif text-white tracking-tight">Immersive Design Studio</h2>
-                <p class="text-sm text-slate-400 leading-relaxed font-semibold">Step inside our premium layouts. Toggle models, hover hotspots to inspect finishes, and customize your financing plan in real-time.</p>
-            </div>
+                <!-- Section Header -->
+                <div class="flex flex-col gap-3 text-center max-w-2xl mx-auto mb-16">
+                    <span class="text-amber-500 font-extrabold tracking-widest text-xs uppercase block">Interactive Experience</span>
+                    <h2 class="text-3xl sm:text-4xl font-serif text-white tracking-tight">Immersive Design Studio</h2>
+                    <p class="text-sm text-slate-400 leading-relaxed font-semibold">Step inside our premium layouts. Toggle models, hover hotspots to inspect finishes, and customize your financing plan in real-time.</p>
+                </div>
 
-            <!-- Main Layout: Sidebar & Viewport Panel -->
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+                <!-- Main Layout: Sidebar & Viewport Panel -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
 
-                <!-- Left Column: Configurator controls (col-span-4) -->
-                <div class="lg:col-span-4 bg-slate-900 border border-white/10 rounded-[2rem] p-6 sm:p-8 flex flex-col gap-8 justify-between shadow-xl">
+                    <!-- Left Column: Configurator controls (col-span-4) -->
+                    <div class="lg:col-span-4 bg-slate-900 border border-white/10 rounded-[2rem] p-6 sm:p-8 flex flex-col gap-8 justify-between shadow-xl">
 
-                    <!-- Suite Selector -->
-                    <div class="flex flex-col gap-4 text-left">
-                        <label class="text-xs font-extrabold uppercase tracking-widest text-slate-400">Step 1 — Choose Apartment Model</label>
-                        <div class="flex flex-col gap-2.5 font-sans">
-                            <button @click="unit = 'studio'; activeSpot = null"
-                                    class="w-full flex items-center justify-between px-5 py-4 rounded-xl border text-sm transition-all text-left font-semibold focus:outline-none"
-                                    :class="unit === 'studio' ? 'bg-amber-400 text-slate-950 border-amber-400 font-bold shadow-lg shadow-amber-400/10 scale-[1.02]' : 'bg-slate-950 text-white border-white/10 hover:border-white/20'">
-                                <div class="flex flex-col">
-                                    <span>Lumière Studio Suite</span>
-                                    <span class="text-[10px] mt-0.5" :class="unit === 'studio' ? 'text-slate-800' : 'text-slate-500'">35 sqm Layout • 1 Bed • 1 Bath</span>
-                                </div>
-                                <span class="text-xs font-extrabold">₦45,000,000</span>
-                            </button>
-                            <button @click="unit = 'miniflat'; activeSpot = null"
-                                    class="w-full flex items-center justify-between px-5 py-4 rounded-xl border text-sm transition-all text-left font-semibold focus:outline-none"
-                                    :class="unit === 'miniflat' ? 'bg-amber-400 text-slate-950 border-amber-400 font-bold shadow-lg shadow-amber-400/10 scale-[1.02]' : 'bg-slate-950 text-white border-white/10 hover:border-white/20'">
-                                <div class="flex flex-col">
-                                    <span>Lumière Mini Flat</span>
-                                    <span class="text-[10px] mt-0.5" :class="unit === 'miniflat' ? 'text-slate-800' : 'text-slate-500'">60 sqm Layout • 1 Bed • 2 Toilets</span>
-                                </div>
-                                <span class="text-xs font-extrabold">₦70,000,000</span>
-                            </button>
-                            <button @click="unit = '2bed'; activeSpot = null"
-                                    class="w-full flex items-center justify-between px-5 py-4 rounded-xl border text-sm transition-all text-left font-semibold focus:outline-none"
-                                    :class="unit === '2bed' ? 'bg-amber-400 text-slate-950 border-amber-400 font-bold shadow-lg shadow-amber-400/10 scale-[1.02]' : 'bg-slate-950 text-white border-white/10 hover:border-white/20'">
-                                <div class="flex flex-col">
-                                    <span>Lumière 2-Bedroom</span>
-                                    <span class="text-[10px] mt-0.5" :class="unit === '2bed' ? 'text-slate-800' : 'text-slate-500'">95 sqm Layout • 2 Beds • 3 Toilets</span>
-                                </div>
-                                <span class="text-xs font-extrabold">₦90,000,000</span>
-                            </button>
+                        <!-- Suite Selector -->
+                        <div class="flex flex-col gap-4 text-left">
+                            <label class="text-xs font-extrabold uppercase tracking-widest text-slate-400">Step 1 — Choose Apartment Model</label>
+                            <div class="flex flex-col gap-2.5 font-sans">
+                                @foreach($property->units as $u)
+                                    <button @click="unit = '{{ $u->id }}'; activeSpot = null"
+                                            class="w-full flex items-center justify-between px-5 py-4 rounded-xl border text-sm transition-all text-left font-semibold focus:outline-none"
+                                            :class="unit === '{{ $u->id }}' ? 'bg-amber-400 text-slate-950 border-amber-400 font-bold shadow-lg shadow-amber-400/10 scale-[1.02]' : 'bg-slate-950 text-white border-white/10 hover:border-white/20'">
+                                        <div class="flex flex-col">
+                                            <span>{{ $u->name }}</span>
+                                            <span class="text-[10px] mt-0.5" :class="unit === '{{ $u->id }}' ? 'text-slate-800' : 'text-slate-500'">{{ $u->floor_area }} sqm Layout • {{ $u->bedrooms }} Bed • {{ $u->bathrooms }} {{ Str::plural('Bath', $u->bathrooms) }}</span>
+                                        </div>
+                                        <span class="text-xs font-extrabold">₦{{ number_format($u->outright_price) }}</span>
+                                    </button>
+                                @endforeach
+                            </div>
                         </div>
-                    </div>
 
                     <!-- Mode Tab Toggle (Hotspot Inspection vs Payment Planner) -->
                     <div class="flex flex-col gap-4 text-left">
@@ -796,15 +674,15 @@
 @endif
 
 <!-- Conditional Lumière Frequently Asked Questions Section (Vetted Brochure FAQ) -->
-@if(str_contains($property->slug, 'lumiere'))
+@if($property->has_luxury_layout)
     <section class="py-24 bg-white border-t border-b border-slate-150 select-none animate-fade-in">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
             <!-- Section Header -->
             <div class="flex flex-col gap-3 text-center max-w-2xl mx-auto mb-16 scroll-reveal reveal-up">
                 <span class="text-amber-600 font-extrabold tracking-widest text-xs uppercase block">Clarifications Hub</span>
-                <h2 class="text-3xl font-serif text-slate-900 tracking-tight leading-none">Lumière Suites FAQ</h2>
-                <p class="text-sm text-slate-500 leading-relaxed font-semibold">Everything you need to know about purchasing and managing your Lumière Suites apartment.</p>
+                <h2 class="text-3xl font-serif text-slate-900 tracking-tight leading-none">{{ $property->title }} FAQ</h2>
+                <p class="text-sm text-slate-500 leading-relaxed font-semibold">Everything you need to know about purchasing and managing your {{ $property->title }} apartment.</p>
             </div>
 
             <!-- 2-Column Accordion Grid list (Alpine.js powered) -->
@@ -1015,15 +893,15 @@
             </p>
 
             <div class="flex flex-col gap-4 mt-4 font-sans">
-                @if(str_contains($property->slug, 'lumiere'))
-                    <a href="https://wa.me/2349111555511" class="inline-flex items-center justify-center gap-2 px-6 py-4 text-xs font-extrabold uppercase tracking-widest text-white bg-emerald-600 hover:bg-emerald-500 rounded-2xl shadow-md transition-colors duration-200">
-                        Chat on WhatsApp (+234 911 155 5511)
-                    </a>
-                @else
-                    <a href="https://wa.me/234800darallhomes" class="inline-flex items-center justify-center gap-2 px-6 py-4 text-xs font-extrabold uppercase tracking-widest text-white bg-emerald-600 hover:bg-emerald-500 rounded-2xl shadow-md transition-colors duration-200">
-                        Chat on WhatsApp
-                    </a>
-                @endif
+               @if($property->has_luxury_layout)
+                   <a href="https://wa.me/2349111555511" class="inline-flex items-center justify-center gap-2 px-6 py-4 text-xs font-extrabold uppercase tracking-widest text-white bg-emerald-600 hover:bg-emerald-500 rounded-2xl shadow-md transition-colors duration-200">
+                       Chat on WhatsApp (+234 911 155 5511)
+                   </a>
+               @else
+                   <a href="https://wa.me/234800darallhomes" class="inline-flex items-center justify-center gap-2 px-6 py-4 text-xs font-extrabold uppercase tracking-widest text-white bg-emerald-600 hover:bg-emerald-500 rounded-2xl shadow-md transition-colors duration-200">
+                       Chat on WhatsApp
+                   </a>
+               @endif
             </div>
         </div>
 
