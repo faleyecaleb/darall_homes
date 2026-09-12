@@ -30,14 +30,14 @@
     <header x-data="{ scrolled: window.scrollY > 20 }" 
             x-init="window.addEventListener('scroll', () => { scrolled = window.scrollY > 20 })"
             class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 border-b"
-            :class="scrolled || !{{ request()->routeIs('home') ? 'true' : 'false' }} ? 'bg-white/95 backdrop-blur-md border-slate-100 shadow-sm py-4 text-slate-900' : 'bg-transparent border-transparent py-6 text-white'">
+            :class="scrolled || !{{ (request()->routeIs('home') || (request()->routeIs('properties.show') && str_contains(request()->path(), 'lumiere-suites'))) ? 'true' : 'false' }} ? 'bg-white/95 backdrop-blur-md border-slate-100 shadow-sm py-4 text-slate-900' : 'bg-transparent border-transparent py-6 text-white'">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-12">
                 <!-- Logo with scroll-adaptive color -->
                 <div class="flex-shrink-0 flex items-center">
                     <a href="{{ route('home') }}" class="group flex items-center gap-2">
                         <span class="text-2xl font-bold tracking-widest uppercase transition-colors duration-500"
-                              :class="scrolled || !{{ request()->routeIs('home') ? 'true' : 'false' }} ? 'text-slate-900' : 'text-white'">
+                              :class="scrolled || !{{ (request()->routeIs('home') || (request()->routeIs('properties.show') && str_contains(request()->path(), 'lumiere-suites'))) ? 'true' : 'false' }} ? 'text-slate-900' : 'text-white'">
                             Darall<span class="text-amber-500 font-light">Homes</span>
                         </span>
                     </a>
@@ -45,12 +45,12 @@
 
                 <!-- Desktop Navigation Links with scroll-adaptive colors -->
                 <nav class="hidden md:flex space-x-8 items-center font-sans font-semibold text-xs uppercase tracking-widest">
-                    <a href="{{ route('home') }}" class="transition-colors duration-500" :class="scrolled || !{{ request()->routeIs('home') ? 'true' : 'false' }} ? ({{ request()->routeIs('home') ? 'true' : 'false' }} ? 'text-amber-600' : 'text-slate-600 hover:text-amber-600') : 'text-slate-200 hover:text-amber-400'">Home</a>
-                    <a href="{{ route('properties.index') }}" class="transition-colors duration-500" :class="scrolled || !{{ request()->routeIs('home') ? 'true' : 'false' }} ? ({{ request()->routeIs('properties.*') ? 'true' : 'false' }} ? 'text-amber-600' : 'text-slate-600 hover:text-amber-600') : 'text-slate-200 hover:text-amber-400'">Properties</a>
-                    <a href="{{ route('projects') }}" class="transition-colors duration-500" :class="scrolled || !{{ request()->routeIs('home') ? 'true' : 'false' }} ? ({{ request()->routeIs('projects') ? 'true' : 'false' }} ? 'text-amber-600' : 'text-slate-600 hover:text-amber-600') : 'text-slate-200 hover:text-amber-400'">Developments</a>
-                    <a href="{{ route('blog') }}" class="transition-colors duration-500" :class="scrolled || !{{ request()->routeIs('home') ? 'true' : 'false' }} ? ({{ request()->routeIs('blog') ? 'true' : 'false' }} ? 'text-amber-600' : 'text-slate-600 hover:text-amber-600') : 'text-slate-200 hover:text-amber-400'">Insights</a>
-                    <a href="{{ route('about') }}" class="transition-colors duration-500" :class="scrolled || !{{ request()->routeIs('home') ? 'true' : 'false' }} ? ({{ request()->routeIs('about') ? 'true' : 'false' }} ? 'text-amber-600' : 'text-slate-600 hover:text-amber-600') : 'text-slate-200 hover:text-amber-400'">About Us</a>
-                    <a href="{{ route('contact') }}" class="transition-colors duration-500" :class="scrolled || !{{ request()->routeIs('home') ? 'true' : 'false' }} ? ({{ request()->routeIs('contact') ? 'true' : 'false' }} ? 'text-amber-600' : 'text-slate-600 hover:text-amber-600') : 'text-slate-200 hover:text-amber-400'">Contact</a>
+                    <a href="{{ route('home') }}" class="transition-colors duration-500" :class="scrolled || !{{ (request()->routeIs('home') || (request()->routeIs('properties.show') && str_contains(request()->path(), 'lumiere-suites'))) ? 'true' : 'false' }} ? ({{ request()->routeIs('home') ? 'true' : 'false' }} ? 'text-amber-600' : 'text-slate-600 hover:text-amber-600') : 'text-slate-200 hover:text-amber-400'">Home</a>
+                    <a href="{{ route('properties.index') }}" class="transition-colors duration-500" :class="scrolled || !{{ (request()->routeIs('home') || (request()->routeIs('properties.show') && str_contains(request()->path(), 'lumiere-suites'))) ? 'true' : 'false' }} ? ({{ request()->routeIs('properties.*') ? 'true' : 'false' }} ? 'text-amber-600' : 'text-slate-600 hover:text-amber-600') : 'text-slate-200 hover:text-amber-400'">Properties</a>
+                    <a href="{{ route('projects') }}" class="transition-colors duration-500" :class="scrolled || !{{ (request()->routeIs('home') || (request()->routeIs('properties.show') && str_contains(request()->path(), 'lumiere-suites'))) ? 'true' : 'false' }} ? ({{ request()->routeIs('projects') ? 'true' : 'false' }} ? 'text-amber-600' : 'text-slate-600 hover:text-amber-600') : 'text-slate-200 hover:text-amber-400'">Developments</a>
+                    <a href="{{ route('blog') }}" class="transition-colors duration-500" :class="scrolled || !{{ (request()->routeIs('home') || (request()->routeIs('properties.show') && str_contains(request()->path(), 'lumiere-suites'))) ? 'true' : 'false' }} ? ({{ request()->routeIs('blog') ? 'true' : 'false' }} ? 'text-amber-600' : 'text-slate-600 hover:text-amber-600') : 'text-slate-200 hover:text-amber-400'">Insights</a>
+                    <a href="{{ route('about') }}" class="transition-colors duration-500" :class="scrolled || !{{ (request()->routeIs('home') || (request()->routeIs('properties.show') && str_contains(request()->path(), 'lumiere-suites'))) ? 'true' : 'false' }} ? ({{ request()->routeIs('about') ? 'true' : 'false' }} ? 'text-amber-600' : 'text-slate-600 hover:text-amber-600') : 'text-slate-200 hover:text-amber-400'">About Us</a>
+                    <a href="{{ route('contact') }}" class="transition-colors duration-500" :class="scrolled || !{{ (request()->routeIs('home') || (request()->routeIs('properties.show') && str_contains(request()->path(), 'lumiere-suites'))) ? 'true' : 'false' }} ? ({{ request()->routeIs('contact') ? 'true' : 'false' }} ? 'text-amber-600' : 'text-slate-600 hover:text-amber-600') : 'text-slate-200 hover:text-amber-400'">Contact</a>
                 </nav>
 
                 <!-- Action Button -->
