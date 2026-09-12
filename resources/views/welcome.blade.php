@@ -15,7 +15,7 @@
                 heading_highlight: 'Surulere Luxury',
                 subtitle: 'Exquisite Mainland Off-Plan Residences',
                 price: 'Starting at ₦45,000,000',
-                image: '/assets/lumiere/front-view-night.png',
+                image: '/lumiere/front-view-night.png',
                 description: 'Step into structural precision and modern elegance in Surulere. A master-planned development of 9 premium suites offering uncompromised title safety and flexible payment plans.',
                 link: '/properties/lumiere-suites'
             },

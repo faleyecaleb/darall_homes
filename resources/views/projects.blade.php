@@ -137,7 +137,7 @@
             <!-- Project Card 3: LUMIÈRE SUITES (Surulere Flagship - NEW!) -->
             <div class="group bg-white border border-slate-200/50 rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-500 scroll-reveal reveal-up delay-200">
                 <div class="relative aspect-[16/10] overflow-hidden bg-slate-200 z-0">
-                    <img src="{{ asset('assets/lumiere/front-view-night.png') }}" alt="Lumiere Suites Surulere" class="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <img src="{{ asset('lumiere/front-view-night.png') }}" alt="Lumiere Suites Surulere" class="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-500">
                     <span class="absolute top-4 left-4 bg-amber-400 text-slate-950 px-3.5 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-wider shadow-md">Under Construction</span>
                 </div>
                 <div class="p-8 sm:p-10 flex flex-col gap-4">
@@ -151,7 +151,7 @@
                         <span><strong class="text-slate-900">1 & 2</strong> Beds / Studio</span>
                         <span>Starting at <strong class="text-slate-900">₦45M</strong></span>
                     </div>
-                    <a href="{{ asset('assets/lumiere/lumiere-suites-final.pdf') }}" download="Lumiere_Suites_Brochure.pdf" class="w-full inline-flex items-center justify-center px-6 py-4 text-xs font-extrabold uppercase tracking-widest text-white bg-slate-900 hover:bg-brand rounded-xl transition-all shadow-md">
+                    <a href="{{ asset('lumiere/lumiere-suites-final.pdf') }}" download="Lumiere_Suites_Brochure.pdf" class="w-full inline-flex items-center justify-center px-6 py-4 text-xs font-extrabold uppercase tracking-widest text-white bg-slate-900 hover:bg-brand rounded-xl transition-all shadow-md">
                         Download Real Brochure
                     </a>
                 </div>

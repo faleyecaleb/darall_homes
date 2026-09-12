@@ -125,26 +125,26 @@
                         </div>
 
                         <!-- Card 3: Right Side View (Green Soft Glass Accent) -->
-                        <div @click="openLightbox = true; activeImage = '{{ asset('assets/lumiere/right-side-view-night.png') }}'; activeTitle = 'Right Side Elevation Render'; activeDesc = 'Highlights energy-efficient, double-glazed window placements designed to maximize daylight penetration while reflecting external Mainland heat.'"
+                        <div @click="openLightbox = true; activeImage = '{{ asset('/lumiere/right-side-view-night.png') }}'; activeTitle = 'Right Side Elevation Render'; activeDesc = 'Highlights energy-efficient, double-glazed window placements designed to maximize daylight penetration while reflecting external Mainland heat.'"
                              class="group cursor-pointer bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-400/20 rounded-[1.8rem] p-4 flex items-center justify-between gap-4 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl hover:shadow-emerald-500/5 select-none">
                             <div class="flex flex-col gap-1 text-left">
                                 <span class="text-[10px] text-emerald-400 font-extrabold uppercase tracking-wider">Perspective III</span>
                                 <h4 class="text-xs sm:text-sm font-extrabold text-white group-hover:text-emerald-300 transition-colors uppercase tracking-wide">Right View</h4>
                             </div>
                             <div class="w-14 sm:w-16 h-10 sm:h-12 rounded-xl overflow-hidden bg-slate-900 border border-white/10 flex-shrink-0">
-                                <img src="{{ asset('assets/lumiere/right-side-view-night.png') }}" alt="Right View Mini" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
+                                <img src="{{ asset('/lumiere/right-side-view-night.png') }}" alt="Right View Mini" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
                             </div>
                         </div>
 
                         <!-- Card 4: Rear View (Rose/Coral Soft Glass Accent) -->
-                        <div @click="openLightbox = true; activeImage = '{{ asset('assets/lumiere/back-view-night.png') }}'; activeTitle = 'Rear Elevation Render'; activeDesc = 'Highlights the extensive private view terraces and structural concrete foundation columns designed for absolute longevity.'"
+                        <div @click="openLightbox = true; activeImage = '{{ asset('/lumiere/back-view-night.png') }}'; activeTitle = 'Rear Elevation Render'; activeDesc = 'Highlights the extensive private view terraces and structural concrete foundation columns designed for absolute longevity.'"
                              class="group cursor-pointer bg-rose-500/10 hover:bg-rose-500/20 border border-rose-400/20 rounded-[1.8rem] p-4 flex items-center justify-between gap-4 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl hover:shadow-rose-500/5 select-none">
                             <div class="flex flex-col gap-1 text-left">
                                 <span class="text-[10px] text-rose-400 font-extrabold uppercase tracking-wider">Perspective IV</span>
                                 <h4 class="text-xs sm:text-sm font-extrabold text-white group-hover:text-rose-300 transition-colors uppercase tracking-wide">Back View</h4>
                             </div>
                             <div class="w-14 sm:w-16 h-10 sm:h-12 rounded-xl overflow-hidden bg-slate-900 border border-white/10 flex-shrink-0">
-                                <img src="{{ asset('assets/lumiere/back-view-night.png') }}" alt="Back View Mini" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
+                                <img src="{{ asset('/lumiere/back-view-night.png') }}" alt="Back View Mini" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
                             </div>
                         </div>
 

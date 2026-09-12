@@ -63,12 +63,12 @@ class LumiereSuitesSeeder extends Seeder
         // Create Media using our copied PNG renders!
         PropertyMedia::create([
             'property_id' => $lumiere->id,
-            'file_path' => '/assets/lumiere/front-view-night.png',
+            'file_path' => '/lumiere/front-view-night.png',
             'is_cover' => true,
         ]);
         PropertyMedia::create([
             'property_id' => $lumiere->id,
-            'file_path' => '/assets/lumiere/right-side-view-night.png',
+            'file_path' => '/lumiere/right-side-view-night.png',
             'is_cover' => false,
         ]);
     }
