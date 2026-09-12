@@ -1,0 +1,141 @@
+name: CI/CD Pipeline - Test, Build and Deploy to cPanel
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test-and-build:
+    name: Test and Build Assets
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout codebase
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # 2. Setup PHP environment
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, iconv
+          coverage: none
+
+      # 3. Cache Composer dependencies
+      - name: Get Composer Cache Directory
+        id: composer-cache
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+      - name: Cache Composer Dependencies
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-
+
+      # 4. Install Composer dependencies
+      - name: Install Composer Dependencies
+        run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --optimize-autoloader
+
+      # 5. Setup Node.js environment
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # 6. Cache Node modules
+      - name: Cache Node Modules
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: ${{ runner.os }}-node-
+
+      # 7. Install NPM dependencies and build Vite assets
+      - name: Install NPM Dependencies & Build Assets
+        run: |
+          npm ci --silent
+          npm run build
+
+      # 8. Setup Laravel testing environment configuration
+      - name: Prepare Laravel Environment
+        run: |
+          cp .env.example .env
+          php artisan key:generate
+
+      # 9. Execute PHPUnit testing suite
+      - name: Run Test Suite
+        env:
+          DB_CONNECTION: sqlite
+          DB_DATABASE: :memory:
+        run: vendor/bin/phpunit
+
+      # 10. Zip compiled assets & codebase to keep deployment clean (optional, but FTP deploy works on untracked/compiled files perfectly)
+      # We upload compiled artifacts so that they can be used by the deployment job if they are in different runs, 
+      # or we can run the deployment in the same job! Keeping it in the same job makes it incredibly fast, 
+      # eliminates artifact transfer overhead, and is 100% reliable.
+
+  deploy:
+    name: Auto Deploy to cPanel via FTP
+    needs: test-and-build
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+    steps:
+      # 1. Checkout codebase
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # 2. Setup PHP & dependencies for optimized autoloader (required because we want vendor/ folder fully compiled)
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath
+
+      - name: Install Composer Dependencies (Optimized for Production)
+        run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --optimize-autoloader --no-dev
+
+      # 3. Setup Node.js & build compiled assets
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install NPM Dependencies & Compile Production Assets
+        run: |
+          npm ci --silent
+          npm run build
+
+      # 4. Deploy to cPanel Shared Hosting using FTP/SFTP
+      - name: Deploy Code via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: ${{ secrets.FTP_TARGET_DIR }}
+          # Exclude files that are not needed in production to save disk space and increase security
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            **/tests/**
+            .github/**
+            phpunit.xml
+            .env.example
+            .env.production
+            package.json
+            package-lock.json
+            vite.config.js
+            tailwind.config.js
+            postcss.config.js
+            README.md
+            MASTER DEVELOPMENT SPECIFICATION.md
+            Website-content-copy.pdf
+            public/build.zip
