@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
         // Super Admin (role_id = 1)
         User::factory()->create([
             'name' => 'Super Admin',
-            'email' => 'admin@realestate.com',
+            'email' => 'admin@darallhomes.com',
             'password' => bcrypt('password'),
             'role_id' => 1,
         ]);
@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
         // Agent (role_id = 3)
         User::factory()->create([
             'name' => 'Premium Agent',
-            'email' => 'agent@realestate.com',
+            'email' => 'agent@darallhomes.com',
             'password' => bcrypt('password'),
             'role_id' => 3,
         ]);
@@ -34,7 +34,7 @@ class DatabaseSeeder extends Seeder
         // Regular User (role_id = 4)
         User::factory()->create([
             'name' => 'John Customer',
-            'email' => 'user@realestate.com',
+            'email' => 'user@darallhomes.com',
             'password' => bcrypt('password'),
             'role_id' => 4,
         ]);
