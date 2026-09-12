@@ -7,6 +7,8 @@
 
     <title>@yield('title', 'Premium Real Estate & Virtual Property Experience') | Darall Homes</title>
 
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
     <!-- Google Fonts CDN (Plus Jakarta Sans & Playfair Display for Luxury Typography) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

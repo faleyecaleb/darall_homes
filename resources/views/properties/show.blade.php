@@ -20,7 +20,7 @@
         <!-- Immersive Looping Background Video for Lumiere Suites -->
         <div class="absolute inset-0 w-full h-full z-0 overflow-hidden">
             <video autoplay loop muted playsinline class="absolute min-w-full min-h-full w-auto h-auto top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 object-cover opacity-90">
-                <source src="{{ asset('docs/lumiere-bg-video.mp4') }}" type="video/mp4">
+                <source src="{{ asset('assets/lumiere/lumiere-bg-video.mp4') }}" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
             <!-- Premium Dark Gradient overlays for high text contrast and visual depths -->
@@ -101,50 +101,50 @@
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 font-sans">
                         
                         <!-- Card 1: Front Elevation (Blue Soft Glass Accent) -->
-                        <div @click="openLightbox = true; activeImage = '{{ asset('docs/FRONT VIEW (NIGHT).png') }}'; activeTitle = 'Front Elevation Render'; activeDesc = 'A clean modern facade defined by strong lines, warm timber cladding, and precise architectural illumination.'"
+                        <div @click="openLightbox = true; activeImage = '{{ asset('assets/lumiere/front-view-night.png') }}'; activeTitle = 'Front Elevation Render'; activeDesc = 'A clean modern facade defined by strong lines, warm timber cladding, and precise architectural illumination.'"
                              class="group cursor-pointer bg-blue-500/10 hover:bg-blue-500/20 border border-blue-400/20 rounded-[1.8rem] p-4 flex items-center justify-between gap-4 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl hover:shadow-blue-500/5 select-none">
                             <div class="flex flex-col gap-1 text-left">
                                 <span class="text-[10px] text-blue-400 font-extrabold uppercase tracking-wider">Perspective I</span>
                                 <h4 class="text-xs sm:text-sm font-extrabold text-white group-hover:text-blue-300 transition-colors uppercase tracking-wide">Front View</h4>
                             </div>
                             <div class="w-14 sm:w-16 h-10 sm:h-12 rounded-xl overflow-hidden bg-slate-900 border border-white/10 flex-shrink-0">
-                                <img src="{{ asset('docs/FRONT VIEW (NIGHT).png') }}" alt="Front View Mini" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
+                                <img src="{{ asset('assets/lumiere/front-view-night.png') }}" alt="Front View Mini" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
                             </div>
                         </div>
 
                         <!-- Card 2: Left Side View (Amber Soft Glass Accent) -->
-                        <div @click="openLightbox = true; activeImage = '{{ asset('docs/LEFT SIDE VIEW (NIGHT).png') }}'; activeTitle = 'Left Side Elevation Render'; activeDesc = 'Showcases perfectly balanced architectural volumes, highlighting the seamless integration of external wood panels.'"
+                        <div @click="openLightbox = true; activeImage = '{{ asset('assets/lumiere/left-side-view-night.png') }}'; activeTitle = 'Left Side Elevation Render'; activeDesc = 'Showcases perfectly balanced architectural volumes, highlighting the seamless integration of external wood panels.'"
                              class="group cursor-pointer bg-amber-500/10 hover:bg-amber-500/20 border border-amber-400/20 rounded-[1.8rem] p-4 flex items-center justify-between gap-4 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl hover:shadow-amber-500/5 select-none">
                             <div class="flex flex-col gap-1 text-left">
                                 <span class="text-[10px] text-amber-400 font-extrabold uppercase tracking-wider">Perspective II</span>
                                 <h4 class="text-xs sm:text-sm font-extrabold text-white group-hover:text-amber-300 transition-colors uppercase tracking-wide">Left View</h4>
                             </div>
                             <div class="w-14 sm:w-16 h-10 sm:h-12 rounded-xl overflow-hidden bg-slate-900 border border-white/10 flex-shrink-0">
-                                <img src="{{ asset('docs/LEFT SIDE VIEW (NIGHT).png') }}" alt="Left View Mini" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
+                                <img src="{{ asset('assets/lumiere/left-side-view-night.png') }}" alt="Left View Mini" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
                             </div>
                         </div>
 
                         <!-- Card 3: Right Side View (Green Soft Glass Accent) -->
-                        <div @click="openLightbox = true; activeImage = '{{ asset('docs/RIGHT SIDE VIEW (NIGHT).png') }}'; activeTitle = 'Right Side Elevation Render'; activeDesc = 'Highlights energy-efficient, double-glazed window placements designed to maximize daylight penetration while reflecting external Mainland heat.'"
+                        <div @click="openLightbox = true; activeImage = '{{ asset('assets/lumiere/right-side-view-night.png') }}'; activeTitle = 'Right Side Elevation Render'; activeDesc = 'Highlights energy-efficient, double-glazed window placements designed to maximize daylight penetration while reflecting external Mainland heat.'"
                              class="group cursor-pointer bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-400/20 rounded-[1.8rem] p-4 flex items-center justify-between gap-4 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl hover:shadow-emerald-500/5 select-none">
                             <div class="flex flex-col gap-1 text-left">
                                 <span class="text-[10px] text-emerald-400 font-extrabold uppercase tracking-wider">Perspective III</span>
                                 <h4 class="text-xs sm:text-sm font-extrabold text-white group-hover:text-emerald-300 transition-colors uppercase tracking-wide">Right View</h4>
                             </div>
                             <div class="w-14 sm:w-16 h-10 sm:h-12 rounded-xl overflow-hidden bg-slate-900 border border-white/10 flex-shrink-0">
-                                <img src="{{ asset('docs/RIGHT SIDE VIEW (NIGHT).png') }}" alt="Right View Mini" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
+                                <img src="{{ asset('assets/lumiere/right-side-view-night.png') }}" alt="Right View Mini" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
                             </div>
                         </div>
 
                         <!-- Card 4: Rear View (Rose/Coral Soft Glass Accent) -->
-                        <div @click="openLightbox = true; activeImage = '{{ asset('docs/BACK VIEW (NIGHT).png') }}'; activeTitle = 'Rear Elevation Render'; activeDesc = 'Highlights the extensive private view terraces and structural concrete foundation columns designed for absolute longevity.'"
+                        <div @click="openLightbox = true; activeImage = '{{ asset('assets/lumiere/back-view-night.png') }}'; activeTitle = 'Rear Elevation Render'; activeDesc = 'Highlights the extensive private view terraces and structural concrete foundation columns designed for absolute longevity.'"
                              class="group cursor-pointer bg-rose-500/10 hover:bg-rose-500/20 border border-rose-400/20 rounded-[1.8rem] p-4 flex items-center justify-between gap-4 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl hover:shadow-rose-500/5 select-none">
                             <div class="flex flex-col gap-1 text-left">
                                 <span class="text-[10px] text-rose-400 font-extrabold uppercase tracking-wider">Perspective IV</span>
                                 <h4 class="text-xs sm:text-sm font-extrabold text-white group-hover:text-rose-300 transition-colors uppercase tracking-wide">Back View</h4>
                             </div>
                             <div class="w-14 sm:w-16 h-10 sm:h-12 rounded-xl overflow-hidden bg-slate-900 border border-white/10 flex-shrink-0">
-                                <img src="{{ asset('docs/BACK VIEW (NIGHT).png') }}" alt="Back View Mini" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
+                                <img src="{{ asset('assets/lumiere/back-view-night.png') }}" alt="Back View Mini" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
                             </div>
                         </div>
 
@@ -340,7 +340,7 @@
                 <!-- Suite 1: Studio Apartment -->
                 <div class="group bg-white border border-slate-200/50 rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 transform scroll-reveal reveal-up">
                     <div class="relative aspect-[1.4] overflow-hidden bg-slate-200 z-0">
-                        <img src="{{ asset('docs/INT 1.png') }}" alt="Studio Suite Interior" class="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <img src="{{ asset('assets/lumiere/int-1.png') }}" alt="Studio Suite Interior" class="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-500">
                         <span class="absolute top-4 left-4 bg-amber-400 text-slate-950 px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider shadow-md">Studio Apartment</span>
                     </div>
                     <div class="p-8 flex flex-col gap-4">
@@ -386,7 +386,7 @@
                 <!-- Suite 2: Mini Flat -->
                 <div class="group bg-white border border-slate-200/50 rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 transform scroll-reveal reveal-up delay-100">
                     <div class="relative aspect-[1.4] overflow-hidden bg-slate-200 z-0">
-                        <img src="{{ asset('docs/INT 2.png') }}" alt="Mini Flat Interior" class="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <img src="{{ asset('assets/lumiere/int-2.png') }}" alt="Mini Flat Interior" class="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-500">
                         <span class="absolute top-4 left-4 bg-amber-400 text-slate-950 px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider shadow-md">Mini Flat (1-Bed)</span>
                     </div>
                     <div class="p-8 flex flex-col gap-4">
@@ -432,7 +432,7 @@
                 <!-- Suite 3: 2-Bedroom -->
                 <div class="group bg-white border border-slate-200/50 rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 transform scroll-reveal reveal-up delay-200">
                     <div class="relative aspect-[1.4] overflow-hidden bg-slate-200 z-0">
-                        <img src="{{ asset('docs/INT 3.png') }}" alt="2-Bedroom Interior" class="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <img src="{{ asset('assets/lumiere/int-3.png') }}" alt="2-Bedroom Interior" class="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-500">
                         <span class="absolute top-4 left-4 bg-amber-400 text-slate-950 px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider shadow-md">2-Bedroom</span>
                     </div>
                     <div class="p-8 flex flex-col gap-4">
@@ -496,7 +496,7 @@
                          area: '35 sqm',
                          outrightPrice: 45000000,
                          installmentPrice: 47250000,
-                         image: '{{ asset('docs/INT 1.png') }}',
+                         image: '{{ asset('assets/lumiere/int-1.png') }}',
                          description: 'An elegantly optimized single-space layout with premium fittings, custom wood cladding, and full natural ventilation.',
                          hotspots: [
                              { id: 1, top: '42%', left: '38%', title: 'Integrated Compact Kitchenette', desc: 'Custom wood-finish cabinets fitted with a dual burner stove, overhead extractor hood, and scratch-resistant composite quartz countertops.' },
@@ -509,7 +509,7 @@
                          area: '60 sqm',
                          outrightPrice: 70000000,
                          installmentPrice: 73500000,
-                         image: '{{ asset('docs/INT 2.png') }}',
+                         image: '{{ asset('assets/lumiere/int-2.png') }}',
                          description: 'A beautifully spaced 1-Bedroom residence featuring a distinct living lounge, visitor\'s powder room, master suite, and private view terrace.',
                          hotspots: [
                              { id: 1, top: '35%', left: '30%', title: 'Expanded Living Lounge', desc: 'Spacious main lounge area built with soundproofing wall liners, modern gypsum ceiling boards, and recessed LED dimming strips.' },
@@ -522,7 +522,7 @@
                          area: '95 sqm',
                          outrightPrice: 90000000,
                          installmentPrice: 94500000,
-                         image: '{{ asset('docs/INT 3.png') }}',
+                         image: '{{ asset('assets/lumiere/int-3.png') }}',
                          description: 'The premier layout at Lumière. Boasts dual master en-suite bedrooms, an expansive light-flooded family lounge, visitor\'s toilet, and dual private balconies.',
                          hotspots: [
                              { id: 1, top: '30%', left: '45%', title: 'Dual-Aspect Grand Lounge', desc: 'High-volume social social space with continuous cross-ventilation, optimized for high-capacity designer seating layouts.' },

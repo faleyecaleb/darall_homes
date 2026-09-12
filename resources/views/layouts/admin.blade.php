@@ -7,6 +7,8 @@
 
     <title>@yield('title', 'Admin Dashboard') | Darall Homes Portal</title>
 
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
     <!-- FOUC-Proof Dark Mode Initializer -->
     <script>
         if (localStorage.getItem('admin-dark-mode') === 'true' || (!('admin-dark-mode' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {

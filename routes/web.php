@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     $featuredProperties = \App\Models\Property::with(['category', 'location', 'coverImage', 'virtualTour'])
         ->where('is_featured', true)
+        ->orderByRaw("CASE WHEN slug = 'lumiere-suites' THEN 1 ELSE 2 END ASC")
         ->orderBy('id', 'desc') // Put newest properties (Lumiere Suites) first at the top
         ->take(6)
         ->get();
