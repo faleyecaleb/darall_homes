@@ -6,21 +6,21 @@
 <!-- Section 1 — Premium Landing Hero -->
 <div class="relative bg-slate-950 min-h-[85vh] md:min-h-[95vh] flex items-end overflow-hidden border-b border-slate-900 -mt-20 select-none"
      @if(str_contains($property->slug, 'lumiere'))
-     x-data="{ 
-         openLightbox: false, 
-         activeImage: '', 
-         activeTitle: '', 
-         activeDesc: '' 
+     x-data="{
+         openLightbox: false,
+         activeImage: '',
+         activeTitle: '',
+         activeDesc: ''
      }"
      @endif
 >
-    
+
     <!-- Video/Image Background -->
     @if(str_contains($property->slug, 'lumiere'))
         <!-- Immersive Looping Background Video for Lumiere Suites -->
         <div class="absolute inset-0 w-full h-full z-0 overflow-hidden">
             <video autoplay loop muted playsinline class="absolute min-w-full min-h-full w-auto h-auto top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 object-cover opacity-90">
-                <source src="{{ asset('assets/lumiere/lumiere-bg-video.mp4') }}" type="video/mp4">
+                <source src="{{ asset('/lumiere/lumiere-bg-video.mp4') }}" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
             <!-- Premium Dark Gradient overlays for high text contrast and visual depths -->
@@ -36,7 +36,7 @@
         @endif
         <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent -z-10"></div>
     @endif
-    
+
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 z-10 w-full animate-fade-in flex flex-col gap-12">
         <!-- Title & Pricing Grid -->
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
@@ -96,31 +96,31 @@
                         <span class="h-1.5 w-1.5 rounded-full bg-amber-400 animate-pulse"></span>
                         <span class="text-[10px] font-extrabold uppercase tracking-widest text-slate-400">Cinematic Perspective Explorer</span>
                     </div>
-                    
+
                     <!-- Horizontal Cards flex row (Symmetric Grid matching split view layout in screenshots) -->
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 font-sans">
-                        
+
                         <!-- Card 1: Front Elevation (Blue Soft Glass Accent) -->
-                        <div @click="openLightbox = true; activeImage = '{{ asset('assets/lumiere/front-view-night.png') }}'; activeTitle = 'Front Elevation Render'; activeDesc = 'A clean modern facade defined by strong lines, warm timber cladding, and precise architectural illumination.'"
+                        <div @click="openLightbox = true; activeImage = '{{ asset('/lumiere/front-view-night.png') }}'; activeTitle = 'Front Elevation Render'; activeDesc = 'A clean modern facade defined by strong lines, warm timber cladding, and precise architectural illumination.'"
                              class="group cursor-pointer bg-blue-500/10 hover:bg-blue-500/20 border border-blue-400/20 rounded-[1.8rem] p-4 flex items-center justify-between gap-4 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl hover:shadow-blue-500/5 select-none">
                             <div class="flex flex-col gap-1 text-left">
                                 <span class="text-[10px] text-blue-400 font-extrabold uppercase tracking-wider">Perspective I</span>
                                 <h4 class="text-xs sm:text-sm font-extrabold text-white group-hover:text-blue-300 transition-colors uppercase tracking-wide">Front View</h4>
                             </div>
                             <div class="w-14 sm:w-16 h-10 sm:h-12 rounded-xl overflow-hidden bg-slate-900 border border-white/10 flex-shrink-0">
-                                <img src="{{ asset('assets/lumiere/front-view-night.png') }}" alt="Front View Mini" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
+                                <img src="{{ asset('/lumiere/front-view-night.png') }}" alt="Front View Mini" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
                             </div>
                         </div>
 
                         <!-- Card 2: Left Side View (Amber Soft Glass Accent) -->
-                        <div @click="openLightbox = true; activeImage = '{{ asset('assets/lumiere/left-side-view-night.png') }}'; activeTitle = 'Left Side Elevation Render'; activeDesc = 'Showcases perfectly balanced architectural volumes, highlighting the seamless integration of external wood panels.'"
+                        <div @click="openLightbox = true; activeImage = '{{ asset('/lumiere/left-side-view-night.png') }}'; activeTitle = 'Left Side Elevation Render'; activeDesc = 'Showcases perfectly balanced architectural volumes, highlighting the seamless integration of external wood panels.'"
                              class="group cursor-pointer bg-amber-500/10 hover:bg-amber-500/20 border border-amber-400/20 rounded-[1.8rem] p-4 flex items-center justify-between gap-4 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl hover:shadow-amber-500/5 select-none">
                             <div class="flex flex-col gap-1 text-left">
                                 <span class="text-[10px] text-amber-400 font-extrabold uppercase tracking-wider">Perspective II</span>
                                 <h4 class="text-xs sm:text-sm font-extrabold text-white group-hover:text-amber-300 transition-colors uppercase tracking-wide">Left View</h4>
                             </div>
                             <div class="w-14 sm:w-16 h-10 sm:h-12 rounded-xl overflow-hidden bg-slate-900 border border-white/10 flex-shrink-0">
-                                <img src="{{ asset('assets/lumiere/left-side-view-night.png') }}" alt="Left View Mini" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
+                                <img src="{{ asset('/lumiere/left-side-view-night.png') }}" alt="Left View Mini" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
                             </div>
                         </div>
 
@@ -160,7 +160,7 @@
              class="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 md:p-10 select-none overflow-hidden"
              style="display: none;"
              @keydown.escape.window="openLightbox = false">
-            
+
             <!-- Backdrop: smooth fade & intensive blur blur-xl -->
             <div x-show="openLightbox"
                  x-transition:enter="transition ease-out duration-500"
@@ -171,7 +171,7 @@
                  x-transition:leave-end="opacity-0 backdrop-blur-0"
                  class="absolute inset-0 bg-slate-950/85"
                  @click="openLightbox = false"></div>
-            
+
             <!-- Modal Box: smooth slide and spring scale -->
             <div x-show="openLightbox"
                  x-transition:enter="transition ease-out duration-[500ms] transform"
@@ -181,7 +181,7 @@
                  x-transition:leave-start="opacity-100 scale-100 translate-y-0"
                  x-transition:leave-end="opacity-0 scale-90 translate-y-4"
                  class="relative max-w-5xl w-full bg-slate-900/90 border border-white/10 rounded-[2.5rem] overflow-hidden shadow-2xl z-10 flex flex-col justify-between backdrop-blur-md">
-                
+
                 <!-- Close Button -->
                 <button @click="openLightbox = false"
                         class="absolute top-4 right-4 sm:top-6 sm:right-6 w-10 sm:w-12 h-10 sm:h-12 rounded-full bg-slate-950/70 border border-white/15 text-white flex items-center justify-center hover:bg-amber-400 hover:text-slate-950 hover:scale-110 active:scale-95 transition-all duration-200 focus:outline-none z-30">
@@ -189,18 +189,18 @@
                         <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
                     </svg>
                 </button>
-                
+
                 <!-- Full-Screen Image Container with glowing gold border -->
                 <div class="relative w-full aspect-video md:aspect-[1.8] bg-slate-950 overflow-hidden flex items-center justify-center p-2">
                     <img :src="activeImage" :alt="activeTitle" class="max-w-full max-h-full rounded-2xl object-contain shadow-2xl border border-white/5 animate-fade-in" />
                 </div>
-                
+
                 <!-- Bottom Description Panel -->
                 <div class="p-6 sm:p-8 bg-slate-950 border-t border-white/5 text-left font-sans flex flex-col gap-1.5 z-20">
                     <h3 class="text-amber-400 font-extrabold text-sm uppercase tracking-widest" x-text="activeTitle"></h3>
                     <p class="text-slate-300 text-xs sm:text-sm font-semibold leading-relaxed" x-text="activeDesc"></p>
                 </div>
-                
+
             </div>
         </div>
     @endif
@@ -256,7 +256,7 @@
 @if($property->virtualTour)
     <section id="virtual-tour" class="py-24 bg-slate-950 text-white relative overflow-hidden animate-fade-in">
         <div class="absolute inset-0 opacity-[0.02]" style="background-image: radial-gradient(circle, white 1px, transparent 1px); background-size: 20px 20px;"></div>
-        
+
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 select-none">
             <div class="text-center max-w-3xl mx-auto mb-16 flex flex-col items-center gap-4">
                 <span class="text-amber-500 font-extrabold uppercase tracking-wider text-sm">A Digitized Showroom</span>
@@ -271,7 +271,7 @@
                 <!-- Live Matterport/Embed Url from DB -->
                 <iframe src="{{ $property->virtualTour->embed_url }}" class="absolute inset-0 w-full h-full border-0" allowfullscreen allow="xr-spatial-tracking"></iframe>
             </div>
-            
+
             <div class="flex justify-center items-center gap-4 mt-8 text-sm text-slate-400">
                 <span class="flex items-center gap-2">
                     <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
@@ -299,7 +299,7 @@
                     {{ $property->description }}
                 </p>
             </div>
-            
+
             <!-- Side Specs panel -->
             <div class="lg:col-span-4 bg-slate-50 p-8 rounded-[2.2rem] border border-slate-200/40 flex flex-col gap-6 self-start select-none">
                 <h3 class="text-lg font-extrabold text-slate-900 text-left">Showroom Identity</h3>
@@ -326,7 +326,7 @@
 @if(str_contains($property->slug, 'lumiere'))
     <section class="py-24 bg-slate-50 border-t border-b border-slate-100 select-none animate-fade-in">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            
+
             <!-- Section Header -->
             <div class="flex flex-col gap-3 text-center max-w-2xl mx-auto mb-16 scroll-reveal reveal-up">
                 <span class="text-amber-600 font-extrabold tracking-widest text-xs uppercase block">Apartment Types</span>
@@ -336,11 +336,11 @@
 
             <!-- 3-Column Suite Layouts Grid -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                
+
                 <!-- Suite 1: Studio Apartment -->
                 <div class="group bg-white border border-slate-200/50 rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 transform scroll-reveal reveal-up">
                     <div class="relative aspect-[1.4] overflow-hidden bg-slate-200 z-0">
-                        <img src="{{ asset('assets/lumiere/int-1.png') }}" alt="Studio Suite Interior" class="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <img src="{{ asset('/lumiere/int-1.png') }}" alt="Studio Suite Interior" class="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-500">
                         <span class="absolute top-4 left-4 bg-amber-400 text-slate-950 px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider shadow-md">Studio Apartment</span>
                     </div>
                     <div class="p-8 flex flex-col gap-4">
@@ -349,7 +349,7 @@
                             <h4 class="text-xl font-serif font-extrabold text-slate-900">Lumière Studio Suite</h4>
                         </div>
                         <p class="text-xs text-slate-500 leading-relaxed font-semibold text-left">Compact, refined, and fully appointed. Features an optimized open-concept layout, fully integrated fitted kitchen, and luxury bath. An exceptionally smart choice for solo living or shortlet investments.</p>
-                        
+
                         <div class="flex items-center gap-4 text-[11px] text-slate-400 border-y border-slate-100 py-3 font-sans font-extrabold justify-start">
                             <span>1 Bed</span>
                             <span>•</span>
@@ -386,7 +386,7 @@
                 <!-- Suite 2: Mini Flat -->
                 <div class="group bg-white border border-slate-200/50 rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 transform scroll-reveal reveal-up delay-100">
                     <div class="relative aspect-[1.4] overflow-hidden bg-slate-200 z-0">
-                        <img src="{{ asset('assets/lumiere/int-2.png') }}" alt="Mini Flat Interior" class="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <img src="{{ asset('/lumiere/int-2.png') }}" alt="Mini Flat Interior" class="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-500">
                         <span class="absolute top-4 left-4 bg-amber-400 text-slate-950 px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider shadow-md">Mini Flat (1-Bed)</span>
                     </div>
                     <div class="p-8 flex flex-col gap-4">
@@ -395,7 +395,7 @@
                             <h4 class="text-xl font-serif font-extrabold text-slate-900">Lumière Mini Flat</h4>
                         </div>
                         <p class="text-xs text-slate-500 leading-relaxed font-semibold text-left">A spacious, beautifully appointed mini flat. Boasts a premium bedroom ensuite, an extensive open-concept living area, a fitted kitchen, a guest powder room, and a private terrace designed to let life flow.</p>
-                        
+
                         <div class="flex items-center gap-4 text-[11px] text-slate-400 border-y border-slate-100 py-3 font-sans font-extrabold justify-start">
                             <span>1 Bed</span>
                             <span>•</span>
@@ -432,7 +432,7 @@
                 <!-- Suite 3: 2-Bedroom -->
                 <div class="group bg-white border border-slate-200/50 rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 transform scroll-reveal reveal-up delay-200">
                     <div class="relative aspect-[1.4] overflow-hidden bg-slate-200 z-0">
-                        <img src="{{ asset('assets/lumiere/int-3.png') }}" alt="2-Bedroom Interior" class="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <img src="{{ asset('/lumiere/int-3.png') }}" alt="2-Bedroom Interior" class="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-500">
                         <span class="absolute top-4 left-4 bg-amber-400 text-slate-950 px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider shadow-md">2-Bedroom</span>
                     </div>
                     <div class="p-8 flex flex-col gap-4">
@@ -441,7 +441,7 @@
                             <h4 class="text-xl font-serif font-extrabold text-slate-900">Lumière 2-Bedroom</h4>
                         </div>
                         <p class="text-xs text-slate-500 leading-relaxed font-semibold text-left">The crown jewel layout of Lumière Suites. Boasts dual master en-suite bedrooms, an expansive light-filled living area, a premium fully-fitted kitchen, guest bathroom, and private outdoor terrace.</p>
-                        
+
                         <div class="flex items-center gap-4 text-[11px] text-slate-400 border-y border-slate-100 py-3 font-sans font-extrabold justify-start">
                             <span>2 Beds</span>
                             <span>•</span>
@@ -483,7 +483,7 @@
     <!-- Section 4.6 — Lumière Immersive Design Studio -->
     <section class="py-24 bg-slate-950 text-white overflow-hidden border-t border-b border-slate-900 select-none relative rounded-[3rem] my-12 mx-4 sm:mx-6 lg:mx-8">
         <div class="absolute inset-0 opacity-[0.03]" style="background-image: radial-gradient(circle, white 1px, transparent 1px); background-size: 30px 30px;"></div>
-        
+
         <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 relative z-10"
              x-data="{
                  unit: 'studio',
@@ -496,7 +496,7 @@
                          area: '35 sqm',
                          outrightPrice: 45000000,
                          installmentPrice: 47250000,
-                         image: '{{ asset('assets/lumiere/int-1.png') }}',
+                         image: '{{ asset('/lumiere/int-1.png') }}',
                          description: 'An elegantly optimized single-space layout with premium fittings, custom wood cladding, and full natural ventilation.',
                          hotspots: [
                              { id: 1, top: '42%', left: '38%', title: 'Integrated Compact Kitchenette', desc: 'Custom wood-finish cabinets fitted with a dual burner stove, overhead extractor hood, and scratch-resistant composite quartz countertops.' },
@@ -509,7 +509,7 @@
                          area: '60 sqm',
                          outrightPrice: 70000000,
                          installmentPrice: 73500000,
-                         image: '{{ asset('assets/lumiere/int-2.png') }}',
+                         image: '{{ asset('/lumiere/int-2.png') }}',
                          description: 'A beautifully spaced 1-Bedroom residence featuring a distinct living lounge, visitor\'s powder room, master suite, and private view terrace.',
                          hotspots: [
                              { id: 1, top: '35%', left: '30%', title: 'Expanded Living Lounge', desc: 'Spacious main lounge area built with soundproofing wall liners, modern gypsum ceiling boards, and recessed LED dimming strips.' },
@@ -522,7 +522,7 @@
                          area: '95 sqm',
                          outrightPrice: 90000000,
                          installmentPrice: 94500000,
-                         image: '{{ asset('assets/lumiere/int-3.png') }}',
+                         image: '{{ asset('/lumiere/int-3.png') }}',
                          description: 'The premier layout at Lumière. Boasts dual master en-suite bedrooms, an expansive light-flooded family lounge, visitor\'s toilet, and dual private balconies.',
                          hotspots: [
                              { id: 1, top: '30%', left: '45%', title: 'Dual-Aspect Grand Lounge', desc: 'High-volume social social space with continuous cross-ventilation, optimized for high-capacity designer seating layouts.' },
@@ -548,7 +548,7 @@
                      return Math.round(this.balanceAmount / 6);
                  }
              }">
-            
+
             <!-- Section Header -->
             <div class="flex flex-col gap-3 text-center max-w-2xl mx-auto mb-16">
                 <span class="text-amber-500 font-extrabold tracking-widest text-xs uppercase block">Interactive Experience</span>
@@ -558,15 +558,15 @@
 
             <!-- Main Layout: Sidebar & Viewport Panel -->
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-                
+
                 <!-- Left Column: Configurator controls (col-span-4) -->
                 <div class="lg:col-span-4 bg-slate-900 border border-white/10 rounded-[2rem] p-6 sm:p-8 flex flex-col gap-8 justify-between shadow-xl">
-                    
+
                     <!-- Suite Selector -->
                     <div class="flex flex-col gap-4 text-left">
                         <label class="text-xs font-extrabold uppercase tracking-widest text-slate-400">Step 1 — Choose Apartment Model</label>
                         <div class="flex flex-col gap-2.5 font-sans">
-                            <button @click="unit = 'studio'; activeSpot = null" 
+                            <button @click="unit = 'studio'; activeSpot = null"
                                     class="w-full flex items-center justify-between px-5 py-4 rounded-xl border text-sm transition-all text-left font-semibold focus:outline-none"
                                     :class="unit === 'studio' ? 'bg-amber-400 text-slate-950 border-amber-400 font-bold shadow-lg shadow-amber-400/10 scale-[1.02]' : 'bg-slate-950 text-white border-white/10 hover:border-white/20'">
                                 <div class="flex flex-col">
@@ -575,7 +575,7 @@
                                 </div>
                                 <span class="text-xs font-extrabold">₦45,000,000</span>
                             </button>
-                            <button @click="unit = 'miniflat'; activeSpot = null" 
+                            <button @click="unit = 'miniflat'; activeSpot = null"
                                     class="w-full flex items-center justify-between px-5 py-4 rounded-xl border text-sm transition-all text-left font-semibold focus:outline-none"
                                     :class="unit === 'miniflat' ? 'bg-amber-400 text-slate-950 border-amber-400 font-bold shadow-lg shadow-amber-400/10 scale-[1.02]' : 'bg-slate-950 text-white border-white/10 hover:border-white/20'">
                                 <div class="flex flex-col">
@@ -584,7 +584,7 @@
                                 </div>
                                 <span class="text-xs font-extrabold">₦70,000,000</span>
                             </button>
-                            <button @click="unit = '2bed'; activeSpot = null" 
+                            <button @click="unit = '2bed'; activeSpot = null"
                                     class="w-full flex items-center justify-between px-5 py-4 rounded-xl border text-sm transition-all text-left font-semibold focus:outline-none"
                                     :class="unit === '2bed' ? 'bg-amber-400 text-slate-950 border-amber-400 font-bold shadow-lg shadow-amber-400/10 scale-[1.02]' : 'bg-slate-950 text-white border-white/10 hover:border-white/20'">
                                 <div class="flex flex-col">
@@ -600,12 +600,12 @@
                     <div class="flex flex-col gap-4 text-left">
                         <label class="text-xs font-extrabold uppercase tracking-widest text-slate-400">Step 2 — Interactive Mode</label>
                         <div class="grid grid-cols-2 gap-2 bg-slate-950 p-1 rounded-xl border border-white/5 font-sans">
-                            <button @click="mode = 'hotspots'" 
+                            <button @click="mode = 'hotspots'"
                                     class="py-2.5 rounded-lg text-xs font-extrabold uppercase tracking-wider transition-all focus:outline-none"
                                     :class="mode === 'hotspots' ? 'bg-white/10 text-amber-400 shadow-sm' : 'text-slate-400 hover:text-white'">
                                 Hotspots Viewer
                             </button>
-                            <button @click="mode = 'calculator'" 
+                            <button @click="mode = 'calculator'"
                                     class="py-2.5 rounded-lg text-xs font-extrabold uppercase tracking-wider transition-all focus:outline-none"
                                     :class="mode === 'calculator' ? 'bg-white/10 text-amber-400 shadow-sm' : 'text-slate-400 hover:text-white'">
                                 Payment Planner
@@ -623,10 +623,10 @@
 
                 <!-- Right Column: Interactive Viewport (col-span-8) -->
                 <div class="lg:col-span-8 bg-slate-950 border border-white/10 rounded-[2rem] overflow-hidden min-h-[500px] flex flex-col justify-between shadow-xl relative select-none">
-                    
+
                     <!-- Mode 1: Hotspot Viewer -->
                     <div x-show="mode === 'hotspots'" class="relative flex-1 flex flex-col justify-between w-full h-full" x-transition.opacity>
-                        
+
                         <!-- Main Viewport Image with Hotspots -->
                         <div class="relative w-full aspect-video md:aspect-[1.8] bg-slate-900 overflow-hidden group animate-fade-in">
                             <!-- Selected Suite Interior Image -->
@@ -637,10 +637,10 @@
                             <template x-for="spot in specs[unit].hotspots" :key="spot.id">
                                 <div class="absolute group/node pointer-events-auto animate-fade-in"
                                      :style="'top: ' + spot.top + '; left: ' + spot.left + ';'">
-                                    
+
                                     <!-- Blinking outer ring -->
                                     <span class="absolute -top-3.5 -left-3.5 h-10 w-10 rounded-full bg-amber-400/40 animate-ping duration-[3000ms]"></span>
-                                    
+
                                     <!-- Glowing Solid Dot Button -->
                                     <button @mouseenter="activeSpot = spot.id"
                                             @mouseleave="activeSpot = null"
@@ -679,7 +679,7 @@
 
                     <!-- Mode 2: Interactive Pricing & Financing Calculator -->
                     <div x-show="mode === 'calculator'" class="p-8 flex flex-col justify-between flex-1 w-full h-full font-sans text-left bg-slate-900/40" x-transition.opacity style="display: none;">
-                        
+
                         <div class="space-y-8 flex-1">
                             <div class="flex flex-col gap-1">
                                 <span class="text-[10px] text-amber-400 font-extrabold uppercase tracking-widest">Milestone Payment Planner</span>
@@ -692,7 +692,7 @@
                                     <label class="text-xs text-slate-400 font-extrabold uppercase tracking-wider">Initial Down Payment</label>
                                     <span class="text-lg font-extrabold text-amber-400" x-text="depositPercent + '%'"></span>
                                 </div>
-                                
+
                                 <div class="relative pt-1">
                                     <input type="range" min="30" max="100" step="5" x-model="depositPercent"
                                            class="w-full accent-amber-400 bg-slate-950 border border-white/10 h-2 rounded-lg cursor-pointer focus:outline-none">
@@ -706,7 +706,7 @@
 
                             <!-- Real-time calculations display grid -->
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                
+
                                 <!-- Box 1: Down Payment value -->
                                 <div class="bg-slate-950/60 border border-white/5 p-5 rounded-2xl flex flex-col gap-1.5">
                                     <span class="text-[10px] text-slate-500 font-extrabold uppercase tracking-wider">Estimated Initial Down Payment</span>
@@ -746,11 +746,11 @@
 
                         <!-- Configurator conversion triggers -->
                         <div class="flex flex-col sm:flex-row gap-4 w-full pt-8 border-t border-white/5">
-                            <a :href="'https://wa.me/2349111555511?text=Hi, I have used your Immersive Design Studio on your website and would love to acquire a unit of the ' + specs[unit].name + ' with an initial down-payment of ' + depositPercent + '%.'" 
+                            <a :href="'https://wa.me/2349111555511?text=Hi, I have used your Immersive Design Studio on your website and would love to acquire a unit of the ' + specs[unit].name + ' with an initial down-payment of ' + depositPercent + '%.'"
                                class="flex-1 inline-flex items-center justify-center gap-2 px-6 py-4 text-xs font-extrabold uppercase tracking-widest text-slate-950 bg-amber-400 hover:bg-amber-500 rounded-xl shadow-lg transition-transform hover:-translate-y-0.5 active:translate-y-0 active:scale-95 duration-150">
                                 Apply Financing with Sales Team
                             </a>
-                            <a href="#schedule-inspection" 
+                            <a href="#schedule-inspection"
                                class="inline-flex items-center justify-center px-6 py-4 text-xs font-extrabold uppercase tracking-widest text-white border border-white/10 hover:bg-white/5 rounded-xl transition-colors">
                                 Book Site Tour
                             </a>
@@ -774,7 +774,7 @@
                 <span class="text-amber-600 font-extrabold tracking-widest text-sm uppercase block text-left">Serviced Conveniences</span>
                 <h2 class="text-3xl font-serif text-slate-900 text-left">World-Class Signature Amenities</h2>
             </div>
-            
+
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-8">
                 @foreach($property->amenities as $amenity)
                     <div class="flex items-start gap-4 bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
@@ -799,7 +799,7 @@
 @if(str_contains($property->slug, 'lumiere'))
     <section class="py-24 bg-white border-t border-b border-slate-150 select-none animate-fade-in">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            
+
             <!-- Section Header -->
             <div class="flex flex-col gap-3 text-center max-w-2xl mx-auto mb-16 scroll-reveal reveal-up">
                 <span class="text-amber-600 font-extrabold tracking-widest text-xs uppercase block">Clarifications Hub</span>
@@ -809,10 +809,10 @@
 
             <!-- 2-Column Accordion Grid list (Alpine.js powered) -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start font-sans" x-data="{ activeFaq: null }">
-                
+
                 <!-- Column 1 -->
                 <div class="flex flex-col gap-4">
-                    
+
                     <!-- FAQ 1 -->
                     <div class="bg-slate-50 rounded-2xl border border-slate-200/50 p-6 cursor-pointer transition-all duration-300 hover:shadow-md"
                          @click="activeFaq === 1 ? activeFaq = null : activeFaq = 1">
@@ -897,7 +897,7 @@
 
                 <!-- Column 2 -->
                 <div class="flex flex-col gap-4">
-                    
+
                     <!-- FAQ 5 -->
                     <div class="bg-slate-50 rounded-2xl border border-slate-200/50 p-6 cursor-pointer transition-all duration-300 hover:shadow-md"
                          @click="activeFaq === 5 ? activeFaq = null : activeFaq = 5">
@@ -1005,7 +1005,7 @@
 <!-- Section 6 — Property Conversion Engine & Schedule Form -->
 <section id="schedule-inspection" class="py-24 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-16">
-        
+
         <!-- Call to Action Info -->
         <div class="lg:col-span-5 flex flex-col gap-6 justify-center">
             <span class="text-amber-600 font-extrabold uppercase tracking-widest text-sm block text-left">Begin Your Acquisition</span>
@@ -1013,7 +1013,7 @@
             <p class="text-slate-550 font-semibold leading-relaxed text-base text-left">
                 Schedule a private physical tour, submit a structured enquiry to our corporate legal team, or start a direct, immediate chat with our designated private agent on WhatsApp.
             </p>
-            
+
             <div class="flex flex-col gap-4 mt-4 font-sans">
                 @if(str_contains($property->slug, 'lumiere'))
                     <a href="https://wa.me/2349111555511" class="inline-flex items-center justify-center gap-2 px-6 py-4 text-xs font-extrabold uppercase tracking-widest text-white bg-emerald-600 hover:bg-emerald-500 rounded-2xl shadow-md transition-colors duration-200">
@@ -1045,7 +1045,7 @@
                  }">
                 <h3 class="text-2xl font-serif text-slate-900 mb-2 font-sans font-extrabold text-left tracking-tight">Reserve Luxury Stay</h3>
                 <p class="text-sm text-slate-500 mb-8 font-sans font-semibold text-left">Select check-in and checkout dates to calculate rates and request a private booking.</p>
-                
+
                 @if(session('success'))
                     <div class="mb-6 p-4 rounded-xl bg-emerald-50 border border-emerald-100 text-emerald-700 text-sm font-semibold flex items-center gap-2">
                         <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
@@ -1143,7 +1143,7 @@
             <!-- Standard Inspection Request Form Form (Connected to book route!) -->
             <div class="lg:col-span-7 bg-slate-50 rounded-[2.5rem] border border-slate-200/50 p-8 sm:p-10 shadow-sm">
                 <h3 class="text-2xl font-serif text-slate-900 mb-6 font-sans font-extrabold text-left tracking-tight">Schedule Private Inspection</h3>
-                
+
                 @if(session('success'))
                     <div class="mb-6 p-4 rounded-xl bg-emerald-50 border border-emerald-100 text-emerald-700 text-sm font-semibold flex items-center gap-2">
                         <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
