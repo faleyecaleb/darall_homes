@@ -16,16 +16,25 @@
 >
 
     <!-- Video/Image Background -->
-    @if($property->has_luxury_layout && $property->hero_video_url)
+    @if($property->has_luxury_layout)
         <!-- Immersive Looping Background Video for Lumiere Suites -->
         <div class="absolute inset-0 w-full h-full z-0 overflow-hidden">
-            <video autoplay loop muted playsinline class="absolute min-w-full min-h-full w-auto h-auto top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 object-cover opacity-90">
-                <source src="{{ asset($property->hero_video_url) }}" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
+            <!-- Cover Image Fallback under the video -->
+            @if($property->coverImage)
+                <div class="absolute inset-0 bg-cover bg-center opacity-65 z-0" style="background-image: url('{{ $property->coverImage->file_path }}'); text-align: left;"></div>
+            @else
+                <div class="absolute inset-0 bg-slate-900 opacity-65 z-0" style="text-align: left;"></div>
+            @endif
+
+            @if($property->hero_video_url)
+                <video autoplay loop muted playsinline poster="{{ $property->coverImage ? $property->coverImage->file_path : '' }}" class="absolute min-w-full min-h-full w-auto h-auto top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 object-cover opacity-90 z-10">
+                    <source src="{{ $property->hero_video_url }}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            @endif
             <!-- Premium Dark Gradient overlays for high text contrast and visual depths -->
-            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/45 to-transparent z-10"></div>
-            <div class="absolute inset-0 bg-slate-950/20 mix-blend-overlay z-10"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/45 to-transparent z-20"></div>
+            <div class="absolute inset-0 bg-slate-950/20 mix-blend-overlay z-20"></div>
         </div>
     @else
         <!-- Cover Image Background Fallback for other standard listings -->
@@ -132,14 +141,14 @@
                             @php
                                 $accent = $accents[$index] ?? $accents[0];
                             @endphp
-                            <div @click="openLightbox = true; activeImage = '{{ asset($perspective->image_path) }}'; activeTitle = '{{ addslashes($perspective->title) }} Render'; activeDesc = '{{ addslashes($perspective->description) }}'"
+                            <div @click="openLightbox = true; activeImage = '{{ $perspective->image_path }}'; activeTitle = '{{ addslashes($perspective->title) }} Render'; activeDesc = '{{ addslashes($perspective->description) }}'"
                                  class="group cursor-pointer {{ $accent['bg'] }} border rounded-[1.8rem] p-4 flex items-center justify-between gap-4 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl select-none">
                                 <div class="flex flex-col gap-1 text-left">
                                     <span class="text-[10px] {{ $accent['text'] }} font-extrabold uppercase tracking-wider">{{ $perspective->subtitle ?: $accent['default_sub'] }}</span>
                                     <h4 class="text-xs sm:text-sm font-extrabold text-white {{ $accent['hover'] }} transition-colors uppercase tracking-wide">{{ $perspective->title }}</h4>
                                 </div>
                                 <div class="w-14 sm:w-16 h-10 sm:h-12 rounded-xl overflow-hidden bg-slate-900 border border-white/10 flex-shrink-0">
-                                    <img src="{{ asset($perspective->image_path) }}" alt="{{ $perspective->title }} Mini" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
+                                    <img src="{{ $perspective->image_path }}" alt="{{ $perspective->title }} Mini" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
                                 </div>
                             </div>
                         @endforeach
@@ -346,7 +355,7 @@
                 @foreach($property->units as $unit)
                     <div class="group bg-white border border-slate-200/50 rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 transform scroll-reveal reveal-up">
                         <div class="relative aspect-[1.4] overflow-hidden bg-slate-200 z-0">
-                            <img src="{{ asset($unit->image_path) }}" alt="{{ $unit->name }} Interior" class="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <img src="{{ $unit->image_path }}" alt="{{ $unit->name }} Interior" class="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-500">
                             @if($unit->badge)
                                 <span class="absolute top-4 left-4 bg-amber-400 text-slate-950 px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider shadow-md">{{ $unit->badge }}</span>
                             @endif
@@ -419,7 +428,7 @@
                              area: '{{ $u->floor_area }} sqm',
                              outrightPrice: {{ (int)$u->outright_price }},
                              installmentPrice: {{ (int)($u->installment_total_price ?? $u->outright_price * 1.05) }},
-                             image: '{{ asset($u->image_path) }}',
+                             image: '{{ $u->image_path }}',
                              description: '{{ addslashes($u->description) }}',
                              hotspots: @json($u->hotspots ?? [])
                          },
