@@ -662,7 +662,7 @@
                 <h2 class="text-3xl font-serif text-slate-900 text-left">World-Class Signature Amenities</h2>
             </div>
 
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
                 @foreach($property->amenities as $amenity)
                     <div class="flex items-start gap-4 bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
                         <div class="w-10 h-10 rounded-xl bg-brand-red-500/10 text-brand-red-600 flex items-center justify-center flex-shrink-0">
