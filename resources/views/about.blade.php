@@ -5,7 +5,7 @@
 @section('content')
 
 <!-- 1. HEADER BANNER SECTION - Floating Cinematic Backdrop -->
-<div class="relative bg-slate-950 py-24 sm:py-32 overflow-hidden border-b border-slate-900 -mt-20 flex items-center min-h-[400px] select-none">
+<div class="relative bg-slate-950 pt-36 pb-24 sm:py-32 overflow-hidden border-b border-slate-900 -mt-20 flex items-center min-h-[400px] select-none">
     <!-- Immersive Backdrop -->
     <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1920&q=80" 
          alt="Darall Corporate Landscape" 
