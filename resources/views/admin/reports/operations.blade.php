@@ -82,7 +82,7 @@
                         <span class="text-slate-900 dark:text-white font-extrabold">{{ $enquiryNew }} ({{ round(($enquiryNew / $totalEnqRec) * 100, 1) }}%)</span>
                     </div>
                     <div class="w-full bg-slate-100 dark:bg-slate-900 h-2 rounded-full overflow-hidden">
-                        <div class="bg-amber-400 h-full rounded-full" style="width: {{ ($enquiryNew / $totalEnqRec) * 100 }}%"></div>
+                        <div class="bg-brand-red-400 h-full rounded-full" style="width: {{ ($enquiryNew / $totalEnqRec) * 100 }}%"></div>
                     </div>
                 </div>
 
@@ -139,7 +139,7 @@
                         <span class="text-slate-900 dark:text-white font-extrabold">{{ $tourPending }} ({{ round(($tourPending / $totalInsRec) * 100, 1) }}%)</span>
                     </div>
                     <div class="w-full bg-slate-100 dark:bg-slate-900 h-2 rounded-full overflow-hidden">
-                        <div class="bg-amber-400 h-full rounded-full" style="width: {{ ($tourPending / $totalInsRec) * 100 }}%"></div>
+                        <div class="bg-brand-red-400 h-full rounded-full" style="width: {{ ($tourPending / $totalInsRec) * 100 }}%"></div>
                     </div>
                 </div>
 

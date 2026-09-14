@@ -8,7 +8,7 @@
     <div class="absolute inset-0 bg-cover bg-center opacity-35" style="background-image: url('https://images.unsplash.com/photo-1542435503-956c469947f6?auto=format&fit=crop&w=1920&q=80');"></div>
     <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10 flex flex-col items-center gap-4">
-        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-amber-500/10 text-amber-400 border border-amber-500/20 backdrop-blur-sm">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-brand-red-500/10 text-brand-red-400 border border-brand-red-500/20 backdrop-blur-sm">
             Intellectual Capital
         </span>
         <h1 class="text-4xl sm:text-5xl font-serif text-white tracking-tight">
@@ -34,7 +34,7 @@
                     <span>•</span>
                     <span>5 Min Read</span>
                 </div>
-                <h3 class="text-xl font-serif text-slate-900 group-hover:text-amber-600 transition-colors">
+                <h3 class="text-xl font-serif text-slate-900 group-hover:text-brand-red-600 transition-colors">
                     The Smart Home Evolution: Automating Luxury Real Estate
                 </h3>
                 <p class="text-slate-500 text-sm font-light leading-relaxed line-clamp-2">
@@ -52,7 +52,7 @@
                     <span>•</span>
                     <span>8 Min Read</span>
                 </div>
-                <h3 class="text-xl font-serif text-slate-900 group-hover:text-amber-600 transition-colors">
+                <h3 class="text-xl font-serif text-slate-900 group-hover:text-brand-red-600 transition-colors">
                     Lagos Property Market Outlook: Where to Invest in 2027
                 </h3>
                 <p class="text-slate-500 text-sm font-light leading-relaxed line-clamp-2">
@@ -70,7 +70,7 @@
                     <span>•</span>
                     <span>4 Min Read</span>
                 </div>
-                <h3 class="text-xl font-serif text-slate-900 group-hover:text-amber-600 transition-colors">
+                <h3 class="text-xl font-serif text-slate-900 group-hover:text-brand-red-600 transition-colors">
                     Waterfront Living: The Psychological Allure of Lagoon Vistas
                 </h3>
                 <p class="text-slate-500 text-sm font-light leading-relaxed line-clamp-2">

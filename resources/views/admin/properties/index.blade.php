@@ -24,7 +24,7 @@
     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <!-- Quick search placeholder -->
         <div class="relative w-full sm:w-80">
-            <input type="text" placeholder="Search registry..." class="w-full bg-slate-50 border border-slate-100 rounded-2xl px-4 py-3 text-xs text-slate-700 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:bg-white transition-all">
+            <input type="text" placeholder="Search registry..." class="w-full bg-slate-50 border border-slate-100 rounded-2xl px-4 py-3 text-xs text-slate-700 focus:outline-none focus:ring-2 focus:ring-brand-red-500 focus:bg-white transition-all">
             <span class="absolute right-4 top-3 text-slate-400">
                 <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -60,7 +60,7 @@
                                 <span class="h-12 w-16 rounded-xl bg-slate-100 flex items-center justify-center flex-shrink-0 text-slate-400">No Image</span>
                             @endif
                             <div class="flex flex-col">
-                                <span class="font-bold text-slate-900 group-hover:text-amber-600 transition-colors">{{ $property->title }}</span>
+                                <span class="font-bold text-slate-900 group-hover:text-brand-red-600 transition-colors">{{ $property->title }}</span>
                                 <span class="text-[10px] text-slate-400 uppercase tracking-wider font-semibold">{{ $property->property_type }}</span>
                             </div>
                         </td>
@@ -104,7 +104,7 @@
                                     {{ $property->status }}
                                 </span>
                             @elseif($property->status === 'Under Offer')
-                                <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-amber-100 text-amber-700 border border-amber-200">
+                                <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-brand-red-100 text-brand-red-700 border border-brand-red-200">
                                     {{ $property->status }}
                                 </span>
                             @else
@@ -117,7 +117,7 @@
                         <!-- Actions menu with dynamic Edit and Delete triggers -->
                         <td class="py-5 text-right font-sans">
                             <div class="flex justify-end gap-2 items-center">
-                                <a href="{{ route('properties.show', $property->slug) }}" target="_blank" class="p-2 rounded-xl text-slate-400 hover:text-amber-600 hover:bg-amber-500/10 transition-colors" title="View Showroom">
+                                <a href="{{ route('properties.show', $property->slug) }}" target="_blank" class="p-2 rounded-xl text-slate-400 hover:text-brand-red-600 hover:bg-brand-red-500/10 transition-colors" title="View Showroom">
                                     <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />

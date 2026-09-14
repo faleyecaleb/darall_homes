@@ -52,8 +52,8 @@
             <!-- Property Meta & Actions -->
             <div class="lg:col-span-8 flex flex-col items-start gap-4 sm:gap-6">
                 @if($property->virtualTour)
-                    <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-sm font-extrabold uppercase tracking-widest bg-amber-500/10 text-amber-400 border border-amber-500/20 backdrop-blur-md">
-                        <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
+                    <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-sm font-extrabold uppercase tracking-widest bg-brand-red-500/10 text-brand-red-400 border border-brand-red-500/20 backdrop-blur-md">
+                        <span class="w-1.5 h-1.5 rounded-full bg-brand-red-400 animate-pulse"></span>
                         Virtual Tour Available Now
                     </span>
                 @endif
@@ -68,7 +68,7 @@
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto pt-2 font-sans">
                     @if($property->virtualTour)
-                        <a href="#virtual-tour" class="inline-flex items-center justify-center gap-2 px-8 py-4 text-xs font-extrabold uppercase tracking-widest text-slate-950 bg-amber-400 hover:bg-amber-500 active:scale-95 rounded-xl shadow-lg transition-all">
+                        <a href="#virtual-tour" class="inline-flex items-center justify-center gap-2 px-8 py-4 text-xs font-extrabold uppercase tracking-widest text-slate-950 bg-brand-red-400 hover:bg-brand-red-500 active:scale-95 rounded-xl shadow-lg transition-all">
                             <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
                             </svg>
@@ -84,9 +84,9 @@
             <div class="lg:col-span-4 flex flex-col lg:items-end gap-2 text-left lg:text-right">
                 <span class="text-sm text-slate-400 uppercase tracking-wider font-extrabold">Investment Value</span>
                 @if($property->property_type === 'Shortlet')
-                    <span class="text-3xl sm:text-4xl font-extrabold text-amber-500 font-sans">₦{{ number_format($property->price) }}<span class="text-sm font-bold text-slate-400">/night</span></span>
+                    <span class="text-3xl sm:text-4xl font-extrabold text-brand-red-500 font-sans">₦{{ number_format($property->price) }}<span class="text-sm font-bold text-slate-400">/night</span></span>
                 @else
-                    <span class="text-3xl sm:text-4xl font-extrabold text-amber-500 font-sans">
+                    <span class="text-3xl sm:text-4xl font-extrabold text-brand-red-500 font-sans">
                         @if($property->has_luxury_layout)
                             <span class="text-xs text-slate-400 uppercase block tracking-widest font-extrabold mb-1">Starting At</span>
                         @endif
@@ -102,7 +102,7 @@
             <div class="w-full border-t border-white/10 pt-8 mt-4">
                 <div class="flex flex-col gap-4 text-left">
                     <div class="flex items-center gap-2">
-                        <span class="h-1.5 w-1.5 rounded-full bg-amber-400 animate-pulse"></span>
+                        <span class="h-1.5 w-1.5 rounded-full bg-brand-red-400 animate-pulse"></span>
                         <span class="text-[10px] font-extrabold uppercase tracking-widest text-slate-400">Cinematic Perspective Explorer</span>
                     </div>
 
@@ -117,9 +117,9 @@
                                     'default_sub' => 'Perspective I'
                                 ],
                                 1 => [
-                                    'bg' => 'bg-amber-500/10 hover:bg-amber-500/20 border-amber-400/20 hover:shadow-amber-500/5',
-                                    'text' => 'text-amber-400',
-                                    'hover' => 'group-hover:text-amber-300',
+                                    'bg' => 'bg-brand-red-500/10 hover:bg-brand-red-500/20 border-brand-red-400/20 hover:shadow-brand-red-500/5',
+                                    'text' => 'text-brand-red-400',
+                                    'hover' => 'group-hover:text-brand-red-300',
                                     'default_sub' => 'Perspective II'
                                 ],
                                 2 => [
@@ -188,7 +188,7 @@
 
                 <!-- Close Button -->
                 <button @click="openLightbox = false"
-                        class="absolute top-4 right-4 sm:top-6 sm:right-6 w-10 sm:w-12 h-10 sm:h-12 rounded-full bg-slate-950/70 border border-white/15 text-white flex items-center justify-center hover:bg-amber-400 hover:text-slate-950 hover:scale-110 active:scale-95 transition-all duration-200 focus:outline-none z-30">
+                        class="absolute top-4 right-4 sm:top-6 sm:right-6 w-10 sm:w-12 h-10 sm:h-12 rounded-full bg-slate-950/70 border border-white/15 text-white flex items-center justify-center hover:bg-brand-red-400 hover:text-slate-950 hover:scale-110 active:scale-95 transition-all duration-200 focus:outline-none z-30">
                     <svg class="h-5 w-5 fill-current" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
                     </svg>
@@ -201,7 +201,7 @@
 
                 <!-- Bottom Description Panel -->
                 <div class="p-6 sm:p-8 bg-slate-950 border-t border-white/5 text-left font-sans flex flex-col gap-1.5 z-20">
-                    <h3 class="text-amber-400 font-extrabold text-sm uppercase tracking-widest" x-text="activeTitle"></h3>
+                    <h3 class="text-brand-red-400 font-extrabold text-sm uppercase tracking-widest" x-text="activeTitle"></h3>
                     <p class="text-slate-300 text-xs sm:text-sm font-semibold leading-relaxed" x-text="activeDesc"></p>
                 </div>
 
@@ -275,7 +275,7 @@
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 select-none">
             <div class="text-center max-w-3xl mx-auto mb-16 flex flex-col items-center gap-4">
-                <span class="text-amber-500 font-extrabold uppercase tracking-wider text-sm">A Digitized Showroom</span>
+                <span class="text-brand-red-500 font-extrabold uppercase tracking-wider text-sm">A Digitized Showroom</span>
                 <h2 class="text-3xl sm:text-4xl font-serif text-white">Walk Through Before You Visit</h2>
                 <p class="text-slate-350 text-sm sm:text-base font-light">
                     Use your keyboard or mouse to look around, tap the hot spots on the floor to navigate rooms, and inspect every corner of the property in real-time.
@@ -290,7 +290,7 @@
 
             <div class="flex justify-center items-center gap-4 mt-8 text-sm text-slate-400">
                 <span class="flex items-center gap-2">
-                    <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+                    <span class="w-1.5 h-1.5 rounded-full bg-brand-red-500"></span>
                     Interactive 3D Technology Enabled
                 </span>
                 <span class="text-slate-700">|</span>
@@ -309,7 +309,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
             <!-- Long Text description -->
             <div class="lg:col-span-8 flex flex-col gap-6">
-                <span class="text-amber-600 font-extrabold tracking-widest text-sm uppercase block text-left">Property Overview</span>
+                <span class="text-brand-red-600 font-extrabold tracking-widest text-sm uppercase block text-left">Property Overview</span>
                 <h2 class="text-3xl font-serif text-slate-900 text-left">Architectural Narrative</h2>
                 <p class="text-slate-600 leading-relaxed font-semibold text-base text-left">
                     {{ $property->description }}
@@ -345,7 +345,7 @@
 
             <!-- Section Header -->
             <div class="flex flex-col gap-3 text-center max-w-2xl mx-auto mb-16 scroll-reveal reveal-up">
-                <span class="text-amber-600 font-extrabold tracking-widest text-xs uppercase block">Apartment Types</span>
+                <span class="text-brand-red-600 font-extrabold tracking-widest text-xs uppercase block">Apartment Types</span>
                 <h2 class="text-3xl sm:text-4xl font-serif text-slate-900 tracking-tight leading-none">A Collection of Modern Spaces</h2>
                 <p class="text-sm text-slate-500 leading-relaxed font-semibold">Each unit is meticulously designed for luxury, space efficiency, and modern mainland living.</p>
             </div>
@@ -357,7 +357,7 @@
                         <div class="relative aspect-[1.4] overflow-hidden bg-slate-200 z-0">
                             <img src="{{ $unit->image_path }}" alt="{{ $unit->name }} Interior" class="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-500">
                             @if($unit->badge)
-                                <span class="absolute top-4 left-4 bg-amber-400 text-slate-950 px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider shadow-md">{{ $unit->badge }}</span>
+                                <span class="absolute top-4 left-4 bg-brand-red-400 text-slate-950 px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider shadow-md">{{ $unit->badge }}</span>
                             @endif
                         </div>
                         <div class="p-8 flex flex-col gap-4">
@@ -385,7 +385,7 @@
                                 </div>
                                 @if($unit->has_installment)
                                     <div class="flex flex-col gap-1.5 p-4 rounded-xl bg-slate-50 border border-slate-100 text-[11px] font-semibold text-slate-505">
-                                        <span class="text-[9px] font-extrabold uppercase tracking-wider text-amber-600">{{ $unit->installment_duration }}-Month Installment Plan</span>
+                                        <span class="text-[9px] font-extrabold uppercase tracking-wider text-brand-red-600">{{ $unit->installment_duration }}-Month Installment Plan</span>
                                         <div class="flex justify-between mt-1">
                                             <span>Total Price:</span>
                                             <strong class="text-slate-900">₦{{ number_format($unit->installment_total_price) }}</strong>
@@ -454,7 +454,7 @@
 
                 <!-- Section Header -->
                 <div class="flex flex-col gap-3 text-center max-w-2xl mx-auto mb-16">
-                    <span class="text-amber-500 font-extrabold tracking-widest text-xs uppercase block">Interactive Experience</span>
+                    <span class="text-brand-red-500 font-extrabold tracking-widest text-xs uppercase block">Interactive Experience</span>
                     <h2 class="text-3xl sm:text-4xl font-serif text-white tracking-tight">Immersive Design Studio</h2>
                     <p class="text-sm text-slate-400 leading-relaxed font-semibold">Step inside our premium layouts. Toggle models, hover hotspots to inspect finishes, and customize your financing plan in real-time.</p>
                 </div>
@@ -472,7 +472,7 @@
                                 @foreach($property->units as $u)
                                     <button @click="unit = '{{ $u->id }}'; activeSpot = null"
                                             class="w-full flex items-center justify-between px-5 py-4 rounded-xl border text-sm transition-all text-left font-semibold focus:outline-none"
-                                            :class="unit === '{{ $u->id }}' ? 'bg-amber-400 text-slate-950 border-amber-400 font-bold shadow-lg shadow-amber-400/10 scale-[1.02]' : 'bg-slate-950 text-white border-white/10 hover:border-white/20'">
+                                            :class="unit === '{{ $u->id }}' ? 'bg-brand-red-400 text-slate-950 border-brand-red-400 font-bold shadow-lg shadow-brand-red-400/10 scale-[1.02]' : 'bg-slate-950 text-white border-white/10 hover:border-white/20'">
                                         <div class="flex flex-col">
                                             <span>{{ $u->name }}</span>
                                             <span class="text-[10px] mt-0.5" :class="unit === '{{ $u->id }}' ? 'text-slate-800' : 'text-slate-500'">{{ $u->floor_area }} sqm Layout • {{ $u->bedrooms }} Bed • {{ $u->bathrooms }} {{ Str::plural('Bath', $u->bathrooms) }}</span>
@@ -489,12 +489,12 @@
                         <div class="grid grid-cols-2 gap-2 bg-slate-950 p-1 rounded-xl border border-white/5 font-sans">
                             <button @click="mode = 'hotspots'"
                                     class="py-2.5 rounded-lg text-xs font-extrabold uppercase tracking-wider transition-all focus:outline-none"
-                                    :class="mode === 'hotspots' ? 'bg-white/10 text-amber-400 shadow-sm' : 'text-slate-400 hover:text-white'">
+                                    :class="mode === 'hotspots' ? 'bg-white/10 text-brand-red-400 shadow-sm' : 'text-slate-400 hover:text-white'">
                                 Hotspots Viewer
                             </button>
                             <button @click="mode = 'calculator'"
                                     class="py-2.5 rounded-lg text-xs font-extrabold uppercase tracking-wider transition-all focus:outline-none"
-                                    :class="mode === 'calculator' ? 'bg-white/10 text-amber-400 shadow-sm' : 'text-slate-400 hover:text-white'">
+                                    :class="mode === 'calculator' ? 'bg-white/10 text-brand-red-400 shadow-sm' : 'text-slate-400 hover:text-white'">
                                 Payment Planner
                             </button>
                         </div>
@@ -502,7 +502,7 @@
 
                     <!-- Suite Summary Box -->
                     <div class="border-t border-white/10 pt-6 text-left font-sans">
-                        <h4 class="text-amber-400 font-extrabold text-sm uppercase tracking-wider" x-text="specs[unit].name"></h4>
+                        <h4 class="text-brand-red-400 font-extrabold text-sm uppercase tracking-wider" x-text="specs[unit].name"></h4>
                         <p class="text-slate-400 text-xs mt-2 leading-relaxed font-semibold" x-text="specs[unit].description"></p>
                     </div>
 
@@ -526,14 +526,14 @@
                                      :style="'top: ' + spot.top + '; left: ' + spot.left + ';'">
 
                                     <!-- Blinking outer ring -->
-                                    <span class="absolute -top-3.5 -left-3.5 h-10 w-10 rounded-full bg-amber-400/40 animate-ping duration-[3000ms]"></span>
+                                    <span class="absolute -top-3.5 -left-3.5 h-10 w-10 rounded-full bg-brand-red-400/40 animate-ping duration-[3000ms]"></span>
 
                                     <!-- Glowing Solid Dot Button -->
                                     <button @mouseenter="activeSpot = spot.id"
                                             @mouseleave="activeSpot = null"
                                             @click="activeSpot = activeSpot === spot.id ? null : spot.id"
-                                            class="absolute -top-1.5 -left-1.5 h-6 w-6 rounded-full bg-amber-400 border-2 border-slate-950 flex items-center justify-center text-slate-950 font-extrabold shadow-lg focus:outline-none transition-transform duration-300 transform hover:scale-125 z-30"
-                                            :class="activeSpot === spot.id ? 'scale-125 bg-amber-400 ring-4 ring-amber-400/20' : 'bg-amber-400'">
+                                            class="absolute -top-1.5 -left-1.5 h-6 w-6 rounded-full bg-brand-red-400 border-2 border-slate-950 flex items-center justify-center text-slate-950 font-extrabold shadow-lg focus:outline-none transition-transform duration-300 transform hover:scale-125 z-30"
+                                            :class="activeSpot === spot.id ? 'scale-125 bg-brand-red-400 ring-4 ring-brand-red-400/20' : 'bg-brand-red-400'">
                                         <!-- Magnifier/Plus indicator inside dot -->
                                         <span class="text-[10px] select-none">+</span>
                                     </button>
@@ -546,9 +546,9 @@
                                          x-transition:leave="transition ease-in duration-200 transform"
                                          x-transition:leave-start="opacity-100 translate-y-0 scale-100"
                                          x-transition:leave-end="opacity-0 translate-y-2 scale-95"
-                                         class="absolute left-6 -top-12 bg-slate-900/95 border border-amber-400/30 p-5 rounded-2xl backdrop-blur-lg shadow-2xl w-72 sm:w-80 text-left font-sans z-40"
+                                         class="absolute left-6 -top-12 bg-slate-900/95 border border-brand-red-400/30 p-5 rounded-2xl backdrop-blur-lg shadow-2xl w-72 sm:w-80 text-left font-sans z-40"
                                          style="display: none;">
-                                        <h5 class="text-amber-400 font-extrabold text-xs uppercase tracking-wider mb-1.5" x-text="spot.title"></h5>
+                                        <h5 class="text-brand-red-400 font-extrabold text-xs uppercase tracking-wider mb-1.5" x-text="spot.title"></h5>
                                         <p class="text-[11px] text-slate-200 leading-relaxed font-bold" x-text="spot.desc"></p>
                                     </div>
 
@@ -557,7 +557,7 @@
 
                             <!-- Hint Badge -->
                             <div class="absolute bottom-4 left-4 bg-slate-950/70 border border-white/10 px-3 py-1.5 rounded-full backdrop-blur-md text-[10px] text-slate-300 font-sans tracking-wide">
-                                <span class="h-1.5 w-1.5 rounded-full bg-amber-400 animate-pulse inline-block mr-1.5"></span>
+                                <span class="h-1.5 w-1.5 rounded-full bg-brand-red-400 animate-pulse inline-block mr-1.5"></span>
                                 Hover/tap the glowing hotspots to inspect premium interior selections
                             </div>
                         </div>
@@ -569,7 +569,7 @@
 
                         <div class="space-y-8 flex-1">
                             <div class="flex flex-col gap-1">
-                                <span class="text-[10px] text-amber-400 font-extrabold uppercase tracking-widest">Milestone Payment Planner</span>
+                                <span class="text-[10px] text-brand-red-400 font-extrabold uppercase tracking-widest">Milestone Payment Planner</span>
                                 <h3 class="text-xl font-serif text-white">Customize Your Lumière Acquisition</h3>
                             </div>
 
@@ -577,12 +577,12 @@
                             <div class="space-y-4 bg-slate-950/40 border border-white/5 p-6 rounded-2xl">
                                 <div class="flex justify-between items-baseline">
                                     <label class="text-xs text-slate-400 font-extrabold uppercase tracking-wider">Initial Down Payment</label>
-                                    <span class="text-lg font-extrabold text-amber-400" x-text="depositPercent + '%'"></span>
+                                    <span class="text-lg font-extrabold text-brand-red-400" x-text="depositPercent + '%'"></span>
                                 </div>
 
                                 <div class="relative pt-1">
                                     <input type="range" min="30" max="100" step="5" x-model="depositPercent"
-                                           class="w-full accent-amber-400 bg-slate-950 border border-white/10 h-2 rounded-lg cursor-pointer focus:outline-none">
+                                           class="w-full accent-brand-red-400 bg-slate-950 border border-white/10 h-2 rounded-lg cursor-pointer focus:outline-none">
                                     <div class="flex justify-between text-[10px] text-slate-500 font-bold mt-1 font-sans">
                                         <span>30% (Minimum)</span>
                                         <span>50% (Recommended)</span>
@@ -612,18 +612,18 @@
                                         </div>
                                     </template>
                                     <span class="text-[10px] text-slate-500 font-extrabold uppercase tracking-wider">6 Monthly Installments</span>
-                                    <span class="text-xl font-extrabold text-amber-500" x-text="'₦' + new Intl.NumberFormat().format(monthlyPayment) + '/mo'"></span>
+                                    <span class="text-xl font-extrabold text-brand-red-500" x-text="'₦' + new Intl.NumberFormat().format(monthlyPayment) + '/mo'"></span>
                                     <span class="text-[9px] text-slate-400 font-bold" x-text="'Remaining balance spread comfortably over 6 months'"></span>
                                 </div>
 
                             </div>
 
                             <!-- Total value breakdown summary -->
-                            <div class="p-5 bg-amber-400/5 border border-amber-400/15 rounded-2xl flex flex-col sm:flex-row justify-between items-center gap-3">
+                            <div class="p-5 bg-brand-red-400/5 border border-brand-red-400/15 rounded-2xl flex flex-col sm:flex-row justify-between items-center gap-3">
                                 <div class="flex flex-col text-left gap-0.5">
                                     <span class="text-[9px] text-slate-500 font-extrabold uppercase tracking-wider">Calculated Acquisition Cost</span>
                                     <span class="text-base font-extrabold text-white">
-                                        Lumière Acquisition Total: <strong class="text-amber-400" x-text="'₦' + new Intl.NumberFormat().format(totalPrice)"></strong>
+                                        Lumière Acquisition Total: <strong class="text-brand-red-400" x-text="'₦' + new Intl.NumberFormat().format(totalPrice)"></strong>
                                     </span>
                                 </div>
                                 <span class="text-[10px] text-slate-400 font-semibold" x-text="depositPercent === 100 || depositPercent === '100' ? 'Outright purchase pricing applied (5% surcharge waived)' : '5% standard off-plan installment pricing included'"></span>
@@ -634,7 +634,7 @@
                         <!-- Configurator conversion triggers -->
                         <div class="flex flex-col sm:flex-row gap-4 w-full pt-8 border-t border-white/5">
                             <a :href="'https://wa.me/2349111555511?text=Hi, I have used your Immersive Design Studio on your website and would love to acquire a unit of the ' + specs[unit].name + ' with an initial down-payment of ' + depositPercent + '%.'"
-                               class="flex-1 inline-flex items-center justify-center gap-2 px-6 py-4 text-xs font-extrabold uppercase tracking-widest text-slate-950 bg-amber-400 hover:bg-amber-500 rounded-xl shadow-lg transition-transform hover:-translate-y-0.5 active:translate-y-0 active:scale-95 duration-150">
+                               class="flex-1 inline-flex items-center justify-center gap-2 px-6 py-4 text-xs font-extrabold uppercase tracking-widest text-slate-950 bg-brand-red-400 hover:bg-brand-red-500 rounded-xl shadow-lg transition-transform hover:-translate-y-0.5 active:translate-y-0 active:scale-95 duration-150">
                                 Apply Financing with Sales Team
                             </a>
                             <a href="#schedule-inspection"
@@ -658,14 +658,14 @@
     <section class="py-24 bg-slate-50 border-t border-slate-100 select-none">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col gap-12">
             <div class="flex flex-col gap-3">
-                <span class="text-amber-600 font-extrabold tracking-widest text-sm uppercase block text-left">Serviced Conveniences</span>
+                <span class="text-brand-red-600 font-extrabold tracking-widest text-sm uppercase block text-left">Serviced Conveniences</span>
                 <h2 class="text-3xl font-serif text-slate-900 text-left">World-Class Signature Amenities</h2>
             </div>
 
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-8">
                 @foreach($property->amenities as $amenity)
                     <div class="flex items-start gap-4 bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
-                        <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-600 flex items-center justify-center flex-shrink-0">
+                        <div class="w-10 h-10 rounded-xl bg-brand-red-500/10 text-brand-red-600 flex items-center justify-center flex-shrink-0">
                             <!-- Star/Spark icon -->
                             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
@@ -689,7 +689,7 @@
 
             <!-- Section Header -->
             <div class="flex flex-col gap-3 text-center max-w-2xl mx-auto mb-16 scroll-reveal reveal-up">
-                <span class="text-amber-600 font-extrabold tracking-widest text-xs uppercase block">Clarifications Hub</span>
+                <span class="text-brand-red-600 font-extrabold tracking-widest text-xs uppercase block">Clarifications Hub</span>
                 <h2 class="text-3xl font-serif text-slate-900 tracking-tight leading-none">{{ $property->title }} FAQ</h2>
                 <p class="text-sm text-slate-500 leading-relaxed font-semibold">Everything you need to know about purchasing and managing your {{ $property->title }} apartment.</p>
             </div>
@@ -895,7 +895,7 @@
 
         <!-- Call to Action Info -->
         <div class="lg:col-span-5 flex flex-col gap-6 justify-center">
-            <span class="text-amber-600 font-extrabold uppercase tracking-widest text-sm block text-left">Begin Your Acquisition</span>
+            <span class="text-brand-red-600 font-extrabold uppercase tracking-widest text-sm block text-left">Begin Your Acquisition</span>
             <h2 class="text-3xl sm:text-4xl font-serif text-slate-900 text-left">Interested in this property?</h2>
             <p class="text-slate-550 font-semibold leading-relaxed text-base text-left">
                 Schedule a private physical tour, submit a structured enquiry to our corporate legal team, or start a direct, immediate chat with our designated private agent on WhatsApp.
@@ -954,12 +954,12 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                         <div class="flex flex-col gap-2 text-left">
                             <label class="text-sm font-semibold text-slate-500 uppercase tracking-wider">Your Name</label>
-                            <input type="text" name="customer_name" required value="{{ old('customer_name', auth()->user()->name ?? '') }}" placeholder="John Doe" class="w-full bg-white border border-slate-200 rounded-xl px-4 py-3.5 text-sm text-slate-700 font-semibold focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all">
+                            <input type="text" name="customer_name" required value="{{ old('customer_name', auth()->user()->name ?? '') }}" placeholder="John Doe" class="w-full bg-white border border-slate-200 rounded-xl px-4 py-3.5 text-sm text-slate-700 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-red-500 focus:border-transparent transition-all">
                             @error('customer_name')<span class="text-sm text-rose-500 font-semibold">{{ $message }}</span>@enderror
                         </div>
                         <div class="flex flex-col gap-2 text-left">
                             <label class="text-sm font-semibold text-slate-500 uppercase tracking-wider">Email Address</label>
-                            <input type="email" name="customer_email" required value="{{ old('customer_email', auth()->user()->email ?? '') }}" placeholder="john@example.com" class="w-full bg-white border border-slate-200 rounded-xl px-4 py-3.5 text-sm text-slate-700 font-semibold focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all">
+                            <input type="email" name="customer_email" required value="{{ old('customer_email', auth()->user()->email ?? '') }}" placeholder="john@example.com" class="w-full bg-white border border-slate-200 rounded-xl px-4 py-3.5 text-sm text-slate-700 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-red-500 focus:border-transparent transition-all">
                             @error('customer_email')<span class="text-sm text-rose-500 font-semibold">{{ $message }}</span>@enderror
                         </div>
                     </div>
@@ -967,18 +967,18 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                         <div class="flex flex-col gap-2 text-left">
                             <label class="text-sm font-semibold text-slate-500 uppercase tracking-wider">Phone Number</label>
-                            <input type="tel" name="customer_phone" required value="{{ old('customer_phone') }}" placeholder="+234 800 0000" class="w-full bg-white border border-slate-200 rounded-xl px-4 py-3.5 text-sm text-slate-700 font-semibold focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all">
+                            <input type="tel" name="customer_phone" required value="{{ old('customer_phone') }}" placeholder="+234 800 0000" class="w-full bg-white border border-slate-200 rounded-xl px-4 py-3.5 text-sm text-slate-700 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-red-500 focus:border-transparent transition-all">
                             @error('customer_phone')<span class="text-sm text-rose-500 font-semibold">{{ $message }}</span>@enderror
                         </div>
                         <div class="flex grid grid-cols-2 gap-4">
                             <div class="flex flex-col gap-2 text-left">
                                 <label class="text-sm font-semibold text-slate-500 uppercase tracking-wider">Check-In</label>
-                                <input type="date" name="check_in_date" required x-model="checkIn" min="{{ date('Y-m-d') }}" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-3 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all font-sans font-semibold">
+                                <input type="date" name="check_in_date" required x-model="checkIn" min="{{ date('Y-m-d') }}" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-3 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-brand-red-500 focus:border-transparent transition-all font-sans font-semibold">
                                 @error('check_in_date')<span class="text-sm text-rose-500 font-semibold">{{ $message }}</span>@enderror
                             </div>
                             <div class="flex flex-col gap-2 text-left">
                                 <label class="text-sm font-semibold text-slate-500 uppercase tracking-wider">Checkout</label>
-                                <input type="date" name="check_out_date" required x-model="checkOut" :min="checkIn ? checkIn : '{{ date('Y-m-d') }}'" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-3 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all font-sans font-semibold">
+                                <input type="date" name="check_out_date" required x-model="checkOut" :min="checkIn ? checkIn : '{{ date('Y-m-d') }}'" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-3 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-brand-red-500 focus:border-transparent transition-all font-sans font-semibold">
                                 @error('check_out_date')<span class="text-sm text-rose-500 font-semibold">{{ $message }}</span>@enderror
                             </div>
                         </div>
@@ -987,7 +987,7 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                         <div class="flex flex-col gap-2 text-left">
                             <label class="text-sm font-semibold text-slate-500 uppercase tracking-wider">Number of Guests</label>
-                            <select name="guests_count" required class="w-full bg-white border border-slate-200 rounded-xl px-3 py-3.5 text-sm text-slate-700 font-semibold focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all">
+                            <select name="guests_count" required class="w-full bg-white border border-slate-200 rounded-xl px-3 py-3.5 text-sm text-slate-700 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-red-500 focus:border-transparent transition-all">
                                 <option value="1">1 Guest</option>
                                 <option value="2">2 Guests</option>
                                 <option value="3">3 Guests</option>
@@ -1000,7 +1000,7 @@
 
                     <div class="flex flex-col gap-2 text-left">
                         <label class="text-sm font-semibold text-slate-500 uppercase tracking-wider">Special Requests / Notes</label>
-                        <textarea name="notes" rows="3" placeholder="Airport pick-up requested, or high-floor preferences..." class="w-full bg-white border border-slate-200 rounded-xl px-4 py-3.5 text-sm text-slate-700 font-semibold focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all">{{ old('notes') }}</textarea>
+                        <textarea name="notes" rows="3" placeholder="Airport pick-up requested, or high-floor preferences..." class="w-full bg-white border border-slate-200 rounded-xl px-4 py-3.5 text-sm text-slate-700 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-red-500 focus:border-transparent transition-all">{{ old('notes') }}</textarea>
                         @error('notes')<span class="text-sm text-rose-500 font-semibold">{{ $message }}</span>@enderror
                     </div>
 
@@ -1043,12 +1043,12 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div class="flex flex-col gap-2 text-left">
                         <label class="text-sm font-semibold text-slate-500 uppercase tracking-wider">Your Name</label>
-                        <input type="text" name="name" required value="{{ old('name') }}" placeholder="John Doe" class="w-full bg-white border border-slate-200 rounded-xl px-4 py-3.5 text-sm text-slate-700 font-semibold focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all">
+                        <input type="text" name="name" required value="{{ old('name') }}" placeholder="John Doe" class="w-full bg-white border border-slate-200 rounded-xl px-4 py-3.5 text-sm text-slate-700 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-red-500 focus:border-transparent transition-all">
                         @error('name')<span class="text-sm text-rose-500 font-semibold">{{ $message }}</span>@enderror
                     </div>
                     <div class="flex flex-col gap-2 text-left">
                         <label class="text-sm font-semibold text-slate-500 uppercase tracking-wider">Email Address</label>
-                        <input type="email" name="email" required value="{{ old('email') }}" placeholder="john@example.com" class="w-full bg-white border border-slate-200 rounded-xl px-4 py-3.5 text-sm text-slate-700 font-semibold focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all">
+                        <input type="email" name="email" required value="{{ old('email') }}" placeholder="john@example.com" class="w-full bg-white border border-slate-200 rounded-xl px-4 py-3.5 text-sm text-slate-700 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-red-500 focus:border-transparent transition-all">
                         @error('email')<span class="text-sm text-rose-500 font-semibold">{{ $message }}</span>@enderror
                     </div>
                 </div>
@@ -1056,18 +1056,18 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div class="flex flex-col gap-2 text-left">
                         <label class="text-sm font-semibold text-slate-500 uppercase tracking-wider">Phone Number</label>
-                        <input type="tel" name="phone" required value="{{ old('phone') }}" placeholder="+234 800 0000" class="w-full bg-white border border-slate-200 rounded-xl px-4 py-3.5 text-sm text-slate-700 font-semibold focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all">
+                        <input type="tel" name="phone" required value="{{ old('phone') }}" placeholder="+234 800 0000" class="w-full bg-white border border-slate-200 rounded-xl px-4 py-3.5 text-sm text-slate-700 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-red-500 focus:border-transparent transition-all">
                         @error('phone')<span class="text-sm text-rose-500 font-semibold">{{ $message }}</span>@enderror
                     </div>
                     <div class="flex grid grid-cols-2 gap-4">
                         <div class="flex flex-col gap-2 text-left">
                             <label class="text-sm font-semibold text-slate-500 uppercase tracking-wider">Preferred Date</label>
-                            <input type="date" name="requested_date" required value="{{ old('requested_date') }}" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-3 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all font-sans font-semibold animate-fade-in">
+                            <input type="date" name="requested_date" required value="{{ old('requested_date') }}" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-3 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-brand-red-500 focus:border-transparent transition-all font-sans font-semibold animate-fade-in">
                             @error('requested_date')<span class="text-sm text-rose-500 font-semibold">{{ $message }}</span>@enderror
                         </div>
                         <div class="flex flex-col gap-2 text-left">
                             <label class="text-sm font-semibold text-slate-500 uppercase tracking-wider">Preferred Time</label>
-                            <select name="requested_time" required class="w-full bg-white border border-slate-200 rounded-xl px-3 py-3.5 text-sm text-slate-700 font-semibold focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all">
+                            <select name="requested_time" required class="w-full bg-white border border-slate-200 rounded-xl px-3 py-3.5 text-sm text-slate-700 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-red-500 focus:border-transparent transition-all">
                                 <option value="Morning" {{ old('requested_time') === 'Morning' ? 'selected' : '' }}>Morning</option>
                                 <option value="Afternoon" {{ old('requested_time') === 'Afternoon' ? 'selected' : '' }}>Afternoon</option>
                                 <option value="Evening" {{ old('requested_time') === 'Evening' ? 'selected' : '' }}>Evening</option>
@@ -1079,7 +1079,7 @@
 
                 <div class="flex flex-col gap-2 text-left">
                     <label class="text-sm font-semibold text-slate-500 uppercase tracking-wider">Additional Message / Inquiries</label>
-                    <textarea name="notes" rows="4" placeholder="Would love to request a dusk viewing for sunset analysis..." class="w-full bg-white border border-slate-200 rounded-xl px-4 py-3.5 text-sm text-slate-700 font-semibold focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all">{{ old('notes') }}</textarea>
+                    <textarea name="notes" rows="4" placeholder="Would love to request a dusk viewing for sunset analysis..." class="w-full bg-white border border-slate-200 rounded-xl px-4 py-3.5 text-sm text-slate-700 font-semibold focus:outline-none focus:ring-2 focus:ring-brand-red-500 focus:border-transparent transition-all">{{ old('notes') }}</textarea>
                     @error('notes')<span class="text-sm text-rose-500 font-semibold">{{ $message }}</span>@enderror
                 </div>
 

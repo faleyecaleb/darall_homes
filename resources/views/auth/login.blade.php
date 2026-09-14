@@ -41,7 +41,7 @@
             <!-- Panel Header Brand with Glow Pulse -->
             <div class="flex items-center gap-3.5 z-20 animate-fade-in">
                 <div class="h-11 w-11 rounded-2xl bg-white/10 flex items-center justify-center text-white relative border border-white/5 shadow-lg shadow-brand/10 backdrop-blur-md">
-                    <svg class="h-5 w-5 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg class="h-5 w-5 text-brand-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                     </svg>
                 </div>
@@ -54,7 +54,7 @@
             <!-- Pitch Slogan Block (z-20) -->
             <div class="flex flex-col gap-6 z-20 max-w-lg mb-10 animate-slide-right delay-100">
                 <div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 w-max backdrop-blur-md">
-                    <span class="h-1.5 w-1.5 rounded-full bg-amber-400 animate-pulse"></span>
+                    <span class="h-1.5 w-1.5 rounded-full bg-brand-red-400 animate-pulse"></span>
                     <span class="text-[9px] font-extrabold uppercase tracking-widest text-slate-300">Management & Advisory Portal</span>
                 </div>
                 <h2 class="text-4xl xl:text-5xl font-serif font-extrabold text-white leading-[1.1] tracking-tight">Step into an elite perspective of property.</h2>
@@ -80,7 +80,7 @@
                 <!-- Portal Logo (Only visible on mobile/tablets where left panel is hidden) -->
                 <div class="flex lg:hidden items-center gap-3.5 select-none mb-4">
                     <div class="h-11 w-11 rounded-2xl bg-brand-dark flex items-center justify-center text-white relative shadow-lg shadow-slate-900/10">
-                        <svg class="h-5 w-5 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg class="h-5 w-5 text-brand-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                         </svg>
                     </div>
@@ -174,7 +174,7 @@
                     <div class="flex items-center justify-between font-sans">
                         <label for="remember_me" class="inline-flex items-center cursor-pointer">
                             <input id="remember_me" type="checkbox" name="remember" 
-                                   class="h-4 w-4 rounded border-slate-200 text-brand-dark focus:ring-amber-500 focus:border-transparent cursor-pointer transition-all" />
+                                   class="h-4 w-4 rounded border-slate-200 text-brand-dark focus:ring-brand-red-500 focus:border-transparent cursor-pointer transition-all" />
                             <span class="ms-2 text-xs font-semibold text-slate-500 hover:text-slate-900 transition-colors">Keep me signed in</span>
                         </label>
 

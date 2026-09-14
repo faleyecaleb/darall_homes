@@ -13,7 +13,7 @@
     <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent -z-10"></div>
 
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10 flex flex-col items-center gap-6">
-        <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-widest bg-amber-500/10 text-amber-400 border border-amber-500/20 backdrop-blur-md animate-fade-in">
+        <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-widest bg-brand-red-500/10 text-brand-red-400 border border-brand-red-500/20 backdrop-blur-md animate-fade-in">
             Our Legacy & Innovation
         </span>
         <h1 class="text-4xl sm:text-5xl md:text-6xl font-serif text-white tracking-tight leading-none animate-slide-up">
@@ -32,7 +32,7 @@
             
             <!-- Left Column: The Surulere apartment story - Slides Left -->
             <div class="flex flex-col gap-6 scroll-reveal reveal-left">
-                <span class="text-amber-600 font-extrabold tracking-widest text-sm uppercase block">The Founding Story</span>
+                <span class="text-brand-red-600 font-extrabold tracking-widest text-sm uppercase block">The Founding Story</span>
                 <h2 class="text-3xl sm:text-4xl font-serif text-slate-900 leading-tight">
                     Inspired by a Shocking Reality in Lagos.
                 </h2>
@@ -51,7 +51,7 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 scroll-reveal reveal-right delay-100">
                 <!-- Milestone 1: Projects Delivered -->
                 <div class="bg-slate-50 rounded-[2.2rem] p-8 border border-slate-100 shadow-sm flex flex-col gap-4">
-                    <span class="text-5xl font-extrabold text-amber-500 font-sans leading-none">3</span>
+                    <span class="text-5xl font-extrabold text-brand-red-500 font-sans leading-none">3</span>
                     <h4 class="text-slate-900 font-extrabold text-sm uppercase tracking-wider font-sans mt-2">Projects Completed</h4>
                     <p class="text-sm text-slate-500 leading-relaxed font-semibold">Delivered three premium residential projects consisting of 32 luxury apartments altogether.</p>
                 </div>
@@ -97,13 +97,13 @@
                 <!-- Overlay Identity details -->
                 <div class="absolute bottom-10 left-8 right-8 text-left font-sans">
                     <h4 class="text-2xl font-serif font-extrabold text-white">Oduniyi Omobolaji Abeeb</h4>
-                    <span class="text-xs font-bold text-amber-400 uppercase tracking-widest mt-1 block">Managing Director & CEO</span>
+                    <span class="text-xs font-bold text-brand-red-400 uppercase tracking-widest mt-1 block">Managing Director & CEO</span>
                 </div>
             </div>
 
             <!-- Right Biography Details - Slides Right -->
             <div class="flex flex-col gap-6 text-left scroll-reveal reveal-right delay-100">
-                <span class="text-amber-400 font-extrabold tracking-widest text-xs uppercase block">Executive Spotlight</span>
+                <span class="text-brand-red-400 font-extrabold tracking-widest text-xs uppercase block">Executive Spotlight</span>
                 <h2 class="text-3xl sm:text-4xl font-serif text-white leading-tight tracking-tight">
                     Led by Engineering Excellence.
                 </h2>
@@ -130,7 +130,7 @@
             
             <!-- Left Column: Business Goals Copy - Slides Left -->
             <div class="flex flex-col gap-6 scroll-reveal reveal-left">
-                <span class="text-amber-600 font-extrabold tracking-widest text-xs uppercase block">Corporate Horizons</span>
+                <span class="text-brand-red-600 font-extrabold tracking-widest text-xs uppercase block">Corporate Horizons</span>
                 <h2 class="text-3xl sm:text-4xl font-serif text-slate-900 leading-tight">
                     Key Strategic Business Objectives
                 </h2>
@@ -147,7 +147,7 @@
                 
                 <!-- Objective Card 1: Mainland Leadership -->
                 <div class="p-8 rounded-[2.5rem] bg-white border border-slate-200/50 shadow-sm flex items-start gap-6 hover:shadow-md transition-shadow">
-                    <div class="h-12 w-12 rounded-xl bg-amber-500/10 text-amber-600 flex items-center justify-center flex-shrink-0">
+                    <div class="h-12 w-12 rounded-xl bg-brand-red-500/10 text-brand-red-600 flex items-center justify-center flex-shrink-0">
                         <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                         </svg>
@@ -160,7 +160,7 @@
 
                 <!-- Objective Card 2: 300 Housing Units -->
                 <div class="p-8 rounded-[2.5rem] bg-white border border-slate-200/50 shadow-sm flex items-start gap-6 hover:shadow-md transition-shadow">
-                    <div class="h-12 w-12 rounded-xl bg-amber-500/10 text-amber-600 flex items-center justify-center flex-shrink-0">
+                    <div class="h-12 w-12 rounded-xl bg-brand-red-500/10 text-brand-red-600 flex items-center justify-center flex-shrink-0">
                         <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                         </svg>
@@ -184,7 +184,7 @@
         
         <!-- Header -->
         <div class="text-center max-w-2xl mx-auto mb-20 flex flex-col gap-4 scroll-reveal reveal-up">
-            <span class="text-amber-600 font-extrabold tracking-widest text-xs uppercase block">Commitment to Quality</span>
+            <span class="text-brand-red-600 font-extrabold tracking-widest text-xs uppercase block">Commitment to Quality</span>
             <h2 class="text-3xl sm:text-4xl font-serif text-slate-900 tracking-tight leading-none">Our Foundational Principles</h2>
             <p class="text-sm text-slate-500 leading-relaxed font-semibold">We shape the future of property discovery through a robust commitment to safety, community, and technology.</p>
         </div>
@@ -193,7 +193,7 @@
             
             <!-- Value 1: Integrity -->
             <div class="group bg-slate-50 p-8 sm:p-10 rounded-[2.2rem] border border-slate-100 shadow-sm flex flex-col gap-4 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 transform scroll-reveal reveal-up">
-                <div class="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-600 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <div class="w-12 h-12 rounded-xl bg-brand-red-500/10 text-brand-red-600 flex items-center justify-center group-hover:scale-110 transition-transform">
                     <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                     </svg>
@@ -204,7 +204,7 @@
 
             <!-- Value 2: Excellence -->
             <div class="group bg-slate-50 p-8 sm:p-10 rounded-[2.2rem] border border-slate-100 shadow-sm flex flex-col gap-4 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 transform scroll-reveal reveal-up delay-100">
-                <div class="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-600 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <div class="w-12 h-12 rounded-xl bg-brand-red-500/10 text-brand-red-600 flex items-center justify-center group-hover:scale-110 transition-transform">
                     <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
                     </svg>
@@ -215,7 +215,7 @@
 
             <!-- Value 3: Innovation -->
             <div class="group bg-slate-50 p-8 sm:p-10 rounded-[2.2rem] border border-slate-100 shadow-sm flex flex-col gap-4 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 transform scroll-reveal reveal-up delay-200">
-                <div class="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-600 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <div class="w-12 h-12 rounded-xl bg-brand-red-500/10 text-brand-red-600 flex items-center justify-center group-hover:scale-110 transition-transform">
                     <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364.364l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                     </svg>
@@ -226,7 +226,7 @@
 
             <!-- Value 4: Community -->
             <div class="group bg-slate-50 p-8 sm:p-10 rounded-[2.2rem] border border-slate-100 shadow-sm flex flex-col gap-4 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 transform scroll-reveal reveal-up delay-300">
-                <div class="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-600 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <div class="w-12 h-12 rounded-xl bg-brand-red-500/10 text-brand-red-600 flex items-center justify-center group-hover:scale-110 transition-transform">
                     <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.05 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                     </svg>

@@ -71,8 +71,8 @@
                                 <template x-if="!editingStatus || activeId !== '{{ $enquiry->id }}'">
                                     <button @click="editingStatus = true; activeId = '{{ $enquiry->id }}'; activeStatus = '{{ $enquiry->status }}'" 
                                             class="inline-flex items-center gap-1.5 px-3 py-1 text-[10px] font-bold uppercase rounded-full border transition-all cursor-pointer"
-                                            :class="'{{ $enquiry->status }}' === 'New' ? 'bg-amber-100 text-amber-700 border-amber-200' : ('{{ $enquiry->status }}' === 'Contacted' ? 'bg-indigo-100 text-indigo-700 border-indigo-200' : ('{{ $enquiry->status }}' === 'Qualified' ? 'bg-emerald-100 text-emerald-700 border-emerald-200' : 'bg-slate-100 text-slate-700 border-slate-200'))">
-                                        <span class="w-1.5 h-1.5 rounded-full" :class="'{{ $enquiry->status }}' === 'New' ? 'bg-amber-500 animate-pulse' : ('{{ $enquiry->status }}' === 'Contacted' ? 'bg-indigo-500' : ('{{ $enquiry->status }}' === 'Qualified' ? 'bg-emerald-500' : 'bg-slate-500'))"></span>
+                                            :class="'{{ $enquiry->status }}' === 'New' ? 'bg-brand-red-100 text-brand-red-700 border-brand-red-200' : ('{{ $enquiry->status }}' === 'Contacted' ? 'bg-indigo-100 text-indigo-700 border-indigo-200' : ('{{ $enquiry->status }}' === 'Qualified' ? 'bg-emerald-100 text-emerald-700 border-emerald-200' : 'bg-slate-100 text-slate-700 border-slate-200'))">
+                                        <span class="w-1.5 h-1.5 rounded-full" :class="'{{ $enquiry->status }}' === 'New' ? 'bg-brand-red-500 animate-pulse' : ('{{ $enquiry->status }}' === 'Contacted' ? 'bg-indigo-500' : ('{{ $enquiry->status }}' === 'Qualified' ? 'bg-emerald-500' : 'bg-slate-500'))"></span>
                                         {{ $enquiry->status }}
                                     </button>
                                 </template>

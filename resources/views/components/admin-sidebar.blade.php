@@ -127,7 +127,7 @@
                             <span>Enquiries</span>
                         </div>
                         <!-- Displaying live enquiries count -->
-                        <span class="px-2 py-0.5 text-[10px] font-bold text-white bg-amber-500 rounded-full animate-pulse">{{ \App\Models\PropertyEnquiry::where('status', 'New')->count() }}</span>
+                        <span class="px-2 py-0.5 text-[10px] font-bold text-white bg-brand-red-500 rounded-full animate-pulse">{{ \App\Models\PropertyEnquiry::where('status', 'New')->count() }}</span>
                     </a>
 
                     <!-- Inspections (Connected Route & Active State) -->
@@ -156,7 +156,7 @@
                         </div>
                         <!-- Displaying live pending shortlet bookings count -->
                         @if(\App\Models\Booking::where('status', 'Pending')->count() > 0)
-                            <span class="px-2 py-0.5 text-[10px] font-bold text-white bg-amber-500 rounded-full animate-bounce">{{ \App\Models\Booking::where('status', 'Pending')->count() }}</span>
+                            <span class="px-2 py-0.5 text-[10px] font-bold text-white bg-brand-red-500 rounded-full animate-bounce">{{ \App\Models\Booking::where('status', 'Pending')->count() }}</span>
                         @endif
                     </a>
 

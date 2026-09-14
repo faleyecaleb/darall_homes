@@ -99,8 +99,8 @@
                                 <template x-if="editingRow !== '{{ $inspection->id }}'">
                                     <button @click="editingRow = '{{ $inspection->id }}'; activeStatus = '{{ $inspection->status }}'; activeAgent = '{{ $inspection->assigned_agent_id }}'" 
                                             class="inline-flex items-center gap-1.5 px-3 py-1 text-[10px] font-bold uppercase rounded-full border transition-all cursor-pointer"
-                                            :class="'{{ $inspection->status }}' === 'Pending' ? 'bg-amber-100 text-amber-700 border-amber-200' : ('{{ $inspection->status }}' === 'Confirmed' ? 'bg-blue-100 text-blue-700 border-blue-200' : ('{{ $inspection->status }}' === 'Completed' ? 'bg-emerald-100 text-emerald-700 border-emerald-200' : 'bg-rose-100 text-rose-700 border-rose-200'))">
-                                        <span class="w-1.5 h-1.5 rounded-full" :class="'{{ $inspection->status }}' === 'Pending' ? 'bg-amber-500 animate-pulse' : ('{{ $inspection->status }}' === 'Confirmed' ? 'bg-blue-500 animate-pulse' : ('{{ $inspection->status }}' === 'Completed' ? 'bg-emerald-500' : 'bg-rose-500'))"></span>
+                                            :class="'{{ $inspection->status }}' === 'Pending' ? 'bg-brand-red-100 text-brand-red-700 border-brand-red-200' : ('{{ $inspection->status }}' === 'Confirmed' ? 'bg-blue-100 text-blue-700 border-blue-200' : ('{{ $inspection->status }}' === 'Completed' ? 'bg-emerald-100 text-emerald-700 border-emerald-200' : 'bg-rose-100 text-rose-700 border-rose-200'))">
+                                        <span class="w-1.5 h-1.5 rounded-full" :class="'{{ $inspection->status }}' === 'Pending' ? 'bg-brand-red-500 animate-pulse' : ('{{ $inspection->status }}' === 'Confirmed' ? 'bg-blue-500 animate-pulse' : ('{{ $inspection->status }}' === 'Completed' ? 'bg-emerald-500' : 'bg-rose-500'))"></span>
                                         {{ $inspection->status }}
                                     </button>
                                 </template>

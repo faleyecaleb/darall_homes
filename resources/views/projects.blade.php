@@ -13,7 +13,7 @@
     <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent -z-10"></div>
 
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10 flex flex-col items-center gap-6">
-        <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-widest bg-amber-500/10 text-amber-400 border border-amber-500/20 backdrop-blur-md animate-fade-in">
+        <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-widest bg-brand-red-500/10 text-brand-red-400 border border-brand-red-500/20 backdrop-blur-md animate-fade-in">
             Architectural Masterpieces
         </span>
         <h1 class="text-4xl sm:text-5xl md:text-6xl font-serif text-white tracking-tight leading-none animate-slide-up">
@@ -31,7 +31,7 @@
         
         <!-- Header -->
         <div class="flex flex-col gap-4 text-center max-w-2xl mx-auto mb-20 scroll-reveal reveal-up">
-            <span class="text-amber-600 font-extrabold tracking-widest text-xs uppercase block">Off-Plan Strategy</span>
+            <span class="text-brand-red-600 font-extrabold tracking-widest text-xs uppercase block">Off-Plan Strategy</span>
             <h2 class="text-3xl sm:text-4xl font-serif text-slate-900 tracking-tight leading-none">Off-Plan Acquisition Advantages</h2>
             <p class="text-base text-slate-500 leading-relaxed font-semibold">Discover why acquiring off-plan assets in Lekki and Ikoyi represents Lagos' most lucrative wealth compounder.</p>
         </div>
@@ -40,7 +40,7 @@
             
             <!-- Adv 1: Pre-Construction Discount -->
             <div class="group bg-slate-50 p-8 sm:p-10 rounded-[2.2rem] border border-slate-100 shadow-sm flex flex-col gap-4 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 transform scroll-reveal reveal-up">
-                <div class="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-600 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <div class="w-12 h-12 rounded-xl bg-brand-red-500/10 text-brand-red-600 flex items-center justify-center group-hover:scale-110 transition-transform">
                     <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
@@ -51,7 +51,7 @@
 
             <!-- Adv 2: Bespoke Customizations -->
             <div class="group bg-slate-50 p-8 sm:p-10 rounded-[2.2rem] border border-slate-100 shadow-sm flex flex-col gap-4 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 transform scroll-reveal reveal-up delay-100">
-                <div class="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-600 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <div class="w-12 h-12 rounded-xl bg-brand-red-500/10 text-brand-red-600 flex items-center justify-center group-hover:scale-110 transition-transform">
                     <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                     </svg>
@@ -62,7 +62,7 @@
 
             <!-- Adv 3: Structured Installments -->
             <div class="group bg-slate-50 p-8 sm:p-10 rounded-[2.2rem] border border-slate-100 shadow-sm flex flex-col gap-4 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 transform scroll-reveal reveal-up delay-200">
-                <div class="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-600 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <div class="w-12 h-12 rounded-xl bg-brand-red-500/10 text-brand-red-600 flex items-center justify-center group-hover:scale-110 transition-transform">
                     <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
                     </svg>
@@ -81,7 +81,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div class="flex flex-col gap-4 text-center max-w-2xl mx-auto mb-20 scroll-reveal reveal-up">
-            <span class="text-amber-600 font-extrabold tracking-widest text-xs uppercase block">Active Masterpieces</span>
+            <span class="text-brand-red-600 font-extrabold tracking-widest text-xs uppercase block">Active Masterpieces</span>
             <h2 class="text-3xl sm:text-4xl font-serif text-slate-900 tracking-tight leading-none">Developments Portfolio</h2>
             <p class="text-sm text-slate-500 leading-relaxed font-semibold">Explore our flagship projects actively being constructed and finalized across premium Lagos communities.</p>
         </div>
@@ -92,12 +92,12 @@
             <div class="group bg-white border border-slate-200/50 rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-500 scroll-reveal reveal-up">
                 <div class="relative aspect-[16/10] overflow-hidden bg-slate-200 z-0">
                     <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80" alt="The Obsidian Residenices" class="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-500">
-                    <span class="absolute top-4 left-4 bg-amber-400 text-slate-950 px-3.5 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-wider shadow-md">Under Construction</span>
+                    <span class="absolute top-4 left-4 bg-brand-red-400 text-slate-950 px-3.5 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-wider shadow-md">Under Construction</span>
                 </div>
                 <div class="p-8 sm:p-10 flex flex-col gap-4">
                     <div class="flex flex-col gap-1 text-left">
                         <span class="text-xs text-slate-400 uppercase tracking-widest font-extrabold font-sans">Lekki Phase 1, Lagos</span>
-                        <h3 class="text-2xl font-serif font-extrabold text-slate-900 group-hover:text-amber-500 transition-colors leading-tight">The Obsidian Residences</h3>
+                        <h3 class="text-2xl font-serif font-extrabold text-slate-900 group-hover:text-brand-red-500 transition-colors leading-tight">The Obsidian Residences</h3>
                     </div>
                     <p class="text-sm text-slate-500 leading-relaxed font-semibold text-left line-clamp-3">A collections of 12 bespoke ultra-luxury detached terraces featuring multi-level open-concept floorplans, elevator integrations, and private rooftop pools.</p>
                     <div class="flex items-center gap-4 text-xs text-slate-500 border-y border-slate-100 py-3.5 my-2 font-sans font-semibold">
@@ -120,7 +120,7 @@
                 <div class="p-8 sm:p-10 flex flex-col gap-4">
                     <div class="flex flex-col gap-1 text-left">
                         <span class="text-xs text-slate-400 uppercase tracking-widest font-extrabold font-sans">Old Ikoyi, Lagos</span>
-                        <h3 class="text-2xl font-serif font-extrabold text-slate-900 group-hover:text-amber-500 transition-colors leading-tight">The Aria Towers</h3>
+                        <h3 class="text-2xl font-serif font-extrabold text-slate-900 group-hover:text-brand-red-500 transition-colors leading-tight">The Aria Towers</h3>
                     </div>
                     <p class="text-sm text-slate-500 leading-relaxed font-semibold text-left line-clamp-3">An elegant, multi-tier residential vertical tower boasting high-fidelity glass facades, structured bio-pass lobby doors, and full-service clubhouses.</p>
                     <div class="flex items-center gap-4 text-xs text-slate-500 border-y border-slate-100 py-3.5 my-2 font-sans font-semibold">
@@ -138,12 +138,12 @@
             <div class="group bg-white border border-slate-200/50 rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-500 scroll-reveal reveal-up delay-200">
                 <div class="relative aspect-[16/10] overflow-hidden bg-slate-200 z-0">
                     <img src="{{ asset('lumiere/front-view-night.png') }}" alt="Lumiere Suites Surulere" class="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-500">
-                    <span class="absolute top-4 left-4 bg-amber-400 text-slate-950 px-3.5 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-wider shadow-md">Under Construction</span>
+                    <span class="absolute top-4 left-4 bg-brand-red-400 text-slate-950 px-3.5 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-wider shadow-md">Under Construction</span>
                 </div>
                 <div class="p-8 sm:p-10 flex flex-col gap-4">
                     <div class="flex flex-col gap-1 text-left">
                         <span class="text-xs text-slate-400 uppercase tracking-widest font-extrabold font-sans">Surulere, Lagos</span>
-                        <h3 class="text-2xl font-serif font-extrabold text-slate-900 group-hover:text-amber-500 transition-colors leading-tight">Lumière Suites</h3>
+                        <h3 class="text-2xl font-serif font-extrabold text-slate-900 group-hover:text-brand-red-500 transition-colors leading-tight">Lumière Suites</h3>
                     </div>
                     <p class="text-sm text-slate-500 leading-relaxed font-semibold text-left line-clamp-3">A modern mainland masterpiece built with absolute precision. Features 9 premium residential suites across Studio, Mini Flat, and 2-Bedroom layouts.</p>
                     <div class="flex items-center gap-4 text-xs text-slate-500 border-y border-slate-100 py-3.5 my-2 font-sans font-semibold">
@@ -166,7 +166,7 @@
         
         <!-- Header -->
         <div class="flex flex-col gap-4 text-center max-w-2xl mx-auto mb-20 scroll-reveal reveal-up">
-            <span class="text-amber-600 font-extrabold tracking-widest text-xs uppercase block">Operational Pacing</span>
+            <span class="text-brand-red-600 font-extrabold tracking-widest text-xs uppercase block">Operational Pacing</span>
             <h2 class="text-3xl sm:text-4xl font-serif text-slate-900 tracking-tight leading-none">Our Construction Timelines</h2>
             <p class="text-sm text-slate-500 leading-relaxed font-semibold">We adhere to timely, rigorous milestones ensuring structural durability and prompt check-in handovers.</p>
         </div>
@@ -174,21 +174,21 @@
         <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
             <!-- Milestone 1 -->
             <div class="p-8 rounded-[2rem] bg-slate-50 border border-slate-100 flex flex-col gap-4 scroll-reveal reveal-up">
-                <span class="text-3xl font-extrabold text-amber-500 leading-none">01</span>
+                <span class="text-3xl font-extrabold text-brand-red-500 leading-none">01</span>
                 <h4 class="text-sm font-extrabold uppercase tracking-wider text-slate-900 font-sans mt-2">Vetting & Design</h4>
                 <p class="text-sm text-slate-550 leading-relaxed font-semibold">Exhaustive C of O land title auditing paired with bespoke architectural blueprint design and 3D spatial modeling.</p>
             </div>
             
             <!-- Milestone 2 -->
             <div class="p-8 rounded-[2rem] bg-slate-50 border border-slate-100 flex flex-col gap-4 scroll-reveal reveal-up delay-100">
-                <span class="text-3xl font-extrabold text-amber-500 leading-none">02</span>
+                <span class="text-3xl font-extrabold text-brand-red-500 leading-none">02</span>
                 <h4 class="text-sm font-extrabold uppercase tracking-wider text-slate-900 font-sans mt-2">Core Foundation</h4>
                 <p class="text-sm text-slate-550 leading-relaxed font-semibold">Deep piling works paired with pouring high-strength premium concrete columns to establish permanent seismic security.</p>
             </div>
 
             <!-- Milestone 3 -->
             <div class="p-8 rounded-[2rem] bg-slate-50 border border-slate-100 flex flex-col gap-4 scroll-reveal reveal-up delay-200">
-                <span class="text-3xl font-extrabold text-amber-500 leading-none">03</span>
+                <span class="text-3xl font-extrabold text-brand-red-500 leading-none">03</span>
                 <h4 class="text-sm font-extrabold uppercase tracking-wider text-slate-900 font-sans mt-2">Facade Setting</h4>
                 <p class="text-sm text-slate-550 leading-relaxed font-semibold">Mounting thermal-insulated smart glass facades, completing external finishes, and locking interior plumbing lines.</p>
             </div>
@@ -216,7 +216,7 @@
             
             <!-- Left Column: JV Slogans - Slides Left -->
             <div class="flex flex-col gap-6 scroll-reveal reveal-left">
-                <span class="text-amber-400 font-extrabold tracking-widest text-xs uppercase block">Institutional Partnerships</span>
+                <span class="text-brand-red-400 font-extrabold tracking-widest text-xs uppercase block">Institutional Partnerships</span>
                 <h2 class="text-3xl sm:text-4xl font-serif text-white leading-tight tracking-tight">
                     Joint-Venture (JV) Development Desk
                 </h2>

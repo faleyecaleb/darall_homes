@@ -86,7 +86,7 @@
                                       :class="{
                                           'bg-blue-500/10 text-blue-600': '{{ $log->action }}'.includes('Property') || '{{ $log->action }}'.includes('Listing'),
                                           'bg-emerald-500/10 text-emerald-600': '{{ $log->action }}'.includes('Booking') || '{{ $log->action }}'.includes('Reservation'),
-                                          'bg-amber-500/10 text-amber-600': '{{ $log->action }}'.includes('Login') || '{{ $log->action }}'.includes('Logout'),
+                                          'bg-brand-red-500/10 text-brand-red-600': '{{ $log->action }}'.includes('Login') || '{{ $log->action }}'.includes('Logout'),
                                           'bg-purple-500/10 text-purple-600': '{{ $log->action }}'.includes('Enquiry') || '{{ $log->action }}'.includes('Inspection'),
                                           'bg-slate-500/10 text-slate-600 dark:text-slate-400': !'{{ $log->action }}'.includes('Property') && !'{{ $log->action }}'.includes('Booking') && !'{{ $log->action }}'.includes('Login') && !'{{ $log->action }}'.includes('Enquiry')
                                       }">

@@ -89,15 +89,15 @@
                     });
                     $isOccupied = $dayBookings->count() > 0;
                 @endphp
-                <div class="aspect-square border border-slate-100 p-2 flex flex-col justify-between rounded-2xl relative transition-all group hover:bg-slate-50/50 hover:shadow-sm {{ $todayDate === $dateString ? 'bg-amber-500/5 ring-1 ring-amber-500/20' : 'bg-white' }}">
+                <div class="aspect-square border border-slate-100 p-2 flex flex-col justify-between rounded-2xl relative transition-all group hover:bg-slate-50/50 hover:shadow-sm {{ $todayDate === $dateString ? 'bg-brand-red-500/5 ring-1 ring-brand-red-500/20' : 'bg-white' }}">
                     <!-- Day Number -->
-                    <span class="text-xs font-extrabold font-sans {{ $todayDate === $dateString ? 'text-amber-600' : 'text-slate-500' }}">{{ $day }}</span>
+                    <span class="text-xs font-extrabold font-sans {{ $todayDate === $dateString ? 'text-brand-red-600' : 'text-slate-500' }}">{{ $day }}</span>
                     
                     <!-- Occupancy Ribbon Segment -->
                     @if($isOccupied)
                         <div class="flex flex-col gap-1 w-full mt-1">
                             @foreach($dayBookings as $res)
-                                <div class="h-2 w-full rounded-lg bg-amber-500/10 border-l-2 border-amber-500 cursor-pointer flex items-center px-1 text-[8px] font-extrabold text-amber-700 truncate"
+                                <div class="h-2 w-full rounded-lg bg-brand-red-500/10 border-l-2 border-brand-red-500 cursor-pointer flex items-center px-1 text-[8px] font-extrabold text-brand-red-700 truncate"
                                      title="Guest: {{ $res->customer_name }} | Unit: {{ $res->property->title }} ({{ $res->check_in_date->format('M d') }} - {{ $res->check_out_date->format('M d') }})">
                                     <span class="hidden sm:inline truncate">{{ $res->customer_name }}</span>
                                 </div>
@@ -154,7 +154,7 @@
                                     <span class="text-slate-300">➔</span>
                                     <span>{{ $booking->check_out_date->format('M d, Y') }}</span>
                                 </div>
-                                <span class="text-[10px] text-amber-600 font-extrabold uppercase mt-1 tracking-wider block bg-amber-500/10 px-2 py-0.5 rounded-lg w-max">
+                                <span class="text-[10px] text-brand-red-600 font-extrabold uppercase mt-1 tracking-wider block bg-brand-red-500/10 px-2 py-0.5 rounded-lg w-max">
                                     {{ $booking->check_in_date->diffInDays($booking->check_out_date) }} Night(s) Stay
                                 </span>
                             </td>
@@ -172,13 +172,13 @@
                                     <button @click="editingStatus = true; activeId = '{{ $booking->id }}'; activeStatus = '{{ $booking->status }}'; activePayment = '{{ $booking->payment_status }}'" 
                                             class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider transition-all"
                                             :class="{
-                                                'bg-amber-500/10 text-amber-600': '{{ $booking->status }}' === 'Pending',
+                                                'bg-brand-red-500/10 text-brand-red-600': '{{ $booking->status }}' === 'Pending',
                                                 'bg-[#0d6e60]/10 text-[#0d6e60]': '{{ $booking->status }}' === 'Confirmed',
                                                 'bg-rose-500/10 text-rose-600': '{{ $booking->status }}' === 'Cancelled',
                                                 'bg-slate-500/10 text-slate-600': '{{ $booking->status }}' === 'Completed'
                                             }">
                                         <span class="h-1.5 w-1.5 rounded-full" :class="{
-                                                'bg-amber-500 animate-pulse': '{{ $booking->status }}' === 'Pending',
+                                                'bg-brand-red-500 animate-pulse': '{{ $booking->status }}' === 'Pending',
                                                 'bg-[#0d6e60]': '{{ $booking->status }}' === 'Confirmed',
                                                 'bg-rose-500': '{{ $booking->status }}' === 'Cancelled',
                                                 'bg-slate-500': '{{ $booking->status }}' === 'Completed'

@@ -134,10 +134,10 @@
                 <div class="flex flex-col gap-2">
                     <div class="flex justify-between items-baseline text-xs font-extrabold">
                         <span class="text-slate-500 dark:text-slate-400">UNPAID RESERVATIONS</span>
-                        <span class="text-amber-500 text-sm font-extrabold" x-text="'{{ $paymentRatios['Unpaid'] }}%'"></span>
+                        <span class="text-brand-red-500 text-sm font-extrabold" x-text="'{{ $paymentRatios['Unpaid'] }}%'"></span>
                     </div>
                     <div class="w-full bg-slate-100 dark:bg-slate-900 h-2 rounded-full overflow-hidden">
-                        <div class="bg-amber-500 h-full rounded-full" style="width: {{ $paymentRatios['Unpaid'] }}%"></div>
+                        <div class="bg-brand-red-500 h-full rounded-full" style="width: {{ $paymentRatios['Unpaid'] }}%"></div>
                     </div>
                     <span class="text-[10px] text-slate-400 font-bold block">{{ $paymentUnpaid }} pending checkout invoice(s)</span>
                 </div>

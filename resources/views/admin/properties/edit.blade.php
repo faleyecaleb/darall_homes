@@ -239,8 +239,8 @@
             }
         }">
             <!-- Enable Luxury Toggle -->
-            <div class="flex items-center gap-3 bg-amber-500/5 border border-amber-500/10 p-6 rounded-[2rem] max-w-lg mb-8 select-none transition-all font-sans">
-                <input type="checkbox" name="has_luxury_layout" id="has_luxury_layout" value="1" x-model="showLuxury" class="h-6 w-6 rounded text-amber-500 focus:ring-amber-500 border-slate-200 cursor-pointer">
+            <div class="flex items-center gap-3 bg-brand-red-500/5 border border-brand-red-500/10 p-6 rounded-[2rem] max-w-lg mb-8 select-none transition-all font-sans">
+                <input type="checkbox" name="has_luxury_layout" id="has_luxury_layout" value="1" x-model="showLuxury" class="h-6 w-6 rounded text-brand-red-500 focus:ring-brand-red-500 border-slate-200 cursor-pointer">
                 <div class="flex flex-col text-left">
                     <label for="has_luxury_layout" class="text-sm font-extrabold text-slate-800 cursor-pointer">Enable Luxury Showroom Layout</label>
                     <span class="text-[10px] text-slate-400 font-semibold">Toggles background video hero, 4 elevation perspectives, and dynamic layouts grid.</span>
@@ -283,7 +283,7 @@
                                 $existingPersp = $property->perspectives->where('perspective_key', $key)->first();
                             @endphp
                             <div class="bg-slate-50 border border-slate-100 p-6 rounded-3xl space-y-4 text-left">
-                                <span class="text-[10px] text-amber-500 font-extrabold uppercase tracking-widest block">{{ strtoupper($key) }} PERSPECTIVE</span>
+                                <span class="text-[10px] text-brand-red-500 font-extrabold uppercase tracking-widest block">{{ strtoupper($key) }} PERSPECTIVE</span>
                                 <input type="hidden" name="perspectives[{{ $key }}][perspective_key]" value="{{ $key }}">
                                 
                                 <div class="grid grid-cols-2 gap-4">
@@ -393,7 +393,7 @@
 
                                 <div class="p-6 bg-slate-100 rounded-2xl space-y-4">
                                     <div class="flex items-center gap-2 select-none">
-                                        <input type="checkbox" :name="'units['+index+'][has_installment]'" :id="'has_inst_'+index" value="1" x-model="unit.has_installment" class="h-4.5 w-4.5 rounded text-amber-500 focus:ring-amber-500 cursor-pointer">
+                                        <input type="checkbox" :name="'units['+index+'][has_installment]'" :id="'has_inst_'+index" value="1" x-model="unit.has_installment" class="h-4.5 w-4.5 rounded text-brand-red-500 focus:ring-brand-red-500 cursor-pointer">
                                         <label :for="'has_inst_'+index" class="text-xs font-bold text-slate-700 cursor-pointer">Include Financing Installment Plan</label>
                                     </div>
 

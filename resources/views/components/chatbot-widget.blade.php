@@ -4,13 +4,18 @@
     <!-- 1. Floating Circular Chat Orb (Trigger Button) - Premium Brand-Dark Theme -->
     <button @click="open = !open" 
             class="h-14 w-14 rounded-full bg-brand-dark hover:bg-slate-800 hover:scale-110 active:scale-95 text-white flex items-center justify-center shadow-2xl transition-all duration-300 transform group relative border border-white/10">
-        <!-- Floating pulsing gold ring -->
-        <span class="absolute inset-0 rounded-full bg-amber-500/20 animate-ping -z-10"></span>
+        <!-- Floating pulsing ring -->
+        <span class="absolute inset-0 rounded-full bg-brand-red-500/20 animate-ping -z-10"></span>
         
+        <!-- Premium slide-in tooltip label on hover -->
+        <span class="absolute right-16 scale-0 group-hover:scale-100 transition-all duration-300 origin-right bg-brand-dark border border-white/10 text-white text-[10px] font-bold py-1.5 px-3.5 rounded-xl whitespace-nowrap shadow-2xl select-none pointer-events-none">
+            Chat with Darall AI
+        </span>
+
         <!-- Toggle SVG Icons -->
-        <!-- Chat Icon (Sleek AI Sparkles Icon) -->
-        <svg x-show="!open" class="h-6 w-6 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+        <!-- Chat Icon (Universal Sleek Conversation Bubble Icon) -->
+        <svg x-show="!open" class="h-6 w-6 text-brand-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
         </svg>
         <!-- Close Icon -->
         <svg x-show="open" style="display: none;" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -32,9 +37,9 @@
         <!-- Brand Panel Header - Sleek Executive Brand-Dark with Warm Golden Accents -->
         <div class="p-6 bg-brand-dark text-white border-b border-slate-900 flex items-center justify-between flex-shrink-0 shadow-lg shadow-black/10">
             <div class="flex items-center gap-3">
-                <div class="h-10 w-10 rounded-2xl bg-white/5 flex items-center justify-center text-amber-400 relative border border-white/5">
+                <div class="h-10 w-10 rounded-2xl bg-white/5 flex items-center justify-center text-brand-red-400 relative border border-white/5">
                     <!-- Glowing Gold Active Spot -->
-                    <span class="absolute top-0 right-0 h-2.5 w-2.5 rounded-full bg-amber-400 border-2 border-[#1c1c1e] animate-pulse"></span>
+                    <span class="absolute top-0 right-0 h-2.5 w-2.5 rounded-full bg-brand-red-400 border-2 border-[#1c1c1e] animate-pulse"></span>
                     <!-- Chat silhouette icon -->
                     <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
@@ -42,7 +47,7 @@
                 </div>
                 <div class="flex flex-col text-left">
                     <span class="text-sm font-extrabold uppercase tracking-widest font-sans text-white">Darall AI</span>
-                    <span class="text-[9px] text-amber-400 font-bold mt-0.5 uppercase tracking-wider">Lagos Portfolio Guide</span>
+                    <span class="text-[9px] text-brand-red-400 font-bold mt-0.5 uppercase tracking-wider">Lagos Portfolio Guide</span>
                 </div>
             </div>
             <!-- Close trigger -->
@@ -86,9 +91,9 @@
                 <span class="text-[10px] font-extrabold uppercase tracking-widest text-slate-400 block mb-2 px-1">Suggested Inquiries:</span>
                 <div class="flex flex-col gap-2">
                     <template x-for="prompt in quickPrompts">
-                        <button type="button" :disabled="loading || typing" @click="sendMessage(prompt)" class="group w-full flex items-center justify-between px-5 py-3.5 text-xs font-bold text-slate-700 bg-white border border-slate-150 rounded-2xl hover:border-amber-500/30 hover:bg-slate-50 hover:translate-x-1 transition-all duration-200 text-left shadow-sm">
+                        <button type="button" :disabled="loading || typing" @click="sendMessage(prompt)" class="group w-full flex items-center justify-between px-5 py-3.5 text-xs font-bold text-slate-700 bg-white border border-slate-150 rounded-2xl hover:border-brand-red-500/30 hover:bg-slate-50 hover:translate-x-1 transition-all duration-200 text-left shadow-sm">
                             <span x-text="prompt"></span>
-                            <svg class="h-4 w-4 text-slate-300 group-hover:text-amber-500 transition-colors transform group-hover:translate-x-1 duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <svg class="h-4 w-4 text-slate-300 group-hover:text-brand-red-500 transition-colors transform group-hover:translate-x-1 duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
                             </svg>
                         </button>
@@ -271,10 +276,10 @@
                 
                 let formatted = text;
 
-                // 1. Convert Markdown links [Label](url) into GORGEOUS, premium amber-gold clickable CTA buttons!
+                // 1. Convert Markdown links [Label](url) into GORGEOUS, premium brand-red-gold clickable CTA buttons!
                 formatted = formatted.replace(
                     /\[(.*?)\]\((.*?)\)/g, 
-                    '<a href="$2" target="_blank" class="inline-flex items-center gap-1.5 px-4 py-2.5 text-[10px] font-extrabold uppercase tracking-wider text-slate-900 bg-amber-400 hover:bg-amber-500 rounded-xl my-2 shadow-md shadow-amber-500/10 transition-all transform hover:scale-[1.02] mr-1.5">$1</a>'
+                    '<a href="$2" target="_blank" class="inline-flex items-center gap-1.5 px-4 py-2.5 text-[10px] font-extrabold uppercase tracking-wider text-slate-900 bg-brand-red-400 hover:bg-brand-red-500 rounded-xl my-2 shadow-md shadow-brand-red-500/10 transition-all transform hover:scale-[1.02] mr-1.5">$1</a>'
                 );
 
                 // 2. Format Bold text **text** into strong tags
@@ -284,7 +289,7 @@
                 formatted = formatted.replace(/### (.*?)\n/g, '<h4 class="text-xs font-extrabold text-slate-900 mt-4 mb-2 uppercase tracking-wider block">$1</h4>');
 
                 // 4. Format bullet points (* Item) into beautiful custom-spaced items with gold dots
-                formatted = formatted.replace(/^\* (.*?)$/gm, '<div class="flex items-start gap-1.5 my-1.5 text-slate-600"><span class="text-amber-500 font-bold">•</span><span class="text-xs">$1</span></div>');
+                formatted = formatted.replace(/^\* (.*?)$/gm, '<div class="flex items-start gap-1.5 my-1.5 text-slate-600"><span class="text-brand-red-500 font-bold">•</span><span class="text-xs">$1</span></div>');
 
                 // 5. Line breaks to HTML breaks
                 formatted = formatted.replace(/\n/g, '<br>');

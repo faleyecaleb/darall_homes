@@ -81,7 +81,7 @@
             
             <!-- Animated Badge wrapper with active glow -->
             <div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 w-max backdrop-blur-md animate-fade-in">
-                <span class="h-1.5 w-1.5 rounded-full bg-amber-400 animate-pulse"></span>
+                <span class="h-1.5 w-1.5 rounded-full bg-brand-red-400 animate-pulse"></span>
                 <span class="text-[9px] font-extrabold uppercase tracking-widest text-slate-200">A New Standard of Luxury Real Estate</span>
             </div>
 
@@ -90,11 +90,11 @@
                     
                     <!-- Subtitle -->
                     <span x-text="slide.subtitle"
-                          class="text-amber-400 text-xs sm:text-sm font-bold uppercase tracking-widest block transform translate-y-2 animate-slide-up duration-500"></span>
+                          class="text-brand-red-400 text-xs sm:text-sm font-bold uppercase tracking-widest block transform translate-y-2 animate-slide-up duration-500"></span>
                     
                     <!-- Premium Copwriting Headlines (Fully Custom & Symmetrical) -->
                     <h1 class="text-4xl sm:text-5xl md:text-6xl font-serif text-white tracking-tight leading-[1.08] transform translate-y-3 animate-slide-up duration-700">
-                        <span x-text="slide.heading_start"></span> <span class="text-amber-400 italic" x-text="slide.heading_highlight"></span>
+                        <span x-text="slide.heading_start"></span> <span class="text-brand-red-400 italic" x-text="slide.heading_highlight"></span>
                     </h1>
 
                     <!-- Description -->
@@ -103,7 +103,7 @@
 
                     <!-- CTA Action triggers with delayed entrance -->
                     <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto pt-4 transform translate-y-5 animate-slide-up duration-1000 delay-100">
-                        <a :href="slide.link" class="inline-flex items-center justify-center px-8 py-4 text-xs font-extrabold uppercase tracking-widest text-slate-950 bg-amber-400 hover:bg-amber-500 rounded-xl shadow-lg shadow-amber-500/10 hover:scale-[1.03] active:scale-[0.97] transition-all duration-300">
+                        <a :href="slide.link" class="inline-flex items-center justify-center px-8 py-4 text-xs font-extrabold uppercase tracking-widest text-slate-950 bg-brand-red-400 hover:bg-brand-red-500 rounded-xl shadow-lg shadow-brand-red-500/10 hover:scale-[1.03] active:scale-[0.97] transition-all duration-300">
                             Explore Showroom
                         </a>
                         <a href="#virtual-experience" class="inline-flex items-center justify-center px-8 py-4 text-xs font-extrabold uppercase tracking-widest text-white border border-white/20 hover:bg-white/10 rounded-xl backdrop-blur-sm transition-all duration-300">
@@ -120,7 +120,7 @@
         <template x-for="(slide, index) in slides" :key="index">
             <button @click="active = index" 
                     class="h-2 rounded-full transition-all duration-500"
-                    :class="active === index ? 'w-8 bg-amber-400' : 'w-2.5 bg-white/30 hover:bg-white/60'"></button>
+                    :class="active === index ? 'w-8 bg-brand-red-400' : 'w-2.5 bg-white/30 hover:bg-white/60'"></button>
         </template>
     </div>
 
@@ -133,7 +133,7 @@
             
             <!-- Left Text details - slides in from the Left -->
             <div class="flex flex-col gap-6 scroll-reveal reveal-left">
-                <span class="text-amber-600 font-extrabold tracking-widest text-xs uppercase block">Interactive Immersion</span>
+                <span class="text-brand-red-600 font-extrabold tracking-widest text-xs uppercase block">Interactive Immersion</span>
                 <h2 class="text-3xl sm:text-4xl font-serif text-slate-900 leading-tight">
                     Don't Just View the Property. Experience It.
                 </h2>
@@ -142,7 +142,7 @@
                 </p>
                 <div class="space-y-6 pt-6 border-t border-slate-100 mt-2">
                     <div class="flex gap-4">
-                        <div class="flex-shrink-0 w-11 h-11 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-600">
+                        <div class="flex-shrink-0 w-11 h-11 rounded-xl bg-brand-red-500/10 flex items-center justify-center text-brand-red-600">
                             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
@@ -154,7 +154,7 @@
                         </div>
                     </div>
                     <div class="flex gap-4">
-                        <div class="flex-shrink-0 w-11 h-11 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-600">
+                        <div class="flex-shrink-0 w-11 h-11 rounded-xl bg-brand-red-500/10 flex items-center justify-center text-brand-red-600">
                             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
@@ -171,7 +171,7 @@
             <div class="relative rounded-3xl overflow-hidden aspect-video shadow-2xl bg-slate-950 border border-slate-800/20 scroll-reveal reveal-right delay-100">
                 <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1000&q=80" alt="Virtual Walkthrough Preview" class="absolute inset-0 w-full h-full object-cover opacity-80">
                 <div class="absolute inset-0 bg-slate-950/20 flex items-center justify-center">
-                    <button class="w-20 h-20 rounded-full bg-amber-400 hover:bg-amber-500 text-slate-950 flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-transform duration-300">
+                    <button class="w-20 h-20 rounded-full bg-brand-red-400 hover:bg-brand-red-500 text-slate-950 flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-transform duration-300">
                         <!-- Play / View Icon -->
                         <svg class="w-8 h-8 fill-current ml-1" viewBox="0 0 24 24">
                             <path d="M8 5v14l11-7z"/>
@@ -191,10 +191,10 @@
         <!-- Header - Slides Upward -->
         <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-20 scroll-reveal reveal-up">
             <div class="flex flex-col gap-4">
-                <span class="text-amber-600 font-extrabold tracking-widest text-xs uppercase block">Curated Collections</span>
+                <span class="text-brand-red-600 font-extrabold tracking-widest text-xs uppercase block">Curated Collections</span>
                 <h2 class="text-3xl sm:text-4xl font-serif text-slate-900 tracking-tight leading-none">Featured Real Estate</h2>
             </div>
-            <a href="{{ route('properties.index') }}" class="group flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-amber-600 hover:text-amber-700 transition-colors">
+            <a href="{{ route('properties.index') }}" class="group flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-brand-red-600 hover:text-brand-red-700 transition-colors">
                 View All Available Properties
                 <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -217,13 +217,13 @@
                         @endif
                         
                         <!-- Badges tags -->
-                        <span class="absolute top-4 left-4 bg-amber-400 text-slate-950 px-3.5 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-wider shadow-sm">
+                        <span class="absolute top-4 left-4 bg-brand-red-400 text-slate-950 px-3.5 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-wider shadow-sm">
                             {{ $property->property_type === 'Shortlet' ? 'Shortlet' : 'For ' . $property->property_type }}
                         </span>
                         
                         @if($property->virtualTour)
-                            <span class="absolute bottom-4 right-4 bg-slate-950/80 backdrop-blur-sm text-amber-400 px-3.5 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-wider flex items-center gap-1.5 shadow-sm border border-white/5">
-                                <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span> Virtual Tour
+                            <span class="absolute bottom-4 right-4 bg-slate-950/80 backdrop-blur-sm text-brand-red-400 px-3.5 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-wider flex items-center gap-1.5 shadow-sm border border-white/5">
+                                <span class="w-2 h-2 rounded-full bg-brand-red-400 animate-pulse"></span> Virtual Tour
                             </span>
                         @endif
                     </div>
@@ -284,7 +284,7 @@
             
             <!-- Left Info Block: Why Numbers Matter -->
             <div class="flex flex-col gap-6 scroll-reveal reveal-left">
-                <span class="text-amber-400 font-extrabold tracking-widest text-xs uppercase block">Consultative Wealth Advisory</span>
+                <span class="text-brand-red-400 font-extrabold tracking-widest text-xs uppercase block">Consultative Wealth Advisory</span>
                 <h2 class="text-3xl sm:text-4xl font-serif text-white leading-tight tracking-tight">
                     Perform Real-Time Investment Intelligence.
                 </h2>
@@ -297,13 +297,13 @@
                 
                 <div class="flex flex-wrap gap-4 mt-4 text-xs font-semibold text-slate-300">
                     <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 text-sm">
-                        <span class="text-amber-400 font-bold">•</span> Traditional Yield: 6.5% - 8.5%
+                        <span class="text-brand-red-400 font-bold">•</span> Traditional Yield: 6.5% - 8.5%
                     </div>
                     <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 text-sm">
-                        <span class="text-amber-400 font-bold">•</span> Shortlet Yield: 12% - 16%
+                        <span class="text-brand-red-400 font-bold">•</span> Shortlet Yield: 12% - 16%
                     </div>
                     <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 text-sm">
-                        <span class="text-amber-400 font-bold">•</span> Annual Appreciation: 15% - 20%
+                        <span class="text-brand-red-400 font-bold">•</span> Annual Appreciation: 15% - 20%
                     </div>
                 </div>
             </div>
@@ -375,7 +375,7 @@
                             <span class="font-extrabold text-slate-900 text-sm">₦<span x-text="new Intl.NumberFormat().format(Math.round(getAppreciation()))"></span></span>
                             <span class="text-xs text-slate-400 font-semibold mt-0.5">Estimated Capital Value in 5 Years (+18% YoY compound)</span>
                         </div>
-                        <span class="h-2.5 w-2.5 rounded-full bg-amber-500 shadow-sm shadow-amber-500/20"></span>
+                        <span class="h-2.5 w-2.5 rounded-full bg-brand-red-500 shadow-sm shadow-brand-red-500/20"></span>
                     </div>
                 </div>
 
@@ -394,7 +394,7 @@
         
         <!-- Section Header -->
         <div class="flex flex-col gap-4 text-center max-w-2xl mx-auto mb-20 scroll-reveal reveal-up">
-            <span class="text-amber-600 font-extrabold tracking-widest text-xs uppercase block">Prestigious Addresses</span>
+            <span class="text-brand-red-600 font-extrabold tracking-widest text-xs uppercase block">Prestigious Addresses</span>
             <h2 class="text-3xl sm:text-4xl font-serif text-slate-900 tracking-tight leading-none">Lagos Luxury Enclaves</h2>
             <p class="text-sm text-slate-500 leading-relaxed font-semibold">Explore the prestigious communities that define our curated portfolio—offering premier security, high-yield cashflows, and exquisite architecture.</p>
         </div>
@@ -414,8 +414,8 @@
 
                 <!-- Card Content (z-20) -->
                 <div class="flex flex-col gap-4 text-left z-20 font-sans">
-                    <div class="flex items-center gap-2 px-2.5 py-1 rounded-full bg-amber-500/20 border border-amber-500/20 w-max backdrop-blur-md">
-                        <span class="text-amber-400 font-extrabold text-[9px] uppercase tracking-widest">+18.5% YoY Appreciation</span>
+                    <div class="flex items-center gap-2 px-2.5 py-1 rounded-full bg-brand-red-500/20 border border-brand-red-500/20 w-max backdrop-blur-md">
+                        <span class="text-brand-red-400 font-extrabold text-[9px] uppercase tracking-widest">+18.5% YoY Appreciation</span>
                     </div>
                     <div>
                         <h3 class="text-2xl font-serif font-extrabold text-white leading-tight">Old Ikoyi</h3>
@@ -424,7 +424,7 @@
                     <p class="text-sm text-slate-300 leading-relaxed font-semibold">The undisputed heart of Nigerian old-money prestige. Leafy, tranquil, and home to legacy estates.</p>
                     
                     <a href="{{ route('properties.index', ['location_id' => $ikoyiLocation->id ?? '']) }}" 
-                       class="mt-2 w-full flex items-center justify-between px-5 py-3.5 text-xs font-extrabold uppercase tracking-widest text-slate-900 bg-white group-hover:bg-amber-400 rounded-xl transition-all duration-300 text-left">
+                       class="mt-2 w-full flex items-center justify-between px-5 py-3.5 text-xs font-extrabold uppercase tracking-widest text-slate-900 bg-white group-hover:bg-brand-red-400 rounded-xl transition-all duration-300 text-left">
                         <span>Discover Ikoyi Spaces</span>
                         <svg class="h-4 w-4 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
@@ -454,7 +454,7 @@
                     <p class="text-sm text-slate-300 leading-relaxed font-semibold">The high-octane commercial nerve center of Lagos. Ideal for high-yielding executive shortlets.</p>
                     
                     <a href="{{ route('properties.index', ['location_id' => $viLocation->id ?? '']) }}" 
-                       class="mt-2 w-full flex items-center justify-between px-5 py-3.5 text-xs font-extrabold uppercase tracking-widest text-slate-900 bg-white group-hover:bg-amber-400 rounded-xl transition-all duration-300 text-left">
+                       class="mt-2 w-full flex items-center justify-between px-5 py-3.5 text-xs font-extrabold uppercase tracking-widest text-slate-900 bg-white group-hover:bg-brand-red-400 rounded-xl transition-all duration-300 text-left">
                         <span>Discover VI Spaces</span>
                         <svg class="h-4 w-4 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
@@ -484,7 +484,7 @@
                     <p class="text-sm text-slate-300 leading-relaxed font-semibold">The tech-lifestyle haven for young millionaires, creators, and modern executive families.</p>
                     
                     <a href="{{ route('properties.index', ['location_id' => $lekkiLocation->id ?? '']) }}" 
-                       class="mt-2 w-full flex items-center justify-between px-5 py-3.5 text-xs font-extrabold uppercase tracking-widest text-slate-900 bg-white group-hover:bg-amber-400 rounded-xl transition-all duration-300 text-left">
+                       class="mt-2 w-full flex items-center justify-between px-5 py-3.5 text-xs font-extrabold uppercase tracking-widest text-slate-900 bg-white group-hover:bg-brand-red-400 rounded-xl transition-all duration-300 text-left">
                         <span>Discover Lekki Spaces</span>
                         <svg class="h-4 w-4 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
@@ -510,7 +510,7 @@
             
             <!-- Left Column: Trust Slogans and Visual Plan -->
             <div class="flex flex-col gap-6 scroll-reveal reveal-left">
-                <span class="text-amber-400 font-extrabold tracking-widest text-xs uppercase block">Secure Remote Acquisition</span>
+                <span class="text-brand-red-400 font-extrabold tracking-widest text-xs uppercase block">Secure Remote Acquisition</span>
                 <h2 class="text-3xl sm:text-4xl font-serif text-white leading-tight tracking-tight">
                     Diaspora Investment Concierge
                 </h2>
@@ -521,7 +521,7 @@
                 <!-- Visual Map Badge -->
                 <div class="relative rounded-3xl overflow-hidden aspect-video border border-white/5 bg-slate-900/60 p-6 flex flex-col justify-between mt-4">
                     <div class="flex items-center gap-3">
-                        <div class="h-10 w-10 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-400">
+                        <div class="h-10 w-10 rounded-xl bg-brand-red-500/10 flex items-center justify-center text-brand-red-400">
                             <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                             </svg>
@@ -537,7 +537,7 @@
                 
                 <!-- Pillar 1 -->
                 <div class="p-8 rounded-[2rem] bg-white/5 border border-white/10 flex items-start gap-6 hover:bg-white/10 transition-colors duration-300">
-                    <span class="text-2xl font-extrabold text-amber-400 font-sans leading-none">01</span>
+                    <span class="text-2xl font-extrabold text-brand-red-400 font-sans leading-none">01</span>
                     <div class="flex flex-col gap-1 text-left font-sans">
                         <h4 class="text-base font-extrabold text-white uppercase tracking-wider">Verified Certificate of Occupancy (C of O)</h4>
                         <p class="text-sm text-slate-300 leading-relaxed mt-1 font-semibold">Exhaustive, independent legal title audits conducted on every single listing, guaranteeing 100% dispute-free and fraud-free ownership.</p>
@@ -546,7 +546,7 @@
 
                 <!-- Pillar 2 -->
                 <div class="p-8 rounded-[2rem] bg-white/5 border border-white/10 flex items-start gap-6 hover:bg-white/10 transition-colors duration-300">
-                    <span class="text-2xl font-extrabold text-amber-400 font-sans leading-none">02</span>
+                    <span class="text-2xl font-extrabold text-brand-red-400 font-sans leading-none">02</span>
                     <div class="flex flex-col gap-1 text-left font-sans">
                         <h4 class="text-base font-extrabold text-white uppercase tracking-wider">Secure Escrow Closings</h4>
                         <p class="text-sm text-slate-300 leading-relaxed mt-1 font-semibold">Financial resources are processed through top-tier international banking and legal escrow partners. Funds are released only upon certified physical handovers.</p>
@@ -555,7 +555,7 @@
 
                 <!-- Pillar 3 -->
                 <div class="p-8 rounded-[2rem] bg-white/5 border border-white/10 flex items-start gap-6 hover:bg-white/10 transition-colors duration-300">
-                    <span class="text-2xl font-extrabold text-amber-400 font-sans leading-none">03</span>
+                    <span class="text-2xl font-extrabold text-brand-red-400 font-sans leading-none">03</span>
                     <div class="flex flex-col gap-1 text-left font-sans">
                         <h4 class="text-base font-extrabold text-white uppercase tracking-wider">Diaspora-to-Desktop Management</h4>
                         <p class="text-sm text-slate-300 leading-relaxed mt-1 font-semibold">Monitor your property's serviced shortlet occupancy, traditional rental income, and dynamic portfolio ROI live from our secure dashboard anywhere globally.</p>
@@ -575,7 +575,7 @@
         
         <!-- Section Header -->
         <div class="flex flex-col gap-4 text-center max-w-2xl mx-auto mb-20 scroll-reveal reveal-up">
-            <span class="text-amber-600 font-extrabold tracking-widest text-xs uppercase block">Core Brand Values</span>
+            <span class="text-brand-red-600 font-extrabold tracking-widest text-xs uppercase block">Core Brand Values</span>
             <h2 class="text-3xl sm:text-4xl font-serif text-slate-900 tracking-tight leading-none">The Darall Difference</h2>
             <p class="text-sm text-slate-500 leading-relaxed font-semibold">Our foundational pillars unite cutting-edge technology with unshakeable legal security, delivering a seamless luxury experience.</p>
         </div>
@@ -585,7 +585,7 @@
             
             <!-- Pillar 1: 3D VR Showrooms -->
             <div class="group bg-white rounded-3xl p-8 border border-slate-200/50 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 transform scroll-reveal reveal-up">
-                <div class="h-12 w-12 rounded-xl bg-amber-500/10 text-amber-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                <div class="h-12 w-12 rounded-xl bg-brand-red-500/10 text-brand-red-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                     <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
@@ -597,7 +597,7 @@
 
             <!-- Pillar 2: Premium Construction -->
             <div class="group bg-white rounded-3xl p-8 border border-slate-200/50 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 transform scroll-reveal reveal-up delay-100">
-                <div class="h-12 w-12 rounded-xl bg-amber-500/10 text-amber-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                <div class="h-12 w-12 rounded-xl bg-brand-red-500/10 text-brand-red-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                     <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                     </svg>
@@ -608,7 +608,7 @@
 
             <!-- Pillar 3: Title Integrity -->
             <div class="group bg-white rounded-3xl p-8 border border-slate-200/50 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 transform scroll-reveal reveal-up delay-200">
-                <div class="h-12 w-12 rounded-xl bg-amber-500/10 text-amber-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                <div class="h-12 w-12 rounded-xl bg-brand-red-500/10 text-brand-red-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                     <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                     </svg>
@@ -619,7 +619,7 @@
 
             <!-- Pillar 4: Client CRM Concierge -->
             <div class="group bg-white rounded-3xl p-8 border border-slate-200/50 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 transform scroll-reveal reveal-up delay-300">
-                <div class="h-12 w-12 rounded-xl bg-amber-500/10 text-amber-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                <div class="h-12 w-12 rounded-xl bg-brand-red-500/10 text-brand-red-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                     <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
                     </svg>
@@ -643,13 +643,13 @@
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="max-w-2xl flex flex-col gap-6 text-left scroll-reveal reveal-left">
-            <span class="text-amber-400 font-extrabold tracking-widest text-xs uppercase block">Secure Portfolios Acquisitions</span>
+            <span class="text-brand-red-400 font-extrabold tracking-widest text-xs uppercase block">Secure Portfolios Acquisitions</span>
             <h2 class="text-4xl xl:text-5xl font-serif font-extrabold text-white leading-tight tracking-tight">Ready to step into Lagos' finest spaces?</h2>
             <p class="text-base text-slate-300 leading-relaxed font-light max-w-xl">
                 Whether you are seeking outright acquisition, custom corporate leases, or exquisite serviced shortlet stays, our advisory team is ready to deliver a bespoke digital walkthrough.
             </p>
             <div class="flex flex-col sm:flex-row gap-4 pt-4">
-                <a href="{{ route('properties.index') }}" class="inline-flex items-center justify-center px-8 py-4 text-xs font-extrabold uppercase tracking-widest text-slate-950 bg-amber-400 hover:bg-amber-500 rounded-xl shadow-lg shadow-amber-500/10 hover:scale-[1.03] active:scale-[0.97] transition-all duration-300">
+                <a href="{{ route('properties.index') }}" class="inline-flex items-center justify-center px-8 py-4 text-xs font-extrabold uppercase tracking-widest text-slate-950 bg-brand-red-400 hover:bg-brand-red-500 rounded-xl shadow-lg shadow-brand-red-500/10 hover:scale-[1.03] active:scale-[0.97] transition-all duration-300">
                     Explore Showrooms
                 </a>
                 <a href="{{ route('contact') }}" class="inline-flex items-center justify-center px-8 py-4 text-xs font-extrabold uppercase tracking-widest text-white border border-white/20 hover:bg-white/10 rounded-xl backdrop-blur-sm transition-all duration-300">

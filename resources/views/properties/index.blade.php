@@ -8,7 +8,7 @@
     <div class="absolute inset-0 bg-cover bg-center opacity-30 animate-fade-in" style="background-image: url('https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1920&q=80');"></div>
     <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10 flex flex-col items-center gap-6">
-        <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-sm font-extrabold uppercase tracking-widest bg-amber-500/10 text-amber-400 border border-amber-500/20 backdrop-blur-md animate-fade-in">
+        <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-sm font-extrabold uppercase tracking-widest bg-brand-red-500/10 text-brand-red-400 border border-brand-red-500/20 backdrop-blur-md animate-fade-in">
             Interactive Digital Showroom
         </span>
         <h1 class="text-4xl sm:text-5xl md:text-6xl font-serif text-white tracking-tight leading-none animate-slide-up">
@@ -85,7 +85,7 @@
                 @if(request('price_range'))<input type="hidden" name="price_range" value="{{ request('price_range') }}">@endif
                 
                 <span class="text-sm text-slate-400 font-bold uppercase tracking-wider">Sort By</span>
-                <select name="sort" onchange="document.getElementById('sortForm').submit()" class="bg-white border border-slate-200/60 rounded-xl px-4 py-2.5 text-sm text-slate-700 font-bold focus:outline-none focus:ring-1 focus:ring-amber-500">
+                <select name="sort" onchange="document.getElementById('sortForm').submit()" class="bg-white border border-slate-200/60 rounded-xl px-4 py-2.5 text-sm text-slate-700 font-bold focus:outline-none focus:ring-1 focus:ring-brand-red-500">
                     <option value="newest" {{ request('sort') === 'newest' ? 'selected' : '' }}>Newest Listed</option>
                     <option value="price-low" {{ request('sort') === 'price-low' ? 'selected' : '' }}>Price: Low to High</option>
                     <option value="price-high" {{ request('sort') === 'price-high' ? 'selected' : '' }}>Price: High to Low</option>
@@ -104,19 +104,19 @@
                         @else
                             <div class="w-full h-full bg-slate-100 flex items-center justify-center text-slate-400">No Image</div>
                         @endif
-                        <span class="absolute top-4 left-4 bg-amber-400 text-slate-950 px-3.5 py-1.5 rounded-full text-sm font-extrabold uppercase tracking-wider shadow-md">
+                        <span class="absolute top-4 left-4 bg-brand-red-400 text-slate-950 px-3.5 py-1.5 rounded-full text-sm font-extrabold uppercase tracking-wider shadow-md">
                             {{ $property->property_type === 'Shortlet' ? 'Shortlet' : 'For ' . $property->property_type }}
                         </span>
                         @if($property->virtualTour)
-                            <span class="absolute bottom-4 right-4 bg-slate-950/80 backdrop-blur-sm text-amber-400 px-3.5 py-1.5 rounded-full text-sm font-extrabold uppercase tracking-wider flex items-center gap-1.5 shadow-md border border-white/5">
-                                <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span> Virtual Tour Active
+                            <span class="absolute bottom-4 right-4 bg-slate-950/80 backdrop-blur-sm text-brand-red-400 px-3.5 py-1.5 rounded-full text-sm font-extrabold uppercase tracking-wider flex items-center gap-1.5 shadow-md border border-white/5">
+                                <span class="w-1.5 h-1.5 rounded-full bg-brand-red-400 animate-pulse"></span> Virtual Tour Active
                             </span>
                         @endif
                     </div>
                     <div class="p-8 flex flex-col gap-5">
                         <div class="flex flex-col gap-1.5">
                             <span class="text-sm text-slate-400 uppercase tracking-widest font-extrabold">{{ $property->location->name }}</span>
-                            <h3 class="text-xl font-serif font-extrabold text-slate-900 group-hover:text-amber-500 transition-colors tracking-tight truncate">{{ $property->title }}</h3>
+                            <h3 class="text-xl font-serif font-extrabold text-slate-900 group-hover:text-brand-red-500 transition-colors tracking-tight truncate">{{ $property->title }}</h3>
                         </div>
                         <p class="text-sm text-slate-500 leading-relaxed font-semibold text-left line-clamp-2">{{ $property->description }}</p>
                         <div class="flex items-center gap-6 text-sm text-slate-500 border-y border-slate-100 py-3.5 my-1 font-sans font-semibold">

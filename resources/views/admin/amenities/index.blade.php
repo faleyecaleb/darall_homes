@@ -46,7 +46,7 @@
                     @forelse($amenities as $amenity)
                         <tr class="text-slate-700 group hover:bg-slate-50/50 transition-colors">
                             <td class="py-4 font-bold text-slate-900 flex items-center gap-3">
-                                <div class="w-8 h-8 rounded-lg bg-amber-500/10 text-amber-600 flex items-center justify-center flex-shrink-0">
+                                <div class="w-8 h-8 rounded-lg bg-brand-red-500/10 text-brand-red-600 flex items-center justify-center flex-shrink-0">
                                     <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
                                     </svg>
@@ -115,7 +115,7 @@
         </div>
 
         <!-- Edit -->
-        <div x-show="editing" style="display: none;" class="bg-white border border-slate-100 rounded-[2.2rem] p-8 shadow-sm flex flex-col gap-6 border-amber-500/30">
+        <div x-show="editing" style="display: none;" class="bg-white border border-slate-100 rounded-[2.2rem] p-8 shadow-sm flex flex-col gap-6 border-brand-red-500/30">
             <div class="flex justify-between items-center">
                 <h3 class="text-lg font-bold text-slate-900">Edit Amenity</h3>
                 <button @click="editing = false" class="text-xs font-semibold text-slate-400 hover:text-slate-600">Cancel</button>

@@ -103,7 +103,7 @@
         </div>
 
         <!-- Edit -->
-        <div x-show="editing" style="display: none;" class="bg-white border border-slate-100 rounded-[2.2rem] p-8 shadow-sm flex flex-col gap-6 border-amber-500/30">
+        <div x-show="editing" style="display: none;" class="bg-white border border-slate-100 rounded-[2.2rem] p-8 shadow-sm flex flex-col gap-6 border-brand-red-500/30">
             <div class="flex justify-between items-center">
                 <h3 class="text-lg font-bold text-slate-900">Edit Location Area</h3>
                 <button @click="editing = false" class="text-xs font-semibold text-slate-400 hover:text-slate-600">Cancel</button>
