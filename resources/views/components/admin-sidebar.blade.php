@@ -2,17 +2,10 @@
 <aside class="hidden md:flex md:w-72 md:flex-col bg-white dark:bg-slate-950 border-r border-slate-100 dark:border-slate-800/80 flex-shrink-0 p-6 justify-between transition-colors duration-300">
     <div>
         <!-- Logo Header Brand with Hover Animation -->
-        <div class="flex items-center gap-3 mb-10 group cursor-pointer">
-            <div class="h-12 w-12 rounded-2xl bg-brand flex items-center justify-center text-white shadow-lg shadow-brand/20 flex-shrink-0 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
-                <!-- House Icon -->
-                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                </svg>
-            </div>
-            <div class="flex flex-col">
-                <span class="text-xl font-bold tracking-tight text-slate-900 dark:text-white uppercase leading-none group-hover:text-brand transition-colors duration-300">darall</span>
-                <span class="text-[10px] text-slate-400 dark:text-slate-500 font-semibold mt-1">Real Estate Admin</span>
-            </div>
+        <div class="flex items-center gap-3 mb-10 group cursor-pointer h-12 w-48 text-slate-900 dark:text-white">
+            <a href="{{ route('home') }}" class="h-full w-full block">
+                <x-application-logo />
+            </a>
         </div>
 
         <!-- Sidebar Navigation Links Groups -->

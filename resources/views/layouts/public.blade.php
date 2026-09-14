@@ -47,12 +47,12 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-12">
                 <!-- Logo with scroll-adaptive color -->
-                <div class="flex-shrink-0 flex items-center">
-                    <a href="{{ route('home') }}" class="group flex items-center gap-2">
-                        <span class="text-2xl font-bold tracking-widest uppercase transition-colors duration-500"
+                <div class="flex-shrink-0 flex items-center h-10 w-44">
+                    <a href="{{ route('home') }}" class="group flex items-center gap-2 h-full w-full">
+                        <div class="h-full w-full transition-colors duration-500"
                               :class="scrolled || !{{ (request()->routeIs('home') || (request()->routeIs('properties.show') && str_contains(request()->path(), 'lumiere-suites'))) ? 'true' : 'false' }} ? 'text-slate-900' : 'text-white'">
-                            Darall<span class="text-brand-red-500 font-light">Homes</span>
-                        </span>
+                            <x-application-logo />
+                        </div>
                     </a>
                 </div>
 
