@@ -4,7 +4,7 @@
 
 @section('content')
 <!-- Header Banner Section - Floating Cinematic Backdrop -->
-<div class="relative bg-slate-950 pt-36 pb-24 sm:py-32 overflow-hidden border-b border-slate-900 -mt-20 flex items-center min-h-[400px] select-none">
+<div class="relative bg-slate-950 pt-40 pb-24 sm:py-32 overflow-hidden border-b border-slate-900 -mt-20 flex items-center min-h-[400px] select-none mobile-hero-fix">
     <div class="absolute inset-0 bg-cover bg-center opacity-35 animate-fade-in" style="background-image: url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1920&q=80');"></div>
     <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10 flex flex-col items-center gap-6">

@@ -46,7 +46,7 @@
         <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent -z-10"></div>
     @endif
 
-    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-16 md:py-24 z-10 w-full animate-fade-in flex flex-col gap-12">
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-40 pb-16 md:py-24 z-10 w-full animate-fade-in flex flex-col gap-12 mobile-show-hero-fix">
         <!-- Title & Pricing Grid -->
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
             <!-- Property Meta & Actions -->

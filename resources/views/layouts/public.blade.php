@@ -24,6 +24,17 @@
         h1, h2, h3, .font-serif {
             font-family: 'Playfair Display', serif;
         }
+        /* Live cPanel/Production Mobile Spacing Safety Guards */
+        @media (max-w: 640px) {
+            .mobile-hero-fix {
+                padding-top: 10rem !important;
+                padding-bottom: 6rem !important;
+            }
+            .mobile-show-hero-fix {
+                padding-top: 10rem !important;
+                padding-bottom: 4rem !important;
+            }
+        }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900 antialiased flex flex-col min-h-screen">
