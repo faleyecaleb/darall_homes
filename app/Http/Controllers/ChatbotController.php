@@ -17,6 +17,7 @@ class ChatbotController extends Controller
      */
     public function chat(Request $request): JsonResponse
     {
+        set_time_limit(300);
         $request->validate([
             'message' => 'required|string|max:1000',
             'history' => 'nullable|array', // Conversation thread history
@@ -51,7 +52,7 @@ class ChatbotController extends Controller
         $systemInstruction .= "- Mission Statement: To provide affordable, modern housing through timely delivery, flexible payment plans, and superior construction standards, making homeownership accessible and achievable.\n";
         $systemInstruction .= "- Core Values: Integrity (say what we do, and do what we say), Excellence (quality at every stage), Innovation (modern designs, flexible payments), Community (building neighbourhoods, not just houses).\n";
         $systemInstruction .= "- Objectives: Expand mainland operations focusing heavily on Yaba & Surulere, and provide no fewer than 300 housing units (rental, lease, outright purchase).\n\n";
-        
+
         $systemInstruction .= "LUMIÈRE SUITES (SURULERE) PORTFOLIO AUDIT DETAILS:\n";
         $systemInstruction .= "- Project Name: Lumière Suites\n";
         $systemInstruction .= "- Location: Surulere, Lagos (Mainland - ~5 mins to Oshodi, ~10 mins to Lagos Island, ~15 mins to Ikeja, ~20 mins to Victoria Island).\n";
@@ -65,7 +66,7 @@ class ChatbotController extends Controller
         $systemInstruction .= "  * Mini Flat (1-Bed): ₦22,050,000 initial deposit | ₦8,575,000 monthly payment.\n";
         $systemInstruction .= "  * 2-Bedroom: ₦28,350,000 initial deposit | ₦11,025,000 monthly payment.\n";
         $systemInstruction .= "- Additional Fees: Documentation fee of flat ₦1,750,000 per apartment (covers Registered Survey and Deed of Assignment). Zero government encumbrances or land disputes.\n\n";
-        
+
         $systemInstruction .= $listingsContext;
 
         $systemInstruction .= "WORLD-CLASS PROPERTY UPGRADE MODULES (INDUSTRY EXCELLENCE STANDARDS):\n";
@@ -92,52 +93,110 @@ class ChatbotController extends Controller
         $systemInstruction .= "[BOOKING_DATA: {\"name\": \"Client Name\", \"email\": \"email@test.com\", \"phone\": \"090000000\", \"date\": \"YYYY-MM-DD\", \"time\": \"Morning|Afternoon|Evening\", \"property_id\": numeric_id_from_above}]\n";
         $systemInstruction .= "Ensure you compile the JSON correctly. Never output the booking tag unless you have received ALL necessary details (Name, Email, Phone, Date, Time, and Selected Property ID). If any of these are missing, politely ask the client to provide them first.\n";
 
-        // 3. Construct Gemini API message stream payload
-        $formattedContents = [];
-        foreach ($history as $chat) {
-            $formattedContents[] = [
-                'role' => $chat['role'] === 'user' ? 'user' : 'model',
-                'parts' => [['text' => $chat['text']]]
-            ];
-        }
+        // Determine which AI provider to use
+        $aiProvider = env('AI_PROVIDER', 'llama'); // Default to 'llama' as requested, can switch to 'gemini'
 
-        // Add the newest message
-        $formattedContents[] = [
-            'role' => 'user',
-            'parts' => [['text' => $userMessage]]
-        ];
+        $reply = "";
 
-        // 4. API Request using Laravel HTTP Client
-        $apiKey = env('GEMINI_API_KEY');
-        if (!$apiKey) {
-            return response()->json([
-                'reply' => "I apologize, but my core AI connection is currently offline (Missing API configurations). Please contact our support team at advisory@darallhomes.com."
-            ]);
-        }
+        if ($aiProvider === 'llama' || $aiProvider === 'ollama') {
+            // 3. Construct Ollama API message payload
+            $messages = [];
+            $messages[] = ['role' => 'system', 'content' => $systemInstruction];
 
-        try {
-            $response = Http::withHeaders([
-                'Content-Type' => 'application/json',
-            ])->post("https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key=" . $apiKey, [
-                'contents' => $formattedContents,
-                'systemInstruction' => [
-                    'parts' => [['text' => $systemInstruction]]
-                ],
-                'generationConfig' => [
-                    'temperature' => 0.3,
-                    'maxOutputTokens' => 2048,
-                ]
-            ]);
+            foreach ($history as $chat) {
+                $messages[] = [
+                    'role' => $chat['role'] === 'user' ? 'user' : 'assistant',
+                    'content' => $chat['text']
+                ];
+            }
+            $messages[] = ['role' => 'user', 'content' => $userMessage];
 
-            if ($response->failed()) {
-                Log::error("Gemini API Error: " . $response->body());
+            $ollamaUrl = rtrim(env('OLLAMA_BASE_URL', 'http://localhost:11434'), '/');
+            $ollamaModel = env('OLLAMA_MODEL', 'llama3.1');
+
+            try {
+                // 4. API Request using Laravel HTTP Client to Ollama
+                $response = Http::timeout(300)->retry(3, 1500)->post($ollamaUrl . '/api/chat', [
+                    'model' => $ollamaModel,
+                    'messages' => $messages,
+                    'stream' => false,
+                    'options' => [
+                        'temperature' => 0.3,
+                    ]
+                ]);
+
+                if ($response->failed()) {
+                    Log::error("Ollama API Error: " . $response->body());
+                    return response()->json([
+                        'reply' => "I apologize, but I encountered a slight connection error while coordinating with our central intelligence. Could you please send your message again?"
+                    ]);
+                }
+
+                $result = $response->json();
+                $reply = $result['message']['content'] ?? "I apologize, but I am currently unable to process your request. How else can I assist you?";
+            } catch (\Exception $e) {
+                Log::error("Ollama Exception in ChatbotController: " . $e->getMessage());
                 return response()->json([
-                    'reply' => "I apologize, but I encountered a slight connection error while coordinating with our central intelligence. Could you please send your message again?"
+                    'reply' => "I apologize, but I encountered a slight connection issue. Please feel free to schedule a private inspection directly or message us on WhatsApp!"
                 ]);
             }
 
-            $result = $response->json();
-            $reply = $result['candidates'][0]['content']['parts'][0]['text'] ?? "I apologize, but I am currently unable to process your request. How else can I assist you?";
+        } else {
+            // 3. Construct Gemini API message stream payload
+            $formattedContents = [];
+            foreach ($history as $chat) {
+                $formattedContents[] = [
+                    'role' => $chat['role'] === 'user' ? 'user' : 'model',
+                    'parts' => [['text' => $chat['text']]]
+                ];
+            }
+
+            // Add the newest message
+            $formattedContents[] = [
+                'role' => 'user',
+                'parts' => [['text' => $userMessage]]
+            ];
+
+            // 4. API Request using Laravel HTTP Client to Gemini
+            $apiKey = env('GEMINI_API_KEY');
+            if (!$apiKey) {
+                return response()->json([
+                    'reply' => "I apologize, but my core AI connection is currently offline (Missing API configurations). Please contact our support team at advisory@darallhomes.com."
+                ]);
+            }
+
+            try {
+                $response = Http::withHeaders([
+                    'Content-Type' => 'application/json',
+                ])->post("https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key=" . $apiKey, [
+                    'contents' => $formattedContents,
+                    'systemInstruction' => [
+                        'parts' => [['text' => $systemInstruction]]
+                    ],
+                    'generationConfig' => [
+                        'temperature' => 0.3,
+                        'maxOutputTokens' => 2048,
+                    ]
+                ]);
+
+                if ($response->failed()) {
+                    Log::error("Gemini API Error: " . $response->body());
+                    return response()->json([
+                        'reply' => "I apologize, but I encountered a slight connection error while coordinating with our central intelligence. Could you please send your message again?"
+                    ]);
+                }
+
+                $result = $response->json();
+                $reply = $result['candidates'][0]['content']['parts'][0]['text'] ?? "I apologize, but I am currently unable to process your request. How else can I assist you?";
+            } catch (\Exception $e) {
+                Log::error("Gemini Exception in ChatbotController: " . $e->getMessage());
+                return response()->json([
+                    'reply' => "I apologize, but I encountered a slight connection issue. Please feel free to schedule a private inspection directly or message us on WhatsApp!"
+                ]);
+            }
+        }
+
+        try {
 
             // 5. AUTONOMOUS DATABASE SYNC INTEGRATION: Check for BOOKING_DATA token
             if (preg_match('/\[BOOKING_DATA:\s*(.*?)\]/s', $reply, $matches)) {
@@ -146,7 +205,7 @@ class ChatbotController extends Controller
                     // Extract and resolve variables securely
                     $propId = $jsonData['property_id'] ?? null;
                     $dateStr = $jsonData['date'] ?? now()->addDays(1)->format('Y-m-d');
-                    
+
                     try {
                         $parsedDate = date('Y-m-d', strtotime($dateStr));
                     } catch (\Exception $e) {
@@ -179,7 +238,7 @@ class ChatbotController extends Controller
                                 'status' => 'Pending',
                                 'notes' => 'Scheduled autonomously via Darall AI Assistant.',
                             ]);
-                            
+
                             Log::info("Autonomous booking logged successfully for client: " . ($jsonData['name'] ?? 'Guest'));
 
                         } catch (\Exception $dbException) {
