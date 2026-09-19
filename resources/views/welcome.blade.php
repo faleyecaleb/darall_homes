@@ -4,6 +4,89 @@
 
 @section('content')
 
+<!-- Cinematic Video Intro Overlay styling -->
+<style id="intro-scroll-styles">
+    .intro-scroll-locked {
+        overflow: hidden !important;
+        height: 100vh !important;
+    }
+</style>
+
+<script>
+    // Immediate execution before CSS / Alpine.js fully mounts to prevent scroll-flash
+    if (!sessionStorage.getItem('intro_played')) {
+        document.documentElement.classList.add('intro-scroll-locked');
+        document.body.classList.add('intro-scroll-locked');
+    }
+</script>
+
+<div id="videoIntroContainer"
+     x-data="{ 
+        showIntro: !sessionStorage.getItem('intro_played'),
+        fadeOut: false,
+        hideIntro() {
+            if (this.fadeOut) return;
+            this.fadeOut = true;
+            
+            // Instantly restore scroll capability
+            document.documentElement.classList.remove('intro-scroll-locked');
+            document.body.classList.remove('intro-scroll-locked');
+            
+            // Remove the temporary style tag
+            const styleTag = document.getElementById('intro-scroll-styles');
+            if (styleTag) styleTag.remove();
+            
+            sessionStorage.setItem('intro_played', 'true');
+            setTimeout(() => { 
+                this.showIntro = false; 
+            }, 1000); // Match Tailwind duration-1000
+        }
+     }"
+     x-init="if (!showIntro) { 
+        document.documentElement.classList.remove('intro-scroll-locked');
+        document.body.classList.remove('intro-scroll-locked');
+     }"
+     x-show="showIntro"
+     :class="fadeOut ? 'opacity-0 pointer-events-none' : 'opacity-100'"
+     class="fixed inset-0 w-screen h-screen z-[9999] bg-slate-950 flex items-center justify-center transition-opacity duration-1000 ease-in-out">
+    
+    <!-- Video Element -->
+    <video id="introVideo" 
+           class="absolute inset-0 w-full h-full object-cover" 
+           autoplay 
+           muted 
+           playsinline
+           @ended="hideIntro()">
+        <source src="/lumiere/lumiere-bg-video.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <!-- Dark Contrast overlay -->
+    <div class="absolute inset-0 bg-slate-950/50 z-10"></div>
+
+    <!-- Elegant Center Brand Presentation -->
+    <div class="absolute inset-0 flex flex-col items-center justify-center z-20 pointer-events-none select-none px-4 text-center">
+        <h1 class="text-white text-4xl sm:text-6xl md:text-7xl font-serif tracking-widest uppercase animate-pulse duration-[3000ms]">
+            Darall<span class="text-brand-red-500 font-light">Homes</span>
+        </h1>
+        <div class="h-[1px] w-24 bg-gradient-to-r from-transparent via-brand-red-500 to-transparent my-6"></div>
+        <p class="text-slate-300 text-[10px] sm:text-xs font-sans tracking-[0.25em] uppercase font-semibold">
+            Experience Premium Luxury Real Estate
+        </p>
+    </div>
+
+    <!-- Glassmorphic Skip Button (Bottom Right) -->
+    <div class="absolute bottom-10 right-10 sm:bottom-12 sm:right-12 z-30">
+        <button @click="hideIntro()" 
+                class="flex items-center gap-2.5 px-6 py-3.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-white font-sans text-[10px] font-extrabold uppercase tracking-widest backdrop-blur-md transition-all duration-300 hover:scale-[1.05] active:scale-[0.95] shadow-lg shadow-black/30">
+            <span>Skip Intro</span>
+            <svg class="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 5l7 7-7 7M5 5l7 7-7 7" />
+            </svg>
+        </button>
+    </div>
+</div>
+
 <!-- 1. FULL SCREEN CINEMATIC HERO CAROUSEL (hoomeee x Cognify World-Class Experience) -->
 <div class="relative w-screen h-screen bg-slate-950 overflow-hidden flex items-center select-none"
      x-data="{

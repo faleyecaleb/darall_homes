@@ -23,7 +23,7 @@
 <!-- Main Contact Layout -->
 <section class="py-32 bg-white overflow-hidden">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-16">
-        
+
         <!-- Channels Info -->
         <div class="lg:col-span-5 flex flex-col gap-10 justify-center scroll-reveal reveal-left">
             <div class="flex flex-col gap-3">
@@ -33,7 +33,7 @@
                     Whether looking to buy, rent, invest, or book an executive shortlet stay, our private agents provide tailored support centered around your schedule.
                 </p>
             </div>
-            
+
             <div class="flex flex-col gap-6 text-sm text-slate-700">
                 <div class="flex gap-4 items-start">
                     <div class="w-10 h-10 rounded-xl bg-brand-red-500/10 text-brand-red-600 flex items-center justify-center flex-shrink-0">
@@ -43,7 +43,11 @@
                     </div>
                     <div class="text-left font-sans">
                         <h4 class="text-sm font-extrabold text-slate-900 uppercase tracking-wider">Immediate Phone Support</h4>
-                        <p class="text-slate-500 mt-1 font-semibold">+234 (0) 800-DARALL-HOMES</p>
+                        <a href="tel:+2349111555511">
+                            <p class="text-slate-500 mt-1 font-semibold hover:text-blue-600 transition-colors cursor-pointer">
+                                +234 911 155 5511
+                            </p>
+                        </a>
                     </div>
                 </div>
 
@@ -55,7 +59,11 @@
                     </div>
                     <div class="text-left font-sans">
                         <h4 class="text-sm font-extrabold text-slate-900 uppercase tracking-wider">Electronic Mail Correspondence</h4>
-                        <p class="text-slate-500 mt-1 font-semibold">advisory@darallhomes.com</p>
+                        <a href="mailto:sales@darallhomes.com">
+                            <p class="text-slate-500 mt-1 font-semibold hover:text-blue-600 transition-colors cursor-pointer">
+                                sales@darallhomes.com
+                            </p>
+                        </a>
                     </div>
                 </div>
 
@@ -68,7 +76,7 @@
                     </div>
                     <div class="text-left font-sans">
                         <h4 class="text-sm font-extrabold text-slate-900 uppercase tracking-wider">Corporate HQ</h4>
-                        <p class="text-slate-500 mt-1 font-semibold">Block 12, Admiralty Way, Lekki Phase 1, Lagos, Nigeria.</p>
+                        <p class="text-slate-500 mt-1 font-semibold">Block No 8. Fatai Oduniyi Street, Magodo Brooks Estate, Magodo.</p>
                     </div>
                 </div>
             </div>
@@ -77,7 +85,7 @@
         <!-- Contact Enquiry Form -->
         <div class="lg:col-span-7 bg-slate-50 rounded-[2.5rem] border border-slate-200/50 p-8 sm:p-10 shadow-sm scroll-reveal reveal-right delay-100">
             <h3 class="text-2xl font-serif font-extrabold text-slate-900 text-left mb-8 tracking-tight">Send Structured Enquiry</h3>
-            
+
             <form action="{{ route('contact.submit') }}" method="POST" class="space-y-6">
                 @csrf
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">

@@ -16,7 +16,7 @@
 
     <!-- Styles / Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    
+
     <style>
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
@@ -40,7 +40,7 @@
 <body class="bg-slate-50 text-slate-900 antialiased flex flex-col min-h-screen">
 
     <!-- Premium Navigation Header - Scroll-Driven Dynamic Light/Transparent Transition -->
-    <header x-data="{ scrolled: window.scrollY > 20 }" 
+    <header x-data="{ scrolled: window.scrollY > 20 }"
             x-init="window.addEventListener('scroll', () => { scrolled = window.scrollY > 20 })"
             class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 border-b"
             :class="scrolled || !{{ (request()->routeIs('home') || (request()->routeIs('properties.show') && str_contains(request()->path(), 'lumiere-suites'))) ? 'true' : 'false' }} ? 'bg-white/95 backdrop-blur-md border-slate-100 shadow-sm py-4 text-slate-900' : 'bg-transparent border-transparent py-6 text-white'">
@@ -161,12 +161,12 @@
             <div>
                 <h4 class="text-white font-semibold mb-6">Headquarters</h4>
                 <p class="text-sm text-slate-500 leading-relaxed font-semibold mb-6">
-                    Block 12, Plot 4, Admiralty Way,<br>
-                    Lekki Phase 1, Lagos, Nigeria.
+                    No 8. Fatai Oduniyi Street, <br>
+                    Magodo Brooks Estate, Magodo.
                 </p>
                 <div class="flex flex-col gap-2 text-xs">
-                    <span class="text-slate-500 font-semibold">Email: <a href="mailto:contact@darallhomes.com" class="text-slate-300 hover:text-brand-red-500">contact@darallhomes.com</a></span>
-                    <span class="text-slate-500 font-semibold">Phone: <a href="tel:+234800DARALLHOMES" class="text-slate-300 hover:text-brand-red-500">+234 (0) 800–DARALL–HOMES</a></span>
+                    <span class="text-slate-500 font-semibold">Email: <a href="mailto:sales@darallhomes.com" class="text-slate-300 hover:text-brand-red-500">sales@darallhomes.com</a></span>
+                    <span class="text-slate-500 font-semibold">Phone: <a href="tel:+2349111555511" class="text-slate-300 hover:text-brand-red-500">+234 911 155 5511</a></span>
                 </div>
             </div>
         </div>
@@ -195,7 +195,7 @@
                         entry.target.classList.add('visible');
                     }
                 });
-            }, { 
+            }, {
                 threshold: 0.08,
                 rootMargin: '0px 0px -50px 0px'
             });
