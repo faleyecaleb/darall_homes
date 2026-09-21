@@ -8,7 +8,8 @@
 <style id="intro-scroll-styles">
     .intro-scroll-locked {
         overflow: hidden !important;
-        height: 100vh !important;
+        height: 100dvh !important;
+        height: 100vh; /* Fallback */
     }
 </style>
 
@@ -48,7 +49,7 @@
      }"
      x-show="showIntro"
      :class="fadeOut ? 'opacity-0 pointer-events-none' : 'opacity-100'"
-     class="fixed inset-0 w-screen h-screen z-[9999] bg-slate-950 flex items-center justify-center transition-opacity duration-1000 ease-in-out">
+     class="fixed inset-0 w-full h-[100dvh] z-[9999] bg-slate-950 flex items-center justify-center transition-opacity duration-1000 ease-in-out">
 
     <!-- Video Element -->
     <video id="introVideo"
@@ -75,10 +76,10 @@
         </p>
     </div>
 
-    <!-- Glassmorphic Skip Button (Bottom Right) -->
-    <div class="absolute bottom-10 right-10 sm:bottom-12 sm:right-12 z-30">
+    <!-- Glassmorphic Skip Button (Bottom Center on Mobile, Bottom Right on Desktop) -->
+    <div class="absolute bottom-16 sm:bottom-12 right-1/2 translate-x-1/2 sm:translate-x-0 sm:right-12 z-30 flex justify-center w-full sm:w-auto">
         <button @click="hideIntro()"
-                class="flex items-center gap-2.5 px-6 py-3.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-white font-sans text-[10px] font-extrabold uppercase tracking-widest backdrop-blur-md transition-all duration-300 hover:scale-[1.05] active:scale-[0.95] shadow-lg shadow-black/30">
+                class="flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-full bg-white/20 sm:bg-white/10 hover:bg-white/30 sm:hover:bg-white/20 border border-white/30 sm:border-white/20 text-white font-sans text-[10px] font-extrabold uppercase tracking-widest backdrop-blur-md transition-all duration-300 hover:scale-[1.05] active:scale-[0.95] shadow-lg shadow-black/30">
             <span>Skip Intro</span>
             <svg class="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 5l7 7-7 7M5 5l7 7-7 7" />
@@ -88,7 +89,7 @@
 </div>
 
 <!-- 1. FULL SCREEN CINEMATIC HERO CAROUSEL (hoomeee x Cognify World-Class Experience) -->
-<div class="relative w-screen h-screen bg-slate-950 overflow-hidden flex items-center select-none"
+<div class="relative w-full h-[100dvh] bg-slate-950 overflow-hidden flex items-center select-none"
      x-data="{
         active: 0,
         slides: [
