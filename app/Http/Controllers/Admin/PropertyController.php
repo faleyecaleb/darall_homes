@@ -54,8 +54,8 @@ class PropertyController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
             'price' => 'required|numeric|min:0',
-            'property_type' => 'required|string|in:Sale,Rent,Shortlet',
-            'status' => 'required|string|in:Draft,Available,Under Offer,Sold,Rented,Archived',
+            'property_type' => 'required|string|in:Sale,Rent,Shortlet,Sold Out,Rented Out,Sold,Rented',
+            'status' => 'required|string|in:Draft,Available,Under Offer,Sold,Rented,Archived,Sold Out,Rented Out',
             'bedrooms' => 'required|integer|min:0',
             'bathrooms' => 'required|integer|min:0',
             'floor_area' => 'nullable|integer|min:0',
@@ -77,6 +77,19 @@ class PropertyController extends Controller
         }
 
         $validated = $request->validate($rules);
+
+        // Synchronize Sold Out and Rented Out statuses
+        if (in_array($validated['property_type'], ['Sold Out', 'Sold']) || in_array($validated['status'], ['Sold', 'Sold Out'])) {
+            $validated['status'] = 'Sold';
+            if (in_array($validated['property_type'], ['Sold Out', 'Sold'])) {
+                $validated['property_type'] = 'Sold Out';
+            }
+        } elseif (in_array($validated['property_type'], ['Rented Out', 'Rented']) || in_array($validated['status'], ['Rented', 'Rented Out'])) {
+            $validated['status'] = 'Rented';
+            if (in_array($validated['property_type'], ['Rented Out', 'Rented'])) {
+                $validated['property_type'] = 'Rented Out';
+            }
+        }
 
         // Generate dynamic unique slug
         $validated['slug'] = Str::slug($request->title);
@@ -164,8 +177,8 @@ class PropertyController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
             'price' => 'required|numeric|min:0',
-            'property_type' => 'required|string|in:Sale,Rent,Shortlet',
-            'status' => 'required|string|in:Draft,Available,Under Offer,Sold,Rented,Archived',
+            'property_type' => 'required|string|in:Sale,Rent,Shortlet,Sold Out,Rented Out,Sold,Rented',
+            'status' => 'required|string|in:Draft,Available,Under Offer,Sold,Rented,Archived,Sold Out,Rented Out',
             'bedrooms' => 'required|integer|min:0',
             'bathrooms' => 'required|integer|min:0',
             'floor_area' => 'nullable|integer|min:0',
@@ -187,6 +200,19 @@ class PropertyController extends Controller
         }
 
         $validated = $request->validate($rules);
+
+        // Synchronize Sold Out and Rented Out statuses
+        if (in_array($validated['property_type'], ['Sold Out', 'Sold']) || in_array($validated['status'], ['Sold', 'Sold Out'])) {
+            $validated['status'] = 'Sold';
+            if (in_array($validated['property_type'], ['Sold Out', 'Sold'])) {
+                $validated['property_type'] = 'Sold Out';
+            }
+        } elseif (in_array($validated['property_type'], ['Rented Out', 'Rented']) || in_array($validated['status'], ['Rented', 'Rented Out'])) {
+            $validated['status'] = 'Rented';
+            if (in_array($validated['property_type'], ['Rented Out', 'Rented'])) {
+                $validated['property_type'] = 'Rented Out';
+            }
+        }
 
         $validated['is_featured'] = $request->has('is_featured');
         $validated['has_luxury_layout'] = $request->has('has_luxury_layout');

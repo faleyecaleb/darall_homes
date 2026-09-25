@@ -75,25 +75,51 @@
                             Take Virtual Tour
                         </a>
                     @endif
-                    <a href="#schedule-inspection" class="inline-flex items-center justify-center px-8 py-4 text-xs font-extrabold uppercase tracking-widest text-white border border-white/20 hover:bg-white/10 rounded-xl backdrop-blur-sm transition-all shadow-md">
-                        Schedule Physical Inspection
-                    </a>
+                    @if($property->isSoldOut())
+                        <a href="{{ \App\Models\Property::CONTACT_PHONE_TEL }}" class="inline-flex items-center justify-center gap-2 px-8 py-4 text-xs font-extrabold uppercase tracking-widest text-white bg-brand-red-500 hover:bg-brand-red-600 rounded-xl shadow-md transition-all">
+                            <svg class="w-4 h-4 fill-none stroke-current" viewBox="0 0 24 24" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                            </svg>
+                            Call Us: {{ \App\Models\Property::CONTACT_PHONE }}
+                        </a>
+                    @else
+                        <a href="#schedule-inspection" class="inline-flex items-center justify-center px-8 py-4 text-xs font-extrabold uppercase tracking-widest text-white border border-white/20 hover:bg-white/10 rounded-xl backdrop-blur-sm transition-all shadow-md">
+                            Schedule Physical Inspection
+                        </a>
+                    @endif
                 </div>
             </div>
             <!-- Pricing / Details Summary -->
             <div class="lg:col-span-4 flex flex-col lg:items-end gap-2 text-left lg:text-right">
-                <span class="text-sm text-slate-400 uppercase tracking-wider font-extrabold">Investment Value</span>
-                @if($property->property_type === 'Shortlet')
-                    <span class="text-3xl sm:text-4xl font-extrabold text-brand-red-500 font-sans">₦{{ number_format($property->price) }}<span class="text-sm font-bold text-slate-400">/night</span></span>
+                @if($property->isSoldOut())
+                    <span class="text-xs font-extrabold uppercase tracking-wider text-rose-400 bg-rose-500/20 px-3 py-1 rounded-full border border-rose-500/30">Sold Out</span>
+                    <a href="{{ \App\Models\Property::CONTACT_PHONE_TEL }}" class="text-2xl sm:text-3xl font-extrabold text-brand-red-400 hover:text-brand-red-300 font-sans flex items-center lg:justify-end gap-2 transition-colors">
+                        <svg class="w-6 h-6 fill-none stroke-current" viewBox="0 0 24 24" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                        </svg>
+                        {{ \App\Models\Property::CONTACT_PHONE }}
+                    </a>
+                    <a href="{{ \App\Models\Property::CONTACT_PHONE_TEL }}" class="inline-flex items-center gap-2 px-6 py-3 bg-brand-red-500 hover:bg-brand-red-600 text-white font-extrabold rounded-xl text-xs uppercase tracking-wider shadow-md transition-all mt-1">
+                        <svg class="w-4 h-4 fill-none stroke-current" viewBox="0 0 24 24" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                        </svg>
+                        Contact Us: {{ \App\Models\Property::CONTACT_PHONE }}
+                    </a>
+                    <span class="text-xs text-slate-400 font-semibold mt-1">This property is sold out. Call our private desk for upcoming units.</span>
                 @else
-                    <span class="text-3xl sm:text-4xl font-extrabold text-brand-red-500 font-sans">
-                        @if($property->has_luxury_layout)
-                            <span class="text-xs text-slate-400 uppercase block tracking-widest font-extrabold mb-1">Starting At</span>
-                        @endif
-                        ₦{{ number_format($property->price) }}
-                    </span>
+                    <span class="text-sm text-slate-400 uppercase tracking-wider font-extrabold">Investment Value</span>
+                    @if($property->property_type === 'Shortlet')
+                        <span class="text-3xl sm:text-4xl font-extrabold text-brand-red-500 font-sans">₦{{ number_format($property->price) }}<span class="text-sm font-bold text-slate-400">/night</span></span>
+                    @else
+                        <span class="text-3xl sm:text-4xl font-extrabold text-brand-red-500 font-sans">
+                            @if($property->has_luxury_layout)
+                                <span class="text-xs text-slate-400 uppercase block tracking-widest font-extrabold mb-1">Starting At</span>
+                            @endif
+                            ₦{{ number_format($property->price) }}
+                        </span>
+                    @endif
+                    <span class="text-sm text-slate-500 font-semibold mt-1">Fully Serviced & Furnished Options Available</span>
                 @endif
-                <span class="text-sm text-slate-500 font-semibold mt-1">Fully Serviced & Furnished Options Available</span>
             </div>
         </div>
 
@@ -262,7 +288,17 @@
             </div>
             <div class="flex flex-col gap-1 items-center col-span-2 md:col-span-1 border-t md:border-t-0 pt-4 md:pt-0">
                 <span class="text-slate-400 text-sm uppercase tracking-wider font-extrabold">Purpose</span>
-                <span class="text-base sm:text-lg font-serif text-slate-900 font-semibold">{{ $property->property_type === 'Shortlet' ? 'Executive Shortlet' : 'For ' . $property->property_type }}</span>
+                <span class="text-base sm:text-lg font-serif {{ $property->isSoldOut() ? 'text-rose-600' : 'text-slate-900' }} font-semibold">
+                    @if($property->isSoldOut())
+                        Sold Out
+                    @elseif($property->isRentedOut())
+                        Rented Out
+                    @elseif($property->property_type === 'Shortlet')
+                        Executive Shortlet
+                    @else
+                        For {{ $property->property_type }}
+                    @endif
+                </span>
             </div>
         </div>
     </div>
@@ -322,7 +358,9 @@
                 <div class="space-y-4 text-sm font-semibold">
                     <div class="flex justify-between border-b border-slate-200/40 pb-3">
                         <span class="text-slate-550">Listing Status</span>
-                        <span class="font-extrabold text-emerald-600 uppercase text-sm">{{ $property->status }}</span>
+                        <span class="font-extrabold {{ $property->isSoldOut() ? 'text-rose-600' : 'text-emerald-600' }} uppercase text-sm">
+                            {{ $property->isSoldOut() ? 'Sold Out' : ($property->isRentedOut() ? 'Rented Out' : $property->status) }}
+                        </span>
                     </div>
                     <div class="flex justify-between border-b border-slate-200/40 pb-3">
                         <span class="text-slate-550">Reference ID</span>
@@ -378,29 +416,44 @@
                             </div>
 
                             <!-- Price / Financing stack -->
-                            <div class="flex flex-col gap-3 font-sans text-left mt-1">
-                                <div class="flex justify-between items-baseline border-b border-slate-100 pb-2">
-                                    <span class="text-[10px] text-slate-400 font-extrabold uppercase tracking-wider">Outright Purchase</span>
-                                    <span class="text-base font-extrabold text-slate-900">₦{{ number_format($unit->outright_price) }}</span>
-                                </div>
-                                @if($unit->has_installment)
-                                    <div class="flex flex-col gap-1.5 p-4 rounded-xl bg-slate-50 border border-slate-100 text-[11px] font-semibold text-slate-505">
-                                        <span class="text-[9px] font-extrabold uppercase tracking-wider text-brand-red-600">{{ $unit->installment_duration }}-Month Installment Plan</span>
-                                        <div class="flex justify-between mt-1">
-                                            <span>Total Price:</span>
-                                            <strong class="text-slate-900">₦{{ number_format($unit->installment_total_price) }}</strong>
-                                        </div>
-                                        <div class="flex justify-between">
-                                            <span>Deposit ({{ number_format($unit->installment_deposit_percent) }}%):</span>
-                                            <strong class="text-slate-900">₦{{ number_format($unit->outright_price * ($unit->installment_deposit_percent / 100)) }}</strong>
-                                        </div>
-                                        <div class="flex justify-between">
-                                            <span>Monthly Payment:</span>
-                                            <strong class="text-brand">₦{{ number_format($unit->installment_monthly_payment) }}/mo</strong>
-                                        </div>
+                            @if($property->isSoldOut())
+                                <div class="flex flex-col gap-3 font-sans text-left mt-1">
+                                    <div class="flex justify-between items-baseline border-b border-slate-100 pb-2">
+                                        <span class="text-[10px] text-slate-400 font-extrabold uppercase tracking-wider">Status</span>
+                                        <span class="text-xs font-extrabold uppercase text-rose-600 bg-rose-50 px-2.5 py-1 rounded-full border border-rose-100">Sold Out</span>
                                     </div>
-                                @endif
-                            </div>
+                                    <a href="{{ \App\Models\Property::CONTACT_PHONE_TEL }}" class="w-full inline-flex items-center justify-center gap-2 px-4 py-3 text-xs font-extrabold uppercase tracking-wider text-white bg-brand-red-500 hover:bg-brand-red-600 rounded-xl transition-all shadow-sm">
+                                        <svg class="w-4 h-4 fill-none stroke-current" viewBox="0 0 24 24" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                                        </svg>
+                                        Contact Us: {{ \App\Models\Property::CONTACT_PHONE }}
+                                    </a>
+                                </div>
+                            @else
+                                <div class="flex flex-col gap-3 font-sans text-left mt-1">
+                                    <div class="flex justify-between items-baseline border-b border-slate-100 pb-2">
+                                        <span class="text-[10px] text-slate-400 font-extrabold uppercase tracking-wider">Outright Purchase</span>
+                                        <span class="text-base font-extrabold text-slate-900">₦{{ number_format($unit->outright_price) }}</span>
+                                    </div>
+                                    @if($unit->has_installment)
+                                        <div class="flex flex-col gap-1.5 p-4 rounded-xl bg-slate-50 border border-slate-100 text-[11px] font-semibold text-slate-505">
+                                            <span class="text-[9px] font-extrabold uppercase tracking-wider text-brand-red-600">{{ $unit->installment_duration }}-Month Installment Plan</span>
+                                            <div class="flex justify-between mt-1">
+                                                <span>Total Price:</span>
+                                                <strong class="text-slate-900">₦{{ number_format($unit->installment_total_price) }}</strong>
+                                            </div>
+                                            <div class="flex justify-between">
+                                                <span>Deposit ({{ number_format($unit->installment_deposit_percent) }}%):</span>
+                                                <strong class="text-slate-900">₦{{ number_format($unit->outright_price * ($unit->installment_deposit_percent / 100)) }}</strong>
+                                            </div>
+                                            <div class="flex justify-between">
+                                                <span>Monthly Payment:</span>
+                                                <strong class="text-brand">₦{{ number_format($unit->installment_monthly_payment) }}/mo</strong>
+                                            </div>
+                                        </div>
+                                    @endif
+                                </div>
+                            @endif
                         </div>
                     </div>
                 @endforeach
@@ -477,7 +530,11 @@
                                             <span>{{ $u->name }}</span>
                                             <span class="text-[10px] mt-0.5" :class="unit === '{{ $u->id }}' ? 'text-slate-800' : 'text-slate-500'">{{ $u->floor_area }} sqm Layout • {{ $u->bedrooms }} Bed • {{ $u->bathrooms }} {{ Str::plural('Bath', $u->bathrooms) }}</span>
                                         </div>
-                                        <span class="text-xs font-extrabold">₦{{ number_format($u->outright_price) }}</span>
+                                        @if($property->isSoldOut())
+                                            <span class="text-xs font-extrabold text-rose-400 uppercase">Sold Out</span>
+                                        @else
+                                            <span class="text-xs font-extrabold">₦{{ number_format($u->outright_price) }}</span>
+                                        @endif
                                     </button>
                                 @endforeach
                             </div>
@@ -567,81 +624,95 @@
                     <!-- Mode 2: Interactive Pricing & Financing Calculator -->
                     <div x-show="mode === 'calculator'" class="p-8 flex flex-col justify-between flex-1 w-full h-full font-sans text-left bg-slate-900/40" x-transition.opacity style="display: none;">
 
-                        <div class="space-y-8 flex-1">
-                            <div class="flex flex-col gap-1">
-                                <span class="text-[10px] text-brand-red-400 font-extrabold uppercase tracking-widest">Milestone Payment Planner</span>
-                                <h3 class="text-xl font-serif text-white">Customize Your Lumière Acquisition</h3>
+                        @if($property->isSoldOut())
+                            <div class="space-y-6 flex-1 flex flex-col justify-center items-center text-center py-12">
+                                <span class="text-xs font-extrabold uppercase tracking-widest text-rose-400 bg-rose-500/20 px-3 py-1 rounded-full border border-rose-500/30">Sold Out</span>
+                                <h3 class="text-2xl font-serif text-white">This Development is Completely Sold Out</h3>
+                                <p class="text-slate-400 text-sm max-w-md">All units across this project are fully sold. Contact our private desk directly to enquire about future allocations or off-market resales.</p>
+                                <a href="{{ \App\Models\Property::CONTACT_PHONE_TEL }}" class="inline-flex items-center gap-2 px-8 py-4 bg-brand-red-500 hover:bg-brand-red-600 text-white font-extrabold rounded-xl text-xs uppercase tracking-widest shadow-lg transition-all">
+                                    <svg class="w-4 h-4 fill-none stroke-current" viewBox="0 0 24 24" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                                    </svg>
+                                    Call Us: {{ \App\Models\Property::CONTACT_PHONE }}
+                                </a>
                             </div>
-
-                            <!-- Deposit Interactive Slider -->
-                            <div class="space-y-4 bg-slate-950/40 border border-white/5 p-6 rounded-2xl">
-                                <div class="flex justify-between items-baseline">
-                                    <label class="text-xs text-slate-400 font-extrabold uppercase tracking-wider">Initial Down Payment</label>
-                                    <span class="text-lg font-extrabold text-brand-red-400" x-text="depositPercent + '%'"></span>
+                        @else
+                            <div class="space-y-8 flex-1">
+                                <div class="flex flex-col gap-1">
+                                    <span class="text-[10px] text-brand-red-400 font-extrabold uppercase tracking-widest">Milestone Payment Planner</span>
+                                    <h3 class="text-xl font-serif text-white">Customize Your Lumière Acquisition</h3>
                                 </div>
 
-                                <div class="relative pt-1">
-                                    <input type="range" min="30" max="100" step="5" x-model="depositPercent"
-                                           class="w-full accent-brand-red-400 bg-slate-950 border border-white/10 h-2 rounded-lg cursor-pointer focus:outline-none">
-                                    <div class="flex justify-between text-[10px] text-slate-500 font-bold mt-1 font-sans">
-                                        <span>30% (Minimum)</span>
-                                        <span>50% (Recommended)</span>
-                                        <span>100% (Outright)</span>
+                                <!-- Deposit Interactive Slider -->
+                                <div class="space-y-4 bg-slate-950/40 border border-white/5 p-6 rounded-2xl">
+                                    <div class="flex justify-between items-baseline">
+                                        <label class="text-xs text-slate-400 font-extrabold uppercase tracking-wider">Initial Down Payment</label>
+                                        <span class="text-lg font-extrabold text-brand-red-400" x-text="depositPercent + '%'"></span>
+                                    </div>
+
+                                    <div class="relative pt-1">
+                                        <input type="range" min="30" max="100" step="5" x-model="depositPercent"
+                                               class="w-full accent-brand-red-400 bg-slate-950 border border-white/10 h-2 rounded-lg cursor-pointer focus:outline-none">
+                                        <div class="flex justify-between text-[10px] text-slate-500 font-bold mt-1 font-sans">
+                                            <span>30% (Minimum)</span>
+                                            <span>50% (Recommended)</span>
+                                            <span>100% (Outright)</span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <!-- Real-time calculations display grid -->
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <!-- Real-time calculations display grid -->
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
 
-                                <!-- Box 1: Down Payment value -->
-                                <div class="bg-slate-950/60 border border-white/5 p-5 rounded-2xl flex flex-col gap-1.5">
-                                    <span class="text-[10px] text-slate-500 font-extrabold uppercase tracking-wider">Estimated Initial Down Payment</span>
-                                    <span class="text-xl font-extrabold text-white" x-text="'₦' + new Intl.NumberFormat().format(depositAmount)"></span>
-                                    <span class="text-[9px] text-slate-400 font-bold" x-text="'Due immediately upon contract execution'"></span>
+                                    <!-- Box 1: Down Payment value -->
+                                    <div class="bg-slate-950/60 border border-white/5 p-5 rounded-2xl flex flex-col gap-1.5">
+                                        <span class="text-[10px] text-slate-500 font-extrabold uppercase tracking-wider">Estimated Initial Down Payment</span>
+                                        <span class="text-xl font-extrabold text-white" x-text="'₦' + new Intl.NumberFormat().format(depositAmount)"></span>
+                                        <span class="text-[9px] text-slate-400 font-bold" x-text="'Due immediately upon contract execution'"></span>
+                                    </div>
+
+                                    <!-- Box 2: Monthly Instalment -->
+                                    <div class="bg-slate-950/60 border border-white/5 p-5 rounded-2xl flex flex-col gap-1.5 relative overflow-hidden">
+                                        <template x-if="depositPercent === '100' || depositPercent == 100">
+                                            <div class="absolute inset-0 bg-emerald-500/10 backdrop-blur-sm flex items-center justify-center border border-emerald-500/20 rounded-2xl">
+                                                <span class="text-xs text-emerald-400 font-extrabold uppercase tracking-widest flex items-center gap-1.5">
+                                                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
+                                                    Outright Bonus Active!
+                                                </span>
+                                            </div>
+                                        </template>
+                                        <span class="text-[10px] text-slate-500 font-extrabold uppercase tracking-wider">6 Monthly Installments</span>
+                                        <span class="text-xl font-extrabold text-brand-red-500" x-text="'₦' + new Intl.NumberFormat().format(monthlyPayment) + '/mo'"></span>
+                                        <span class="text-[9px] text-slate-400 font-bold" x-text="'Remaining balance spread comfortably over 6 months'"></span>
+                                    </div>
+
                                 </div>
 
-                                <!-- Box 2: Monthly Instalment -->
-                                <div class="bg-slate-950/60 border border-white/5 p-5 rounded-2xl flex flex-col gap-1.5 relative overflow-hidden">
-                                    <template x-if="depositPercent === '100' || depositPercent == 100">
-                                        <div class="absolute inset-0 bg-emerald-500/10 backdrop-blur-sm flex items-center justify-center border border-emerald-500/20 rounded-2xl">
-                                            <span class="text-xs text-emerald-400 font-extrabold uppercase tracking-widest flex items-center gap-1.5">
-                                                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
-                                                Outright Bonus Active!
-                                            </span>
-                                        </div>
-                                    </template>
-                                    <span class="text-[10px] text-slate-500 font-extrabold uppercase tracking-wider">6 Monthly Installments</span>
-                                    <span class="text-xl font-extrabold text-brand-red-500" x-text="'₦' + new Intl.NumberFormat().format(monthlyPayment) + '/mo'"></span>
-                                    <span class="text-[9px] text-slate-400 font-bold" x-text="'Remaining balance spread comfortably over 6 months'"></span>
+                                <!-- Total value breakdown summary -->
+                                <div class="p-5 bg-brand-red-400/5 border border-brand-red-400/15 rounded-2xl flex flex-col sm:flex-row justify-between items-center gap-3">
+                                    <div class="flex flex-col text-left gap-0.5">
+                                        <span class="text-[9px] text-slate-500 font-extrabold uppercase tracking-wider">Calculated Acquisition Cost</span>
+                                        <span class="text-base font-extrabold text-white">
+                                            Lumière Acquisition Total: <strong class="text-brand-red-400" x-text="'₦' + new Intl.NumberFormat().format(totalPrice)"></strong>
+                                        </span>
+                                    </div>
+                                    <span class="text-[10px] text-slate-400 font-semibold" x-text="depositPercent === 100 || depositPercent === '100' ? 'Outright purchase pricing applied (5% surcharge waived)' : '5% standard off-plan installment pricing included'"></span>
                                 </div>
 
                             </div>
 
-                            <!-- Total value breakdown summary -->
-                            <div class="p-5 bg-brand-red-400/5 border border-brand-red-400/15 rounded-2xl flex flex-col sm:flex-row justify-between items-center gap-3">
-                                <div class="flex flex-col text-left gap-0.5">
-                                    <span class="text-[9px] text-slate-500 font-extrabold uppercase tracking-wider">Calculated Acquisition Cost</span>
-                                    <span class="text-base font-extrabold text-white">
-                                        Lumière Acquisition Total: <strong class="text-brand-red-400" x-text="'₦' + new Intl.NumberFormat().format(totalPrice)"></strong>
-                                    </span>
-                                </div>
-                                <span class="text-[10px] text-slate-400 font-semibold" x-text="depositPercent === 100 || depositPercent === '100' ? 'Outright purchase pricing applied (5% surcharge waived)' : '5% standard off-plan installment pricing included'"></span>
+                            <!-- Configurator conversion triggers -->
+                            <div class="flex flex-col sm:flex-row gap-4 w-full pt-8 border-t border-white/5">
+                                <a :href="'https://wa.me/2349111555511?text=Hi, I have used your Immersive Design Studio on your website and would love to acquire a unit of the ' + specs[unit].name + ' with an initial down-payment of ' + depositPercent + '%.'"
+                                   class="flex-1 inline-flex items-center justify-center gap-2 px-6 py-4 text-xs font-extrabold uppercase tracking-widest text-slate-950 bg-brand-red-400 hover:bg-brand-red-500 rounded-xl shadow-lg transition-transform hover:-translate-y-0.5 active:translate-y-0 active:scale-95 duration-150">
+                                    Apply Financing with Sales Team
+                                </a>
+                                <a href="#schedule-inspection"
+                                   class="inline-flex items-center justify-center px-6 py-4 text-xs font-extrabold uppercase tracking-widest text-white border border-white/10 hover:bg-white/5 rounded-xl transition-colors">
+                                    Book Site Tour
+                                </a>
                             </div>
-
-                        </div>
-
-                        <!-- Configurator conversion triggers -->
-                        <div class="flex flex-col sm:flex-row gap-4 w-full pt-8 border-t border-white/5">
-                            <a :href="'https://wa.me/2349111555511?text=Hi, I have used your Immersive Design Studio on your website and would love to acquire a unit of the ' + specs[unit].name + ' with an initial down-payment of ' + depositPercent + '%.'"
-                               class="flex-1 inline-flex items-center justify-center gap-2 px-6 py-4 text-xs font-extrabold uppercase tracking-widest text-slate-950 bg-brand-red-400 hover:bg-brand-red-500 rounded-xl shadow-lg transition-transform hover:-translate-y-0.5 active:translate-y-0 active:scale-95 duration-150">
-                                Apply Financing with Sales Team
-                            </a>
-                            <a href="#schedule-inspection"
-                               class="inline-flex items-center justify-center px-6 py-4 text-xs font-extrabold uppercase tracking-widest text-white border border-white/10 hover:bg-white/5 rounded-xl transition-colors">
-                                Book Site Tour
-                            </a>
-                        </div>
+                        @endif
 
                     </div>
 
@@ -902,20 +973,49 @@
             </p>
 
             <div class="flex flex-col gap-4 mt-4 font-sans">
-               @if($property->has_luxury_layout)
+               @if($property->isSoldOut())
+                   <a href="{{ \App\Models\Property::CONTACT_PHONE_TEL }}" class="inline-flex items-center justify-center gap-2 px-6 py-4 text-xs font-extrabold uppercase tracking-widest text-white bg-brand-red-500 hover:bg-brand-red-600 rounded-2xl shadow-md transition-colors duration-200">
+                       <svg class="w-4 h-4 fill-none stroke-current" viewBox="0 0 24 24" stroke-width="2">
+                           <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                       </svg>
+                       Call Direct ({{ \App\Models\Property::CONTACT_PHONE }})
+                   </a>
+                   <a href="https://wa.me/2349111555511" class="inline-flex items-center justify-center gap-2 px-6 py-4 text-xs font-extrabold uppercase tracking-widest text-white bg-emerald-600 hover:bg-emerald-500 rounded-2xl shadow-md transition-colors duration-200">
+                       Chat on WhatsApp ({{ \App\Models\Property::CONTACT_PHONE }})
+                   </a>
+               @elseif($property->has_luxury_layout)
                    <a href="https://wa.me/2349111555511" class="inline-flex items-center justify-center gap-2 px-6 py-4 text-xs font-extrabold uppercase tracking-widest text-white bg-emerald-600 hover:bg-emerald-500 rounded-2xl shadow-md transition-colors duration-200">
                        Chat on WhatsApp (+234 911 155 5511)
                    </a>
                @else
-                   <a href="https://wa.me/234800darallhomes" class="inline-flex items-center justify-center gap-2 px-6 py-4 text-xs font-extrabold uppercase tracking-widest text-white bg-emerald-600 hover:bg-emerald-500 rounded-2xl shadow-md transition-colors duration-200">
-                       Chat on WhatsApp
+                   <a href="https://wa.me/2349111555511" class="inline-flex items-center justify-center gap-2 px-6 py-4 text-xs font-extrabold uppercase tracking-widest text-white bg-emerald-600 hover:bg-emerald-500 rounded-2xl shadow-md transition-colors duration-200">
+                       Chat on WhatsApp (+234 911 155 5511)
                    </a>
                @endif
             </div>
         </div>
 
         <!-- Dynamic Booking / Inspection Form Panel -->
-        @if($property->property_type === 'Shortlet')
+        @if($property->isSoldOut())
+            <div class="lg:col-span-7 bg-slate-50 rounded-[2.5rem] border border-slate-200/50 p-8 sm:p-12 shadow-sm flex flex-col items-center justify-center text-center gap-6">
+                <span class="text-xs font-extrabold uppercase tracking-widest text-rose-600 bg-rose-100 px-3 py-1 rounded-full border border-rose-200">Sold Out</span>
+                <h3 class="text-3xl font-serif text-slate-900 tracking-tight">This Property Is Sold Out</h3>
+                <p class="text-slate-550 font-semibold text-sm max-w-md leading-relaxed">
+                    This development has completed its sales cycle and is not accepting bookings or physical viewing schedules. For available units or future opportunities in {{ $property->location->name }}, please reach out to our private advisory team.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 w-full justify-center mt-2">
+                    <a href="{{ \App\Models\Property::CONTACT_PHONE_TEL }}" class="inline-flex items-center justify-center gap-2 px-8 py-4 text-xs font-extrabold uppercase tracking-widest text-white bg-brand-red-500 hover:bg-brand-red-600 rounded-xl transition-all shadow-md">
+                        <svg class="w-4 h-4 fill-none stroke-current" viewBox="0 0 24 24" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                        </svg>
+                        Call: {{ \App\Models\Property::CONTACT_PHONE }}
+                    </a>
+                    <a href="{{ route('contact') }}" class="inline-flex items-center justify-center px-8 py-4 text-xs font-extrabold uppercase tracking-widest text-slate-900 bg-white border border-slate-200 hover:bg-slate-100 rounded-xl transition-all shadow-sm">
+                        Contact Us Page
+                    </a>
+                </div>
+            </div>
+        @elseif($property->property_type === 'Shortlet')
             <!-- Shortlet Reservation Form (Dynamic Pricing Calendar powered by Alpine.js) -->
             <div class="lg:col-span-7 bg-slate-50 rounded-[2.5rem] border border-slate-200/50 p-8 sm:p-10 shadow-sm"
                  x-data="{

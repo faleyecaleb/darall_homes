@@ -99,7 +99,15 @@
                         
                         <!-- Status -->
                         <td class="py-5 text-xs font-bold uppercase">
-                            @if($property->status === 'Available')
+                            @if($property->isSoldOut())
+                                <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-rose-100 text-rose-700 border border-rose-200">
+                                    Sold Out
+                                </span>
+                            @elseif($property->isRentedOut())
+                                <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-slate-100 text-slate-700 border border-slate-200">
+                                    Rented Out
+                                </span>
+                            @elseif($property->status === 'Available')
                                 <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 border border-emerald-200">
                                     {{ $property->status }}
                                 </span>

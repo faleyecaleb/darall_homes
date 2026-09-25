@@ -33,6 +33,25 @@ class Property extends Model
         'price' => 'decimal:2'
     ];
 
+    public const CONTACT_PHONE = '+234 911 155 5511';
+    public const CONTACT_PHONE_TEL = 'tel:+2349111555511';
+
+    /**
+     * Determine if the property is sold out.
+     */
+    public function isSoldOut(): bool
+    {
+        return in_array($this->status, ['Sold', 'Sold Out']) || in_array($this->property_type, ['Sold', 'Sold Out']);
+    }
+
+    /**
+     * Determine if the property is rented out.
+     */
+    public function isRentedOut(): bool
+    {
+        return in_array($this->status, ['Rented', 'Rented Out']) || in_array($this->property_type, ['Rented', 'Rented Out']);
+    }
+
     /**
      * Get the category that this property belongs to.
      */
