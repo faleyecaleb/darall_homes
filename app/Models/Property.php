@@ -53,6 +53,26 @@ class Property extends Model
     }
 
     /**
+     * Determine if the property is in development.
+     */
+    public function isInDevelopment(): bool
+    {
+        return in_array($this->status, ['In Development', 'Under Construction'])
+            || in_array($this->property_type, ['In Development', 'Under Construction']);
+    }
+
+    /**
+     * Scope query to only include in-development / under construction properties.
+     */
+    public function scopeInDevelopment($query)
+    {
+        return $query->where(function ($q) {
+            $q->whereIn('status', ['In Development', 'Under Construction'])
+              ->orWhereIn('property_type', ['In Development', 'Under Construction']);
+        });
+    }
+
+    /**
      * Get the category that this property belongs to.
      */
     public function category(): BelongsTo

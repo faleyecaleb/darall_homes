@@ -82,9 +82,10 @@
             <div class="flex flex-col gap-2">
                 <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">Transaction Type</label>
                 <select name="property_type" id="property_type_select" required class="w-full bg-slate-50 border border-slate-100 rounded-2xl px-5 py-4 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-[#0d6e60] focus:bg-white transition-all">
-                    <option value="Sale" {{ old('property_type', $property->property_type) === 'Sale' && !in_array($property->status, ['Sold', 'Sold Out', 'Rented', 'Rented Out']) ? 'selected' : '' }}>For Sale</option>
-                    <option value="Rent" {{ old('property_type', $property->property_type) === 'Rent' && !in_array($property->status, ['Sold', 'Sold Out', 'Rented', 'Rented Out']) ? 'selected' : '' }}>For Rent</option>
-                    <option value="Shortlet" {{ old('property_type', $property->property_type) === 'Shortlet' && !in_array($property->status, ['Sold', 'Sold Out', 'Rented', 'Rented Out']) ? 'selected' : '' }}>Shortlet Stay</option>
+                    <option value="Sale" {{ old('property_type', $property->property_type) === 'Sale' && !in_array($property->status, ['Sold', 'Sold Out', 'Rented', 'Rented Out', 'In Development', 'Under Construction']) ? 'selected' : '' }}>For Sale</option>
+                    <option value="Rent" {{ old('property_type', $property->property_type) === 'Rent' && !in_array($property->status, ['Sold', 'Sold Out', 'Rented', 'Rented Out', 'In Development', 'Under Construction']) ? 'selected' : '' }}>For Rent</option>
+                    <option value="Shortlet" {{ old('property_type', $property->property_type) === 'Shortlet' && !in_array($property->status, ['Sold', 'Sold Out', 'Rented', 'Rented Out', 'In Development', 'Under Construction']) ? 'selected' : '' }}>Shortlet Stay</option>
+                    <option value="In Development" {{ in_array(old('property_type', $property->property_type), ['In Development', 'Under Construction']) || in_array(old('status', $property->status), ['In Development', 'Under Construction']) ? 'selected' : '' }}>In Development</option>
                     <option value="Sold Out" {{ old('property_type', $property->property_type) === 'Sold Out' || old('property_type', $property->property_type) === 'Sold' || in_array(old('status', $property->status), ['Sold', 'Sold Out']) ? 'selected' : '' }}>Sold Out</option>
                     <option value="Rented Out" {{ old('property_type', $property->property_type) === 'Rented Out' || old('property_type', $property->property_type) === 'Rented' || in_array(old('status', $property->status), ['Rented', 'Rented Out']) ? 'selected' : '' }}>Rented Out</option>
                 </select>
@@ -117,6 +118,7 @@
                 <select name="status" id="property_status_select" required class="w-full bg-slate-50 border border-slate-100 rounded-2xl px-5 py-4 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-[#0d6e60] focus:bg-white transition-all">
                     <option value="Available" {{ old('status', $property->status) === 'Available' ? 'selected' : '' }}>Available</option>
                     <option value="Under Offer" {{ old('status', $property->status) === 'Under Offer' ? 'selected' : '' }}>Under Offer</option>
+                    <option value="In Development" {{ in_array(old('status', $property->status), ['In Development', 'Under Construction']) || in_array(old('property_type', $property->property_type), ['In Development', 'Under Construction']) ? 'selected' : '' }}>In Development</option>
                     <option value="Sold" {{ in_array(old('status', $property->status), ['Sold', 'Sold Out']) || in_array(old('property_type', $property->property_type), ['Sold', 'Sold Out']) ? 'selected' : '' }}>Sold Out / Closed</option>
                     <option value="Rented" {{ in_array(old('status', $property->status), ['Rented', 'Rented Out']) || in_array(old('property_type', $property->property_type), ['Rented', 'Rented Out']) ? 'selected' : '' }}>Rented Out / Rented</option>
                     <option value="Draft" {{ old('status', $property->status) === 'Draft' ? 'selected' : '' }}>Draft</option>
@@ -495,7 +497,9 @@
                 statusSelect.value = 'Sold';
             } else if (this.value === 'Rented Out') {
                 statusSelect.value = 'Rented';
-            } else if (statusSelect.value === 'Sold' || statusSelect.value === 'Rented') {
+            } else if (this.value === 'In Development') {
+                statusSelect.value = 'In Development';
+            } else if (statusSelect.value === 'Sold' || statusSelect.value === 'Rented' || statusSelect.value === 'In Development') {
                 statusSelect.value = 'Available';
             }
         });
@@ -505,7 +509,9 @@
                 typeSelect.value = 'Sold Out';
             } else if (this.value === 'Rented') {
                 typeSelect.value = 'Rented Out';
-            } else if (typeSelect.value === 'Sold Out' || typeSelect.value === 'Rented Out') {
+            } else if (this.value === 'In Development') {
+                typeSelect.value = 'In Development';
+            } else if (typeSelect.value === 'Sold Out' || typeSelect.value === 'Rented Out' || typeSelect.value === 'In Development') {
                 typeSelect.value = 'Sale';
             }
         });

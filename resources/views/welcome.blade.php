@@ -301,11 +301,13 @@
                         @endif
 
                         <!-- Badges tags -->
-                        <span class="absolute top-4 left-4 {{ $property->isSoldOut() ? 'bg-rose-600 text-white' : 'bg-brand-red-400 text-slate-950' }} px-3.5 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-wider shadow-sm">
+                        <span class="absolute top-4 left-4 {{ $property->isSoldOut() ? 'bg-rose-600 text-white' : ($property->isInDevelopment() ? 'bg-blue-600 text-white' : 'bg-brand-red-400 text-slate-950') }} px-3.5 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-wider shadow-sm">
                             @if($property->isSoldOut())
                                 Sold Out
                             @elseif($property->isRentedOut())
                                 Rented Out
+                            @elseif($property->isInDevelopment())
+                                In Development
                             @elseif($property->property_type === 'Shortlet')
                                 Shortlet
                             @else
@@ -503,115 +505,97 @@
     </div>
 </section>
 
-<!-- 5. LAGOS LUXURY ENCLAVES SECTION -->
+<!-- 5. LAGOS LUXURY ENCLAVES SECTION (100% Database-Driven) -->
+@if($inDevelopmentProperties->isNotEmpty())
 <section class="py-32 bg-white overflow-hidden select-none">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         <!-- Section Header -->
         <div class="flex flex-col gap-4 text-center max-w-2xl mx-auto mb-20 scroll-reveal reveal-up">
-            <span class="text-brand-red-600 font-extrabold tracking-widest text-xs uppercase block">Prestigious Addresses</span>
+            <span class="text-brand-red-600 font-extrabold tracking-widest text-xs uppercase block">Active Developments</span>
             <h2 class="text-3xl sm:text-4xl font-serif text-slate-900 tracking-tight leading-none">Lagos Luxury Enclaves</h2>
-            <p class="text-sm text-slate-500 leading-relaxed font-semibold">Explore the prestigious communities that define our curated portfolio—offering premier security, high-yield cashflows, and exquisite architecture.</p>
+            <p class="text-sm text-slate-500 leading-relaxed font-semibold">Explore our signature residential developments currently in active construction across Lagos' most prestigious communities.</p>
         </div>
 
-        <!-- Asymmetrical Enclaves Grid List -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- In-Development Properties Grid (Purely Database Driven) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            @foreach($inDevelopmentProperties as $devProperty)
+                <div class="group h-[500px] rounded-[2.5rem] overflow-hidden border border-slate-200/50 shadow-sm relative flex flex-col justify-end p-8 sm:p-10 hover:shadow-2xl transition-all duration-500 scroll-reveal reveal-up">
+                    <!-- Background Image with hover zoom-slow scale (z-0) -->
+                    @if($devProperty->coverImage)
+                        <img src="{{ $devProperty->coverImage->file_path }}"
+                             alt="{{ $devProperty->title }}"
+                             class="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-[6000ms] ease-out z-0" />
+                    @else
+                        <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80"
+                             alt="{{ $devProperty->title }}"
+                             class="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-[6000ms] ease-out z-0" />
+                    @endif
 
-            <!-- Enclave 1: Old Ikoyi -->
-            <div class="group h-[450px] rounded-[2.5rem] overflow-hidden border border-slate-200/50 shadow-sm relative flex flex-col justify-end p-8 sm:p-10 hover:shadow-xl transition-all duration-500 scroll-reveal reveal-up">
-                <!-- Background Image with hover zoom-slow scale (z-0) -->
-                <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=800&q=80"
-                     alt="Old Ikoyi Landscape"
-                     class="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-[6000ms] ease-out z-0" />
+                    <!-- Dark glassmorphic vignette gradients (z-10) -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-transparent z-10"></div>
 
-                <!-- Dark glassmorphic vignette gradients (z-10) -->
-                <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/50 to-transparent z-10"></div>
+                    <!-- Card Content (z-20) -->
+                    <div class="flex flex-col gap-3 text-left z-20 font-sans">
+                        <div class="flex items-center gap-2">
+                            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/30 border border-blue-400/40 text-blue-300 font-extrabold text-[10px] uppercase tracking-widest backdrop-blur-md">
+                                <span class="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse"></span> In Development
+                            </span>
+                            @if($devProperty->location)
+                                <span class="px-2.5 py-1 rounded-full bg-white/10 text-slate-200 font-bold text-[10px] uppercase tracking-wider backdrop-blur-md">
+                                    {{ $devProperty->location->name }}
+                                </span>
+                            @endif
+                        </div>
 
-                <!-- Card Content (z-20) -->
-                <div class="flex flex-col gap-4 text-left z-20 font-sans">
-                    <div class="flex items-center gap-2 px-2.5 py-1 rounded-full bg-brand-red-500/20 border border-brand-red-500/20 w-max backdrop-blur-md">
-                        <span class="text-brand-red-400 font-extrabold text-[9px] uppercase tracking-widest">+18.5% YoY Appreciation</span>
+                        <div>
+                            <h3 class="text-2xl font-serif font-extrabold text-white leading-tight">{{ $devProperty->title }}</h3>
+                            <p class="text-xs text-brand-red-400 font-bold mt-1 uppercase tracking-wider">
+                                Starting at ₦{{ number_format($devProperty->price) }}
+                            </p>
+                        </div>
+
+                        <p class="text-sm text-slate-300 leading-relaxed font-semibold line-clamp-2">
+                            {{ $devProperty->description }}
+                        </p>
+
+                        <!-- Key Specs bar -->
+                        <div class="flex items-center gap-4 text-xs font-semibold text-slate-300 py-2 border-y border-white/10">
+                            @if($devProperty->has_luxury_layout && $devProperty->units->isNotEmpty())
+                                <span><strong class="text-white">{{ $devProperty->units->count() }}</strong> Layouts</span>
+                            @endif
+                            <span><strong class="text-white">{{ $devProperty->bedrooms }}</strong> Beds</span>
+                            <span><strong class="text-white">{{ $devProperty->bathrooms }}</strong> Baths</span>
+                            @if($devProperty->floor_area)
+                                <span><strong class="text-white">{{ $devProperty->floor_area }}</strong> sqm</span>
+                            @endif
+                        </div>
+
+                        <a href="{{ route('properties.show', $devProperty->slug) }}"
+                           class="mt-1 w-full flex items-center justify-between px-5 py-3.5 text-xs font-extrabold uppercase tracking-widest text-slate-900 bg-white group-hover:bg-brand-red-400 group-hover:text-slate-950 rounded-xl transition-all duration-300 text-left shadow-lg">
+                            <span>Explore Development</span>
+                            <svg class="h-4 w-4 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </a>
                     </div>
-                    <div>
-                        <h3 class="text-2xl font-serif font-extrabold text-white leading-tight">Old Ikoyi</h3>
-                        <p class="text-xs text-slate-300 font-bold mt-1 uppercase tracking-wider">Serene, Historic & Prestigious</p>
-                    </div>
-                    <p class="text-sm text-slate-300 leading-relaxed font-semibold">The undisputed heart of Nigerian old-money prestige. Leafy, tranquil, and home to legacy estates.</p>
-
-                    <a href="{{ route('properties.index', ['location_id' => $ikoyiLocation->id ?? '']) }}"
-                       class="mt-2 w-full flex items-center justify-between px-5 py-3.5 text-xs font-extrabold uppercase tracking-widest text-slate-900 bg-white group-hover:bg-brand-red-400 rounded-xl transition-all duration-300 text-left">
-                        <span>Discover Ikoyi Spaces</span>
-                        <svg class="h-4 w-4 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
-                        </svg>
-                    </a>
                 </div>
-            </div>
+            @endforeach
+        </div>
 
-            <!-- Enclave 2: Victoria Island -->
-            <div class="group h-[450px] rounded-[2.5rem] overflow-hidden border border-slate-200/50 shadow-sm relative flex flex-col justify-end p-8 sm:p-10 hover:shadow-xl transition-all duration-500 scroll-reveal reveal-up delay-100">
-                <!-- Background Image with hover zoom-slow scale (z-0) -->
-                <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80"
-                     alt="Victoria Island Cityscape"
-                     class="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-[6000ms] ease-out z-0" />
-
-                <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent z-10"></div>
-
-                <!-- Card Content (z-20) -->
-                <div class="flex flex-col gap-4 text-left z-20 font-sans">
-                    <div class="flex items-center gap-2 px-2.5 py-1 rounded-full bg-blue-500/20 border border-blue-500/20 w-max backdrop-blur-md">
-                        <span class="text-blue-400 font-extrabold text-[9px] uppercase tracking-widest">+15.1% YoY Appreciation</span>
-                    </div>
-                    <div>
-                        <h3 class="text-2xl font-serif font-extrabold text-white leading-tight">Victoria Island</h3>
-                        <p class="text-xs text-slate-300 font-bold mt-1 uppercase tracking-wider">Cosmopolitan, Corporate & Elite</p>
-                    </div>
-                    <p class="text-sm text-slate-300 leading-relaxed font-semibold">The high-octane commercial nerve center of Lagos. Ideal for high-yielding executive shortlets.</p>
-
-                    <a href="{{ route('properties.index', ['location_id' => $viLocation->id ?? '']) }}"
-                       class="mt-2 w-full flex items-center justify-between px-5 py-3.5 text-xs font-extrabold uppercase tracking-widest text-slate-900 bg-white group-hover:bg-brand-red-400 rounded-xl transition-all duration-300 text-left">
-                        <span>Discover VI Spaces</span>
-                        <svg class="h-4 w-4 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
-                        </svg>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Enclave 3: Lekki Phase 1 -->
-            <div class="group h-[450px] rounded-[2.5rem] overflow-hidden border border-slate-200/50 shadow-sm relative flex flex-col justify-end p-8 sm:p-10 hover:shadow-xl transition-all duration-500 scroll-reveal reveal-up delay-200">
-                <!-- Background Image with hover zoom-slow scale (z-0) -->
-                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80"
-                     alt="Lekki Phase 1 Modern Villa"
-                     class="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-[6000ms] ease-out z-0" />
-
-                <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent z-10"></div>
-
-                <!-- Card Content (z-20) -->
-                <div class="flex flex-col gap-4 text-left z-20 font-sans">
-                    <div class="flex items-center gap-2 px-2.5 py-1 rounded-full bg-emerald-500/20 border border-emerald-500/20 w-max backdrop-blur-md">
-                        <span class="text-emerald-400 font-extrabold text-[9px] uppercase tracking-widest">+14.2% YoY Appreciation</span>
-                    </div>
-                    <div>
-                        <h3 class="text-2xl font-serif font-extrabold text-white leading-tight">Lekki Phase 1</h3>
-                        <p class="text-xs text-slate-300 font-bold mt-1 uppercase tracking-wider">Vibrant, Artistic & Tech-Driven</p>
-                    </div>
-                    <p class="text-sm text-slate-300 leading-relaxed font-semibold">The tech-lifestyle haven for young millionaires, creators, and modern executive families.</p>
-
-                    <a href="{{ route('properties.index', ['location_id' => $lekkiLocation->id ?? '']) }}"
-                       class="mt-2 w-full flex items-center justify-between px-5 py-3.5 text-xs font-extrabold uppercase tracking-widest text-slate-900 bg-white group-hover:bg-brand-red-400 rounded-xl transition-all duration-300 text-left">
-                        <span>Discover Lekki Spaces</span>
-                        <svg class="h-4 w-4 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
-                        </svg>
-                    </a>
-                </div>
-            </div>
-
+        <!-- Section Footer Link to /projects -->
+        <div class="mt-16 text-center">
+            <a href="{{ route('projects') }}" class="inline-flex items-center gap-2 px-8 py-4 bg-slate-900 hover:bg-brand text-white font-extrabold text-xs uppercase tracking-widest rounded-full shadow-lg transition-all transform hover:scale-[1.02]">
+                <span>View All Exclusive Developments & Projects</span>
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+            </a>
         </div>
 
     </div>
 </section>
+@endif
 
 <!-- 6. DIASPORA INVESTMENT CONCIERGE SECTION -->
 <section class="py-32 bg-slate-955 text-white relative overflow-hidden select-none border-t border-slate-900">

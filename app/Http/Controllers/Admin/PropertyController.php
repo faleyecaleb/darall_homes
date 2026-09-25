@@ -54,8 +54,8 @@ class PropertyController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
             'price' => 'required|numeric|min:0',
-            'property_type' => 'required|string|in:Sale,Rent,Shortlet,Sold Out,Rented Out,Sold,Rented',
-            'status' => 'required|string|in:Draft,Available,Under Offer,Sold,Rented,Archived,Sold Out,Rented Out',
+            'property_type' => 'required|string|in:Sale,Rent,Shortlet,Sold Out,Rented Out,Sold,Rented,In Development,Under Construction',
+            'status' => 'required|string|in:Draft,Available,Under Offer,Sold,Rented,Archived,Sold Out,Rented Out,In Development,Under Construction',
             'bedrooms' => 'required|integer|min:0',
             'bathrooms' => 'required|integer|min:0',
             'floor_area' => 'nullable|integer|min:0',
@@ -78,8 +78,13 @@ class PropertyController extends Controller
 
         $validated = $request->validate($rules);
 
-        // Synchronize Sold Out and Rented Out statuses
-        if (in_array($validated['property_type'], ['Sold Out', 'Sold']) || in_array($validated['status'], ['Sold', 'Sold Out'])) {
+        // Synchronize statuses
+        if (in_array($validated['property_type'], ['In Development', 'Under Construction']) || in_array($validated['status'], ['In Development', 'Under Construction'])) {
+            $validated['status'] = 'In Development';
+            if (in_array($validated['property_type'], ['In Development', 'Under Construction'])) {
+                $validated['property_type'] = 'In Development';
+            }
+        } elseif (in_array($validated['property_type'], ['Sold Out', 'Sold']) || in_array($validated['status'], ['Sold', 'Sold Out'])) {
             $validated['status'] = 'Sold';
             if (in_array($validated['property_type'], ['Sold Out', 'Sold'])) {
                 $validated['property_type'] = 'Sold Out';
@@ -177,8 +182,8 @@ class PropertyController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
             'price' => 'required|numeric|min:0',
-            'property_type' => 'required|string|in:Sale,Rent,Shortlet,Sold Out,Rented Out,Sold,Rented',
-            'status' => 'required|string|in:Draft,Available,Under Offer,Sold,Rented,Archived,Sold Out,Rented Out',
+            'property_type' => 'required|string|in:Sale,Rent,Shortlet,Sold Out,Rented Out,Sold,Rented,In Development,Under Construction',
+            'status' => 'required|string|in:Draft,Available,Under Offer,Sold,Rented,Archived,Sold Out,Rented Out,In Development,Under Construction',
             'bedrooms' => 'required|integer|min:0',
             'bathrooms' => 'required|integer|min:0',
             'floor_area' => 'nullable|integer|min:0',
@@ -201,8 +206,13 @@ class PropertyController extends Controller
 
         $validated = $request->validate($rules);
 
-        // Synchronize Sold Out and Rented Out statuses
-        if (in_array($validated['property_type'], ['Sold Out', 'Sold']) || in_array($validated['status'], ['Sold', 'Sold Out'])) {
+        // Synchronize statuses
+        if (in_array($validated['property_type'], ['In Development', 'Under Construction']) || in_array($validated['status'], ['In Development', 'Under Construction'])) {
+            $validated['status'] = 'In Development';
+            if (in_array($validated['property_type'], ['In Development', 'Under Construction'])) {
+                $validated['property_type'] = 'In Development';
+            }
+        } elseif (in_array($validated['property_type'], ['Sold Out', 'Sold']) || in_array($validated['status'], ['Sold', 'Sold Out'])) {
             $validated['status'] = 'Sold';
             if (in_array($validated['property_type'], ['Sold Out', 'Sold'])) {
                 $validated['property_type'] = 'Sold Out';

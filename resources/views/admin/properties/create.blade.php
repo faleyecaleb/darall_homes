@@ -85,6 +85,7 @@
                     <option value="Sale" {{ old('property_type') === 'Sale' ? 'selected' : '' }}>For Sale</option>
                     <option value="Rent" {{ old('property_type') === 'Rent' ? 'selected' : '' }}>For Rent</option>
                     <option value="Shortlet" {{ old('property_type') === 'Shortlet' ? 'selected' : '' }}>Shortlet Stay</option>
+                    <option value="In Development" {{ old('property_type') === 'In Development' || old('status') === 'In Development' ? 'selected' : '' }}>In Development</option>
                     <option value="Sold Out" {{ old('property_type') === 'Sold Out' || old('property_type') === 'Sold' ? 'selected' : '' }}>Sold Out</option>
                     <option value="Rented Out" {{ old('property_type') === 'Rented Out' || old('property_type') === 'Rented' ? 'selected' : '' }}>Rented Out</option>
                 </select>
@@ -117,6 +118,7 @@
                 <select name="status" id="property_status_select" required class="w-full bg-slate-50 border border-slate-100 rounded-2xl px-5 py-4 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-[#0d6e60] focus:bg-white transition-all">
                     <option value="Available" {{ old('status', 'Available') === 'Available' ? 'selected' : '' }}>Available</option>
                     <option value="Under Offer" {{ old('status') === 'Under Offer' ? 'selected' : '' }}>Under Offer</option>
+                    <option value="In Development" {{ old('status') === 'In Development' || old('property_type') === 'In Development' ? 'selected' : '' }}>In Development</option>
                     <option value="Sold" {{ old('status') === 'Sold' || old('status') === 'Sold Out' ? 'selected' : '' }}>Sold Out / Closed</option>
                     <option value="Rented" {{ old('status') === 'Rented' || old('status') === 'Rented Out' ? 'selected' : '' }}>Rented Out / Rented</option>
                     <option value="Draft" {{ old('status') === 'Draft' ? 'selected' : '' }}>Draft</option>
@@ -446,7 +448,9 @@
                 statusSelect.value = 'Sold';
             } else if (this.value === 'Rented Out') {
                 statusSelect.value = 'Rented';
-            } else if (statusSelect.value === 'Sold' || statusSelect.value === 'Rented') {
+            } else if (this.value === 'In Development') {
+                statusSelect.value = 'In Development';
+            } else if (statusSelect.value === 'Sold' || statusSelect.value === 'Rented' || statusSelect.value === 'In Development') {
                 statusSelect.value = 'Available';
             }
         });
@@ -456,7 +460,9 @@
                 typeSelect.value = 'Sold Out';
             } else if (this.value === 'Rented') {
                 typeSelect.value = 'Rented Out';
-            } else if (typeSelect.value === 'Sold Out' || typeSelect.value === 'Rented Out') {
+            } else if (this.value === 'In Development') {
+                typeSelect.value = 'In Development';
+            } else if (typeSelect.value === 'Sold Out' || typeSelect.value === 'Rented Out' || typeSelect.value === 'In Development') {
                 typeSelect.value = 'Sale';
             }
         });

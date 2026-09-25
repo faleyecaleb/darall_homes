@@ -26,13 +26,20 @@ Route::get('/', function () {
         ->orderBy('id', 'desc') // Put newest properties (Lumiere Suites) first at the top
         ->take(6)
         ->get();
+
+    // Query in-development properties dynamically for the Lagos Luxury Enclaves section
+    $inDevelopmentProperties = \App\Models\Property::with(['category', 'location', 'coverImage', 'virtualTour', 'units'])
+        ->inDevelopment()
+        ->orderByRaw("CASE WHEN slug = 'lumiere-suites' THEN 1 ELSE 2 END ASC")
+        ->orderBy('id', 'desc')
+        ->get();
     
     // Resolve premium locations dynamically by name for robust, fail-safe links
     $lekkiLocation = \App\Models\Location::where('name', 'Lekki Phase 1')->first();
     $ikoyiLocation = \App\Models\Location::where('name', 'Old Ikoyi')->first();
     $viLocation = \App\Models\Location::where('name', 'Victoria Island')->first();
 
-    return view('welcome', compact('featuredProperties', 'lekkiLocation', 'ikoyiLocation', 'viLocation'));
+    return view('welcome', compact('featuredProperties', 'inDevelopmentProperties', 'lekkiLocation', 'ikoyiLocation', 'viLocation'));
 })->name('home');
 
 Route::get('/about', function () {
@@ -57,7 +64,13 @@ Route::get('/shortlets', function () {
 })->name('shortlets');
 
 Route::get('/projects', function () {
-    return view('projects');
+    $inDevelopmentProperties = \App\Models\Property::with(['category', 'location', 'coverImage', 'virtualTour', 'units', 'amenities'])
+        ->inDevelopment()
+        ->orderByRaw("CASE WHEN slug = 'lumiere-suites' THEN 1 ELSE 2 END ASC")
+        ->orderBy('id', 'desc')
+        ->get();
+
+    return view('projects', compact('inDevelopmentProperties'));
 })->name('projects');
 
 Route::get('/blog', function () {

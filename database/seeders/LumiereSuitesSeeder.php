@@ -49,8 +49,8 @@ class LumiereSuitesSeeder extends Seeder
             'slug' => 'lumiere-suites',
             'description' => 'A private expression of modern living in the heart of Surulere, Lagos. Lumière Suites is an elite, tech-driven off-plan residential development designed for those who understand value, intention, and positioning. Combining sleek wood cladding facades with robust reinforced concrete foundations, this flagship masterpiece features 9 premium suites across Studio, Mini Flat, and 2-Bedroom layouts, offering uncompromised legal Certificate of Occupancy (C of O) title integrity, dedicated parking, and full-service clubhouses.',
             'price' => 45000000.00, // Starting price
-            'property_type' => 'Sale',
-            'status' => 'Available',
+            'property_type' => 'In Development',
+            'status' => 'In Development',
             'bedrooms' => 1, // Starting bedroom specs
             'bathrooms' => 1,
             'floor_area' => 35, // Starting floor area

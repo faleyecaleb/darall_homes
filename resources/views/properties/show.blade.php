@@ -288,11 +288,13 @@
             </div>
             <div class="flex flex-col gap-1 items-center col-span-2 md:col-span-1 border-t md:border-t-0 pt-4 md:pt-0">
                 <span class="text-slate-400 text-sm uppercase tracking-wider font-extrabold">Purpose</span>
-                <span class="text-base sm:text-lg font-serif {{ $property->isSoldOut() ? 'text-rose-600' : 'text-slate-900' }} font-semibold">
+                <span class="text-base sm:text-lg font-serif {{ $property->isSoldOut() ? 'text-rose-600' : ($property->isInDevelopment() ? 'text-blue-600' : 'text-slate-900') }} font-semibold">
                     @if($property->isSoldOut())
                         Sold Out
                     @elseif($property->isRentedOut())
                         Rented Out
+                    @elseif($property->isInDevelopment())
+                        In Development
                     @elseif($property->property_type === 'Shortlet')
                         Executive Shortlet
                     @else
@@ -358,8 +360,8 @@
                 <div class="space-y-4 text-sm font-semibold">
                     <div class="flex justify-between border-b border-slate-200/40 pb-3">
                         <span class="text-slate-550">Listing Status</span>
-                        <span class="font-extrabold {{ $property->isSoldOut() ? 'text-rose-600' : 'text-emerald-600' }} uppercase text-sm">
-                            {{ $property->isSoldOut() ? 'Sold Out' : ($property->isRentedOut() ? 'Rented Out' : $property->status) }}
+                        <span class="font-extrabold {{ $property->isSoldOut() ? 'text-rose-600' : ($property->isInDevelopment() ? 'text-blue-600' : 'text-emerald-600') }} uppercase text-sm">
+                            {{ $property->isSoldOut() ? 'Sold Out' : ($property->isRentedOut() ? 'Rented Out' : ($property->isInDevelopment() ? 'In Development' : $property->status)) }}
                         </span>
                     </div>
                     <div class="flex justify-between border-b border-slate-200/40 pb-3">

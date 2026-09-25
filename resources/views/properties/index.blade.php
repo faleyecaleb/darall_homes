@@ -104,11 +104,13 @@
                         @else
                             <div class="w-full h-full bg-slate-100 flex items-center justify-center text-slate-400">No Image</div>
                         @endif
-                        <span class="absolute top-4 left-4 {{ $property->isSoldOut() ? 'bg-rose-600 text-white' : 'bg-brand-red-400 text-slate-950' }} px-3.5 py-1.5 rounded-full text-sm font-extrabold uppercase tracking-wider shadow-md">
+                        <span class="absolute top-4 left-4 {{ $property->isSoldOut() ? 'bg-rose-600 text-white' : ($property->isInDevelopment() ? 'bg-blue-600 text-white' : 'bg-brand-red-400 text-slate-950') }} px-3.5 py-1.5 rounded-full text-sm font-extrabold uppercase tracking-wider shadow-md">
                             @if($property->isSoldOut())
                                 Sold Out
                             @elseif($property->isRentedOut())
                                 Rented Out
+                            @elseif($property->isInDevelopment())
+                                In Development
                             @elseif($property->property_type === 'Shortlet')
                                 Shortlet
                             @else
