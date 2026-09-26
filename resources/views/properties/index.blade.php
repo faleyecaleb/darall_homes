@@ -93,95 +93,169 @@
             </form>
         </div>
 
-        <!-- Property Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            @forelse($properties as $index => $property)
-                <div class="group bg-white rounded-[2.5rem] border border-slate-200/50 overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 transform scroll-reveal reveal-up"
-                     :class="'delay-' + (($index + 1) * 100)">
-                    <div class="relative aspect-[4/3] overflow-hidden bg-slate-200 z-0">
-                        @if($property->coverImage)
-                            <img src="{{ $property->coverImage->file_path }}" alt="{{ $property->title }}" class="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-500">
-                        @else
-                            <div class="w-full h-full bg-slate-100 flex items-center justify-center text-slate-400">No Image</div>
-                        @endif
-                        <span class="absolute top-4 left-4 {{ $property->isSoldOut() ? 'bg-rose-600 text-white' : ($property->isInDevelopment() ? 'bg-blue-600 text-white' : 'bg-brand-red-400 text-slate-950') }} px-3.5 py-1.5 rounded-full text-sm font-extrabold uppercase tracking-wider shadow-md">
-                            @if($property->isSoldOut())
-                                Sold Out
-                            @elseif($property->isRentedOut())
-                                Rented Out
-                            @elseif($property->isInDevelopment())
-                                In Development
-                            @elseif($property->property_type === 'Shortlet')
-                                Shortlet
-                            @else
-                                For {{ $property->property_type }}
-                            @endif
+        {{-- Partition properties into available vs sold-out groups --}}
+        @php
+            [$availableProperties, $soldOutProperties] = $properties->getCollection()->partition(fn($p) => !$p->isSoldOut());
+        @endphp
+
+        {{-- ── Section 1: Available Properties (For Sale / Rent / etc.) ── --}}
+        @if($availableProperties->isNotEmpty())
+            <div class="mb-16 scroll-reveal reveal-up">
+                {{-- Section Heading --}}
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="flex items-center gap-3">
+                        <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-widest bg-emerald-50 text-emerald-700 border border-emerald-200">
+                            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                            Available Now
                         </span>
-                        @if($property->virtualTour)
-                            <span class="absolute bottom-4 right-4 bg-slate-950/80 backdrop-blur-sm text-brand-red-400 px-3.5 py-1.5 rounded-full text-sm font-extrabold uppercase tracking-wider flex items-center gap-1.5 shadow-md border border-white/5">
-                                <span class="w-1.5 h-1.5 rounded-full bg-brand-red-400 animate-pulse"></span> Virtual Tour Active
-                            </span>
-                        @endif
+                        <h2 class="text-2xl sm:text-3xl font-serif font-extrabold text-slate-900 tracking-tight">Properties For Sale</h2>
                     </div>
-                    <div class="p-8 flex flex-col gap-5">
-                        <div class="flex flex-col gap-1.5">
-                            <span class="text-sm text-slate-400 uppercase tracking-widest font-extrabold">{{ $property->location->name }}</span>
-                            <h3 class="text-xl font-serif font-extrabold text-slate-900 group-hover:text-brand-red-500 transition-colors tracking-tight truncate">{{ $property->title }}</h3>
-                        </div>
-                        <p class="text-sm text-slate-500 leading-relaxed font-semibold text-left line-clamp-2">{{ $property->description }}</p>
-                        <div class="flex items-center gap-6 text-sm text-slate-500 border-y border-slate-100 py-3.5 my-1 font-sans font-semibold">
-                            <span class="flex items-center gap-1.5"><strong class="text-slate-900 font-extrabold">{{ $property->bedrooms }}</strong> Beds</span>
-                            <span class="flex items-center gap-1.5"><strong class="text-slate-900 font-extrabold">{{ $property->bathrooms }}</strong> Baths</span>
-                            @if($property->floor_area)
-                                <span class="flex items-center gap-1.5"><strong class="text-slate-900 font-extrabold">{{ $property->floor_area }}</strong> sqm</span>
-                            @endif
-                        </div>
-                        
-                        <!-- Premium Redesigned Price & Button Stack (Resolves Collision) -->
-                        <div class="flex flex-col gap-4 mt-2">
-                            @if($property->isSoldOut())
-                                <div class="flex justify-between items-center font-sans">
-                                    <span class="text-xs font-extrabold uppercase tracking-wider text-rose-600 bg-rose-50 px-2.5 py-1 rounded-full border border-rose-100">Sold Out</span>
-                                    <a href="{{ \App\Models\Property::CONTACT_PHONE_TEL }}" class="text-xs sm:text-sm font-extrabold text-brand-red-600 hover:text-brand-red-700 inline-flex items-center gap-1 transition-colors">
-                                        <svg class="w-4 h-4 fill-none stroke-current" viewBox="0 0 24 24" stroke-width="2">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                                        </svg>
-                                        {{ \App\Models\Property::CONTACT_PHONE }}
-                                    </a>
-                                </div>
-                                <div class="flex flex-col gap-2">
-                                    <a href="{{ \App\Models\Property::CONTACT_PHONE_TEL }}" class="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 text-xs font-extrabold uppercase tracking-widest text-white bg-brand-red-500 hover:bg-brand-red-600 rounded-xl transition-all shadow-md">
-                                        <svg class="w-4 h-4 fill-none stroke-current" viewBox="0 0 24 24" stroke-width="2">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                                        </svg>
-                                        Contact Us: {{ \App\Models\Property::CONTACT_PHONE }}
-                                    </a>
-                                    <a href="{{ route('properties.show', $property->slug) }}" class="w-full inline-flex items-center justify-center px-4 py-2 text-[11px] font-extrabold uppercase tracking-widest text-slate-500 hover:text-slate-900 transition-colors">
-                                        View Showroom
-                                    </a>
-                                </div>
-                            @else
-                                <div class="flex justify-between items-baseline font-sans">
-                                    <span class="text-xs font-extrabold uppercase tracking-wider text-slate-400">Investment Value</span>
-                                    @if($property->property_type === 'Shortlet')
-                                        <span class="text-lg font-extrabold text-slate-900">₦{{ number_format($property->price) }}<span class="text-xs text-slate-400 font-bold">/night</span></span>
+                    <div class="flex-1 h-px bg-slate-200"></div>
+                    <span class="text-sm font-bold text-slate-400 shrink-0">{{ $availableProperties->count() }} listing{{ $availableProperties->count() !== 1 ? 's' : '' }}</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    @foreach($availableProperties as $index => $property)
+                        <div class="group bg-white rounded-[2.5rem] border border-slate-200/50 overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 transform scroll-reveal reveal-up">
+                            <div class="relative aspect-[4/3] overflow-hidden bg-slate-200 z-0">
+                                @if($property->coverImage)
+                                    <img src="{{ $property->coverImage->file_path }}" alt="{{ $property->title }}" class="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                @else
+                                    <div class="w-full h-full bg-slate-100 flex items-center justify-center text-slate-400">No Image</div>
+                                @endif
+                                <span class="absolute top-4 left-4 {{ $property->isInDevelopment() ? 'bg-blue-600 text-white' : 'bg-brand-red-400 text-slate-950' }} px-3.5 py-1.5 rounded-full text-sm font-extrabold uppercase tracking-wider shadow-md">
+                                    @if($property->isRentedOut())
+                                        Rented Out
+                                    @elseif($property->isInDevelopment())
+                                        In Development
+                                    @elseif($property->property_type === 'Shortlet')
+                                        Shortlet
                                     @else
-                                        <span class="text-lg font-extrabold text-[#0d6e60] dark:text-emerald-400">₦{{ number_format($property->price) }}</span>
+                                        For {{ $property->property_type }}
+                                    @endif
+                                </span>
+                                @if($property->virtualTour)
+                                    <span class="absolute bottom-4 right-4 bg-slate-950/80 backdrop-blur-sm text-brand-red-400 px-3.5 py-1.5 rounded-full text-sm font-extrabold uppercase tracking-wider flex items-center gap-1.5 shadow-md border border-white/5">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-brand-red-400 animate-pulse"></span> Virtual Tour Active
+                                    </span>
+                                @endif
+                            </div>
+                            <div class="p-8 flex flex-col gap-5">
+                                <div class="flex flex-col gap-1.5">
+                                    <span class="text-sm text-slate-400 uppercase tracking-widest font-extrabold">{{ $property->location->name }}</span>
+                                    <h3 class="text-xl font-serif font-extrabold text-slate-900 group-hover:text-brand-red-500 transition-colors tracking-tight truncate">{{ $property->title }}</h3>
+                                </div>
+                                <p class="text-sm text-slate-500 leading-relaxed font-semibold text-left line-clamp-2">{{ $property->description }}</p>
+                                <div class="flex items-center gap-6 text-sm text-slate-500 border-y border-slate-100 py-3.5 my-1 font-sans font-semibold">
+                                    <span class="flex items-center gap-1.5"><strong class="text-slate-900 font-extrabold">{{ $property->bedrooms }}</strong> Beds</span>
+                                    <span class="flex items-center gap-1.5"><strong class="text-slate-900 font-extrabold">{{ $property->bathrooms }}</strong> Baths</span>
+                                    @if($property->floor_area)
+                                        <span class="flex items-center gap-1.5"><strong class="text-slate-900 font-extrabold">{{ $property->floor_area }}</strong> sqm</span>
                                     @endif
                                 </div>
-                                <a href="{{ route('properties.show', $property->slug) }}" class="w-full inline-flex items-center justify-center px-6 py-4 text-xs font-extrabold uppercase tracking-widest text-white bg-slate-900 hover:bg-brand rounded-xl transition-all shadow-md">
-                                    Explore Showroom
-                                </a>
-                            @endif
+                                <div class="flex flex-col gap-4 mt-2">
+                                    <div class="flex justify-between items-baseline font-sans">
+                                        <span class="text-xs font-extrabold uppercase tracking-wider text-slate-400">Investment Value</span>
+                                        @if($property->property_type === 'Shortlet')
+                                            <span class="text-lg font-extrabold text-slate-900">₦{{ number_format($property->price) }}<span class="text-xs text-slate-400 font-bold">/night</span></span>
+                                        @else
+                                            <span class="text-lg font-extrabold text-[#0d6e60] dark:text-emerald-400">₦{{ number_format($property->price) }}</span>
+                                        @endif
+                                    </div>
+                                    <a href="{{ route('properties.show', $property->slug) }}" class="w-full inline-flex items-center justify-center px-6 py-4 text-xs font-extrabold uppercase tracking-widest text-white bg-slate-900 hover:bg-brand rounded-xl transition-all shadow-md">
+                                        Explore Showroom
+                                    </a>
+                                </div>
+                            </div>
                         </div>
+                    @endforeach
+                </div>
+            </div>
+        @endif
+
+        {{-- ── Section 2: Sold Out Properties ── --}}
+        @if($soldOutProperties->isNotEmpty())
+            <div class="scroll-reveal reveal-up">
+                {{-- Section Heading --}}
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="flex items-center gap-3">
+                        <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-widest bg-rose-50 text-rose-700 border border-rose-200">
+                            <span class="w-2 h-2 rounded-full bg-rose-500"></span>
+                            Sold Out
+                        </span>
+                        <h2 class="text-2xl sm:text-3xl font-serif font-extrabold text-slate-900 tracking-tight">Sold Out Properties</h2>
                     </div>
+                    <div class="flex-1 h-px bg-slate-200"></div>
+                    <span class="text-sm font-bold text-slate-400 shrink-0">{{ $soldOutProperties->count() }} listing{{ $soldOutProperties->count() !== 1 ? 's' : '' }}</span>
                 </div>
-            @empty
-                <div class="col-span-3 text-center py-20 bg-white rounded-3xl border border-slate-100">
-                    <p class="text-slate-400 text-sm">No exclusive properties currently match your selected filters.</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    @foreach($soldOutProperties as $index => $property)
+                        <div class="group bg-white rounded-[2.5rem] border border-slate-200/50 overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 transform scroll-reveal reveal-up opacity-90">
+                            <div class="relative aspect-[4/3] overflow-hidden bg-slate-200 z-0">
+                                @if($property->coverImage)
+                                    <img src="{{ $property->coverImage->file_path }}" alt="{{ $property->title }}" class="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-500 grayscale-[30%]">
+                                @else
+                                    <div class="w-full h-full bg-slate-100 flex items-center justify-center text-slate-400">No Image</div>
+                                @endif
+                                {{-- Sold Out ribbon --}}
+                                <span class="absolute top-4 left-4 bg-rose-600 text-white px-3.5 py-1.5 rounded-full text-sm font-extrabold uppercase tracking-wider shadow-md">
+                                    Sold Out
+                                </span>
+                                @if($property->virtualTour)
+                                    <span class="absolute bottom-4 right-4 bg-slate-950/80 backdrop-blur-sm text-brand-red-400 px-3.5 py-1.5 rounded-full text-sm font-extrabold uppercase tracking-wider flex items-center gap-1.5 shadow-md border border-white/5">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-brand-red-400 animate-pulse"></span> Virtual Tour Active
+                                    </span>
+                                @endif
+                            </div>
+                            <div class="p-8 flex flex-col gap-5">
+                                <div class="flex flex-col gap-1.5">
+                                    <span class="text-sm text-slate-400 uppercase tracking-widest font-extrabold">{{ $property->location->name }}</span>
+                                    <h3 class="text-xl font-serif font-extrabold text-slate-900 group-hover:text-brand-red-500 transition-colors tracking-tight truncate">{{ $property->title }}</h3>
+                                </div>
+                                <p class="text-sm text-slate-500 leading-relaxed font-semibold text-left line-clamp-2">{{ $property->description }}</p>
+                                <div class="flex items-center gap-6 text-sm text-slate-500 border-y border-slate-100 py-3.5 my-1 font-sans font-semibold">
+                                    <span class="flex items-center gap-1.5"><strong class="text-slate-900 font-extrabold">{{ $property->bedrooms }}</strong> Beds</span>
+                                    <span class="flex items-center gap-1.5"><strong class="text-slate-900 font-extrabold">{{ $property->bathrooms }}</strong> Baths</span>
+                                    @if($property->floor_area)
+                                        <span class="flex items-center gap-1.5"><strong class="text-slate-900 font-extrabold">{{ $property->floor_area }}</strong> sqm</span>
+                                    @endif
+                                </div>
+                                <div class="flex flex-col gap-4 mt-2">
+                                    <div class="flex justify-between items-center font-sans">
+                                        <span class="text-xs font-extrabold uppercase tracking-wider text-rose-600 bg-rose-50 px-2.5 py-1 rounded-full border border-rose-100">Sold Out</span>
+                                        <a href="{{ \App\Models\Property::CONTACT_PHONE_TEL }}" class="text-xs sm:text-sm font-extrabold text-brand-red-600 hover:text-brand-red-700 inline-flex items-center gap-1 transition-colors">
+                                            <svg class="w-4 h-4 fill-none stroke-current" viewBox="0 0 24 24" stroke-width="2">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                                            </svg>
+                                            {{ \App\Models\Property::CONTACT_PHONE }}
+                                        </a>
+                                    </div>
+                                    <div class="flex flex-col gap-2">
+                                        <a href="{{ \App\Models\Property::CONTACT_PHONE_TEL }}" class="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 text-xs font-extrabold uppercase tracking-widest text-white bg-brand-red-500 hover:bg-brand-red-600 rounded-xl transition-all shadow-md">
+                                            <svg class="w-4 h-4 fill-none stroke-current" viewBox="0 0 24 24" stroke-width="2">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                                            </svg>
+                                            Contact Us: {{ \App\Models\Property::CONTACT_PHONE }}
+                                        </a>
+                                        <a href="{{ route('properties.show', $property->slug) }}" class="w-full inline-flex items-center justify-center px-4 py-2 text-[11px] font-extrabold uppercase tracking-widest text-slate-500 hover:text-slate-900 transition-colors">
+                                            View Showroom
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
-            @endforelse
-        </div>
+            </div>
+        @endif
+
+        {{-- Empty state when both sections have no results --}}
+        @if($availableProperties->isEmpty() && $soldOutProperties->isEmpty())
+            <div class="text-center py-20 bg-white rounded-3xl border border-slate-100">
+                <p class="text-slate-400 text-sm">No exclusive properties currently match your selected filters.</p>
+            </div>
+        @endif
 
         <!-- Real Laravel Pagination Links -->
         <div class="mt-16 flex justify-center font-sans">
